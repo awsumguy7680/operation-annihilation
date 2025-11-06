@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://dgx6ryw5msydc"]
+
+[ext_resource type="Texture2D" uid="uid://nks3gx8cy6g7" path="res://assets/sprites/UMBT(GTGM).png" id="1_80o5y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy7d8"]
+atlas = ExtResource("1_80o5y")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afm4t"]
+atlas = ExtResource("1_80o5y")
+region = Rect2(2560, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uompx"]
+atlas = ExtResource("1_80o5y")
+region = Rect2(0, 2560, 2560, 2560)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy7d8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afm4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uompx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

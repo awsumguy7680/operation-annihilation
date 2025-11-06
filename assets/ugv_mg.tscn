@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=3 uid="uid://b3v2p7s41gt83"]
+
+[ext_resource type="Script" uid="uid://cnx25vf5ddqji" path="res://assets/scripts/ugv_mg.gd" id="1_mbnho"]
+[ext_resource type="Texture2D" uid="uid://b4bthjhvnvyf6" path="res://assets/sprites/UGV-MG.png" id="1_xiwa7"]
+[ext_resource type="Texture2D" uid="uid://cjaxg1onmc1l" path="res://assets/sprites/UGV-MG(Turret).png" id="3_o4jaq"]
+[ext_resource type="Texture2D" uid="uid://bl67uh7e3lpg5" path="res://assets/sprites/UGV-MG(MuzzleFlash).png" id="3_x8g6v"]
+[ext_resource type="Texture2D" uid="uid://c57nbn7l3of3x" path="res://assets/sprites/UGV-MG(Wreck).png" id="5_4aftu"]
+[ext_resource type="AudioStream" uid="uid://baby65qyr3a7n" path="res://assets/sounds/50cal.wav" id="5_agshs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbnho"]
+atlas = ExtResource("1_xiwa7")
+region = Rect2(0, 0, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4jaq"]
+atlas = ExtResource("1_xiwa7")
+region = Rect2(0, 1280, 1280, 1280)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cj7al"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mbnho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4jaq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_agshs"]
+atlas = ExtResource("3_x8g6v")
+region = Rect2(0, 1280, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4aftu"]
+atlas = ExtResource("3_x8g6v")
+region = Rect2(0, 0, 1280, 1280)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x8xbs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_agshs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4aftu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cj7al"]
+size = Vector2(399, 300)
+
+[node name="UGV-MG" type="Node2D"]
+script = ExtResource("1_mbnho")
+
+[node name="BodySprites" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cj7al")
+autoplay = "default"
+frame = 1
+frame_progress = 0.563493
+speed_scale = 2.0
+
+[node name="TurretSprite" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-20, -49)
+texture = ExtResource("3_o4jaq")
+offset = Vector2(20, 49)
+
+[node name="MuzzleFlashSprite" type="AnimatedSprite2D" parent="TurretSprite"]
+position = Vector2(-1, 0)
+sprite_frames = SubResource("SpriteFrames_x8xbs")
+speed_scale = 3.0
+offset = Vector2(20, 49)
+
+[node name="Muzzle" type="Marker2D" parent="TurretSprite"]
+position = Vector2(252, -11)
+
+[node name="FiringSound" type="AudioStreamPlayer2D" parent="TurretSprite/Muzzle"]
+stream = ExtResource("5_agshs")
+volume_db = -15.0
+max_distance = 10000.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-19.5, 10)
+shape = SubResource("RectangleShape2D_cj7al")
+
+[node name="Wreck" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("5_4aftu")
