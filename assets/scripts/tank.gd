@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player_Tank
 
 const SPEED = 600.0
 const JUMP_VELOCITY = -400.0
@@ -8,10 +9,12 @@ const MAX_ANGLE = 18
 #bodies
 @onready var chassis: AnimatedSprite2D = $Chassis
 @onready var turret_sprites: AnimatedSprite2D = $Turret
-@onready var hitbox: CollisionPolygon2D = $Hitbox
+@onready var chassis_hitbox: CollisionPolygon2D = $ChassisHitbox
+@onready var turret_hitbox: CollisionPolygon2D = $TurretHitbox
 @export var shell125 = preload("res://assets/125_mm_shell.tscn")
 @export var minigun_bullet = preload("res://assets/minigun_tracer.tscn")
 @export var GTGM_missile = preload("res://assets/missile.tscn")
+@onready var state_machine: Node = $StateMachine
 
 #weapons
 @onready var minigun: Sprite2D = $Turret/Minigun
@@ -36,7 +39,10 @@ const MAX_ANGLE = 18
 @onready var ammo_display: RichTextLabel = $Camera2D/Ammo
 
 #vehicle stats
+var global_delta: float
 var is_driving = false
+var is_rotating = false
+var facing_left = true
 var minigun_shooting = false
 @export var health = 5000
 var cannon_ammo = 100
@@ -46,6 +52,8 @@ var _gun125mm = true
 var _minigunselect = false
 var _GTGM = false
 var on_cooldown = false
+var direction_left := Input.is_key_pressed(KEY_A)
+var direction_right := Input.is_key_pressed(KEY_D)
 
 func _physics_process(delta: float) -> void:
 	if health <= 0:
@@ -57,15 +65,14 @@ func _physics_process(delta: float) -> void:
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	if Input.is_key_pressed(KEY_A):
+	if Input.is_key_pressed(KEY_A) and is_rotating == false:
 		velocity.x = -SPEED
-		chassis.play()
-	elif Input.is_key_pressed(KEY_D):
+	elif Input.is_key_pressed(KEY_D) and is_rotating == false:
 		velocity.x = SPEED
-		chassis.play_backwards()
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		chassis.pause()
+		if is_rotating == false:
+			chassis.pause()
 	
 	#Point the cannon & minigun at the cursor, within a certain angle limit
 	var mouse_pos = get_global_mouse_position()
@@ -87,6 +94,7 @@ func _physics_process(delta: float) -> void:
 func _process(_delta: float) -> void:
 	var direction := Input.is_key_pressed(KEY_A) or Input.is_key_pressed(KEY_D)
 	var shooting := Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)
+	
 	#switch between idle and driving sounds
 	if direction and not is_driving:
 		is_driving = true

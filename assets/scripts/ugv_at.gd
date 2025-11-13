@@ -18,10 +18,7 @@ var on_cooldown = false
 @onready var turret: AnimatedSprite2D = $TurretSprite
 @onready var collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var character_body_2d: CharacterBody2D = $"../CharacterBody2D"
-@export var missile = preload("res://assets/missile.tscn")
-
-#Signals
-signal ugv_at_spawn_missile
+const MISSILE = preload("res://assets/missile.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -48,14 +45,14 @@ func _process(delta: float) -> void:
 		#Starts shooting within a certain distance
 		if distance <= shoot_distance and health > 0 and ammo > 0 and on_cooldown == false:
 			ammo -= 1
-			var missile_instance: Missile = missile.instantiate()
+			var missile_instance: Missile = MISSILE.instantiate()
 			owner.add_child(missile_instance)
 			missile_instance.transform = turret.global_transform
 			turret.play()
 			on_cooldown = true
 			if missile_instance:
 				missile_instance.custom_missile_static_properties(AT_MISSILE_SPRITE_FRAMES, Vector2(1, 1), 15)
-				missile_instance.custom_missile_handler(false, "OPTICAL", character_body_2d, 1000, 200, 4, delta, AT_MISSILE_BURNOUT_FRAME)
+				missile_instance.custom_missile_handler(false, "OPTICAL", character_body_2d, 1000, 100, 200, 4, delta, AT_MISSILE_BURNOUT_FRAME)
 			await get_tree().create_timer(3).timeout
 			on_cooldown = false
 		elif distance > shoot_distance or health <= 0:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://dqxju8y3m5gx2"]
+[gd_scene load_steps=13 format=4 uid="uid://dqxju8y3m5gx2"]
 
 [ext_resource type="PackedScene" uid="uid://but0lfvja3v5s" path="res://assets/Tank.tscn" id="1_ofhib"]
 [ext_resource type="Texture2D" uid="uid://b6shodquyi54y" path="res://assets/sprites/New Piskel-1.png.png" id="2_lie5n"]
@@ -20,13 +20,23 @@ tile_size = Vector2i(2560, 2560)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_4877k")
 
+[sub_resource type="QuadMesh" id="QuadMesh_2g02s"]
+size = Vector2(400000, 100000)
+
+[sub_resource type="Gradient" id="Gradient_xyfl3"]
+colors = PackedColorArray(0, 0, 0, 1, 0.305882, 0.643137, 0.898039, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hwj63"]
+gradient = SubResource("Gradient_xyfl3")
+fill_from = Vector2(0.275229, 0)
+
 [node name="MainScene" type="Node2D"]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_ofhib")]
-position = Vector2(314, -471)
+position = Vector2(298, -509)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD8/wAAAAAAAAAAAAABAAAAAAAAAAAAAAADAAAAAAAAAAAAAAACAAAAAAAAAAAAAAD7/wAAAAAAAAAAAAAEAAAAAAAAAAAAAAD6/wAAAAAAAAAAAAD5/wAAAAAAAAAAAAD4/wAAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD8/wAAAAAAAAAAAAABAAAAAAAAAAAAAAADAAAAAAAAAAAAAAACAAAAAAAAAAAAAAD7/wAAAAAAAAAAAAAEAAAAAAAAAAAAAAD6/wAAAAAAAAAAAAD5/wAAAAAAAAAAAAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD5/wEAAAAAAAAAAAD6/wEAAAAAAAAAAAD7/wEAAAAAAAAAAAD8/wEAAAAAAAAAAAD9/wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAD4/wIAAAAAAAAAAAD5/wIAAAAAAAAAAAD6/wIAAAAAAAAAAAD7/wIAAAAAAAAAAAD8/wIAAAAAAAAAAAD9/wIAAAAAAAAAAAD+/wIAAAAAAAAAAAD//wIAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_6ftv3")
 
 [node name="UGV-MG" parent="." instance=ExtResource("4_6ftv3")]
@@ -44,3 +54,10 @@ volume_db = 4.0
 
 [node name="UGV-AT" parent="." instance=ExtResource("7_2g02s")]
 position = Vector2(-14534, -215)
+
+[node name="Atmosphere" type="MeshInstance2D" parent="."]
+z_index = -10
+position = Vector2(0, -199168)
+rotation = 1.5708
+mesh = SubResource("QuadMesh_2g02s")
+texture = SubResource("GradientTexture2D_hwj63")

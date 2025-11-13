@@ -1,10 +1,12 @@
-[gd_scene load_steps=37 format=3 uid="uid://but0lfvja3v5s"]
+[gd_scene load_steps=57 format=3 uid="uid://but0lfvja3v5s"]
 
-[ext_resource type="Script" uid="uid://pv3up5x3xdif" path="res://assets/scripts/tank.gd" id="1_tv66d"]
+[ext_resource type="Script" uid="uid://pv3up5x3xdif" path="res://assets/scripts/tank.gd" id="1_r26ri"]
 [ext_resource type="Texture2D" uid="uid://cruvdahrku88g" path="res://assets/sprites/UMBT(ChassisDriving).png" id="2_67lw7"]
+[ext_resource type="Texture2D" uid="uid://wmhwoeio58r" path="res://assets/sprites/UMBT(ChassisDrivingMirrored).png" id="3_0grtl"]
 [ext_resource type="Texture2D" uid="uid://bfrf4wc2xil4m" path="res://assets/sprites/UMBT(Turret).png" id="3_5skhf"]
 [ext_resource type="Texture2D" uid="uid://dbv3iakt8odjj" path="res://assets/sprites/UMBTBarrel.png" id="3_btxeo"]
 [ext_resource type="AudioStream" uid="uid://bwfghuc2cdgmh" path="res://assets/sounds/engine_heavy_loop.wav" id="3_eids8"]
+[ext_resource type="Texture2D" uid="uid://c4u3t84wwdhoy" path="res://assets/sprites/UMBT(ChassisRotation).png" id="3_w4pjp"]
 [ext_resource type="Texture2D" uid="uid://ceh4jhod2v5cb" path="res://assets/sprites/UMBTMinigunTurret.png" id="4_5skhf"]
 [ext_resource type="AudioStream" uid="uid://cmpwdg3jck853" path="res://assets/sounds/fan_interval.wav" id="4_ms1bw"]
 [ext_resource type="Texture2D" uid="uid://cjjo4nnq5xhhe" path="res://assets/sprites/UMBT(MinigunEffects).png" id="5_sx7uf"]
@@ -14,6 +16,11 @@
 [ext_resource type="AudioStream" uid="uid://pfjdfxxhaiwp" path="res://assets/sounds/MinigunSpoolUp.mp3" id="7_kwnc1"]
 [ext_resource type="AudioStream" uid="uid://csovxky1gkjly" path="res://assets/sounds/MinigunSpoolDown.mp3" id="8_yyigf"]
 [ext_resource type="Script" uid="uid://yehcmi33gwa5" path="res://assets/scripts/player_camera.gd" id="12_civsa"]
+[ext_resource type="Script" uid="uid://hntmej36basl" path="res://assets/scripts/States/state_machine.gd" id="16_5fex3"]
+[ext_resource type="Script" uid="uid://e11nrdpsdfws" path="res://assets/scripts/States/driving_left.gd" id="18_rgxjb"]
+[ext_resource type="Script" uid="uid://bxruadxxxfp5r" path="res://assets/scripts/States/rotate_chassis_right.gd" id="18_v1ti1"]
+[ext_resource type="Script" uid="uid://rkenlx7i0nrh" path="res://assets/scripts/States/rotate_chassis_left.gd" id="19_r26ri"]
+[ext_resource type="Script" uid="uid://fm5osmbxwl5r" path="res://assets/scripts/States/driving_right.gd" id="19_v1ti1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jg8oe"]
 atlas = ExtResource("2_67lw7")
@@ -22,6 +29,58 @@ region = Rect2(0, 0, 2560, 2560)
 [sub_resource type="AtlasTexture" id="AtlasTexture_btxeo"]
 atlas = ExtResource("2_67lw7")
 region = Rect2(0, 2560, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0d5x"]
+atlas = ExtResource("3_0grtl")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iymnw"]
+atlas = ExtResource("3_0grtl")
+region = Rect2(0, 2560, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikd1v"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rf6r"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(2560, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ni5lx"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(5120, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kccei"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(0, 2560, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o44lg"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(2560, 2560, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aw8ho"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(5120, 2560, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10ybp"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(0, 5120, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cawao"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(2560, 5120, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7sq2s"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(5120, 5120, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6l0c"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(0, 7680, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cufua"]
+atlas = ExtResource("3_w4pjp")
+region = Rect2(2560, 7680, 2560, 2560)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5skhf"]
 animations = [{
@@ -34,6 +93,55 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0d5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iymnw")
+}],
+"loop": true,
+"name": &"default_mirrored",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikd1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rf6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ni5lx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kccei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o44lg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aw8ho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10ybp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cawao")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7sq2s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6l0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cufua")
+}],
+"loop": false,
+"name": &"rotation",
 "speed": 5.0
 }]
 
@@ -177,14 +285,12 @@ animations = [{
 }]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-script = ExtResource("1_tv66d")
+script = ExtResource("1_r26ri")
 
 [node name="Chassis" type="AnimatedSprite2D" parent="."]
 z_index = -2
-position = Vector2(-420, 0)
+position = Vector2(-450, 0)
 sprite_frames = SubResource("SpriteFrames_5skhf")
-frame = 1
-frame_progress = 0.492224
 speed_scale = 2.0
 
 [node name="Turret" type="AnimatedSprite2D" parent="."]
@@ -247,8 +353,12 @@ stream = ExtResource("6_vu3nq")
 [node name="GTGMLaunchBay" type="Marker2D" parent="Turret"]
 position = Vector2(405, -70)
 
-[node name="Hitbox" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-451, -95, -231, -135, -132, -143, -142, -304, -75, -304, 4, -144, 206, -189, 244, -272, 289, -190, 504, -184, 555, -299, 599, -200, 473, -139, 486, 13, 848, 0, 848, 159, 641, 313, -498, 309, -726, 160, -716, 110, -448, 26)
+[node name="ChassisHitbox" type="CollisionPolygon2D" parent="."]
+position = Vector2(-35, 0)
+polygon = PackedVector2Array(-386, 15, 833, 9, 820, 162, 634, 305, -509, 308, -727, 156)
+
+[node name="TurretHitbox" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-188, 15, 380, 12, 481, -38, 471, -154, 597, -193, 553, -302, 501, -187, 271, -183, 241, -263, 210, -190, -28, -140, -91, -303, -134, -151, -439, -103, -446, -5)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-852, -707)
@@ -312,3 +422,22 @@ stream = ExtResource("3_eids8")
 [node name="EngineDrivingSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ms1bw")
 pitch_scale = 0.5
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("16_5fex3")
+initial_state = NodePath("Driving_left")
+
+[node name="Driving_left" type="Node" parent="StateMachine"]
+script = ExtResource("18_rgxjb")
+metadata/_custom_type_script = "uid://e11nrdpsdfws"
+
+[node name="Driving_right" type="Node" parent="StateMachine"]
+script = ExtResource("19_v1ti1")
+
+[node name="Rotate_chassis_right" type="Node" parent="StateMachine"]
+script = ExtResource("18_v1ti1")
+metadata/_custom_type_script = "uid://bxruadxxxfp5r"
+
+[node name="Rotate_chassis_left" type="Node" parent="StateMachine"]
+script = ExtResource("19_r26ri")
+metadata/_custom_type_script = "uid://rkenlx7i0nrh"
