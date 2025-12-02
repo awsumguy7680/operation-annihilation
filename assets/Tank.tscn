@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://but0lfvja3v5s"]
+[gd_scene load_steps=59 format=3 uid="uid://but0lfvja3v5s"]
 
 [ext_resource type="Script" uid="uid://pv3up5x3xdif" path="res://assets/scripts/tank.gd" id="1_r26ri"]
 [ext_resource type="Texture2D" uid="uid://cruvdahrku88g" path="res://assets/sprites/UMBT(ChassisDriving).png" id="2_67lw7"]
@@ -16,6 +16,8 @@
 [ext_resource type="AudioStream" uid="uid://pfjdfxxhaiwp" path="res://assets/sounds/MinigunSpoolUp.mp3" id="7_kwnc1"]
 [ext_resource type="AudioStream" uid="uid://csovxky1gkjly" path="res://assets/sounds/MinigunSpoolDown.mp3" id="8_yyigf"]
 [ext_resource type="Script" uid="uid://yehcmi33gwa5" path="res://assets/scripts/player_camera.gd" id="12_civsa"]
+[ext_resource type="AudioStream" uid="uid://405sw2mujs6j" path="res://assets/sounds/MissileLaunch2.mp3" id="14_qp6fy"]
+[ext_resource type="AudioStream" uid="uid://c6oyc4jbx5xxh" path="res://assets/sounds/lasersound.wav" id="15_ikd1v"]
 [ext_resource type="Script" uid="uid://hntmej36basl" path="res://assets/scripts/States/state_machine.gd" id="16_5fex3"]
 [ext_resource type="Script" uid="uid://e11nrdpsdfws" path="res://assets/scripts/States/driving_left.gd" id="18_rgxjb"]
 [ext_resource type="Script" uid="uid://bxruadxxxfp5r" path="res://assets/scripts/States/rotate_chassis_right.gd" id="18_v1ti1"]
@@ -286,6 +288,12 @@ animations = [{
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_r26ri")
+health = 5000
+cannon_ammo = 100
+minigun_ammo = 1500
+GTGM_ammo = 15
+laser_charge = 100.0
+laser_damage = 0.001
 
 [node name="Chassis" type="AnimatedSprite2D" parent="."]
 z_index = -2
@@ -353,6 +361,23 @@ stream = ExtResource("6_vu3nq")
 [node name="GTGMLaunchBay" type="Marker2D" parent="Turret"]
 position = Vector2(405, -70)
 
+[node name="LaunchSound" type="AudioStreamPlayer2D" parent="Turret/GTGMLaunchBay"]
+stream = ExtResource("14_qp6fy")
+volume_db = 1.0
+
+[node name="LaserTurret" type="Marker2D" parent="Turret"]
+position = Vector2(425, -242)
+
+[node name="LaserBeam" type="Line2D" parent="Turret/LaserTurret"]
+position = Vector2(-162, -100)
+width = 7.5
+default_color = Color(1, 0, 0, 0.815686)
+
+[node name="LaserHum" type="AudioStreamPlayer2D" parent="Turret/LaserTurret"]
+stream = ExtResource("15_ikd1v")
+volume_db = 10.0
+pitch_scale = 30.0
+
 [node name="ChassisHitbox" type="CollisionPolygon2D" parent="."]
 position = Vector2(-35, 0)
 polygon = PackedVector2Array(-386, 15, 833, 9, 820, 162, 634, 305, -509, 308, -727, 156)
@@ -363,7 +388,6 @@ polygon = PackedVector2Array(-188, 15, 380, 12, 481, -38, 471, -154, 597, -193, 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-852, -707)
 zoom = Vector2(0.3, 0.3)
-position_smoothing_enabled = true
 script = ExtResource("12_civsa")
 
 [node name="WeaponDisplay" type="RichTextLabel" parent="Camera2D"]
@@ -402,12 +426,28 @@ text = "Cannon Ammo: 100
 fit_content = true
 
 [node name="Score" type="RichTextLabel" parent="Camera2D"]
-offset_left = -623.0
-offset_top = -381.0
-offset_right = -173.0
-offset_bottom = -258.0
+offset_left = -626.0
+offset_top = -286.0
+offset_right = -176.0
+offset_bottom = -148.0
 scale = Vector2(3.73705, 3.99272)
 text = "Score: 0
+
+
+
+
+
+"
+fit_content = true
+
+[node name="LaserCharge" type="RichTextLabel" parent="Camera2D"]
+offset_left = -625.0
+offset_top = -379.0
+offset_right = -77.0
+offset_bottom = -218.0
+scale = Vector2(3.73705, 3.99272)
+text = "Laser Charge: 100%
+
 
 
 
@@ -441,3 +481,9 @@ metadata/_custom_type_script = "uid://bxruadxxxfp5r"
 [node name="Rotate_chassis_left" type="Node" parent="StateMachine"]
 script = ExtResource("19_r26ri")
 metadata/_custom_type_script = "uid://rkenlx7i0nrh"
+
+[node name="LockOn_Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="LockOn_Timer" to="." method="_on_lock_on_timer_timeout"]

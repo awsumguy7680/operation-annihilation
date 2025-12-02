@@ -2,13 +2,14 @@ extends Node2D
 
 #Constants
 const SPEED = 300
+const STOP_DISTANCE: float = 5000.0
+const SHOOT_DISTANCE: float = 7000.0
 
 #Self Variables
 var is_shooting = false
-@export var stop_distance: float = 5000.0
-@export var shoot_distance: float = 7000.0
 var health = 100
 var ammo = 1000
+var distance
 
 #Variables for nodes
 @onready var body_sprites: AnimatedSprite2D = $BodySprites
@@ -21,20 +22,22 @@ var ammo = 1000
 @onready var main_scene: Node2D = $".."
 @onready var muzzle: Marker2D = $TurretSprite/Muzzle
 @onready var firing_sound: AudioStreamPlayer2D = $TurretSprite/Muzzle/FiringSound
-@export var bullet = preload("res://assets/mg_tracer_green.tscn")
+const BULLET = preload("res://assets/bullet.tscn")
+const BULLET_SPRITE = preload("res://assets/sprites/MGTracerGreen.png")
 
 # Called when the node enters the scene tree for the first time.
 func _process(delta: float) -> void:
 	position.y = -160
 	if health > 0:
-		var distance = body_sprites.global_position.distance_to(character_body_2d.global_position)
+		if character_body_2d:
+			distance = body_sprites.global_position.distance_to(character_body_2d.global_position)
 		
 		#Makes MG turret always point at the player
 		if character_body_2d:
 			turret.look_at(character_body_2d.position)
 		
 		# Checks distance between the vehicle and the player, stops within a certain distance.
-		if distance >= stop_distance:
+		if distance >= STOP_DISTANCE:
 			position.x += SPEED * delta
 			body_sprites.play()
 		else:
@@ -42,12 +45,12 @@ func _process(delta: float) -> void:
 			body_sprites.pause()
 		
 		#Starts shooting within a certain distance
-		if distance <= shoot_distance and is_shooting == false and ammo > 0:
+		if distance <= SHOOT_DISTANCE and is_shooting == false and ammo > 0:
 			is_shooting = true
 			muzzle_flash_sprite.play()
 			firing_sound.play()
 			shooting()
-		elif distance > shoot_distance or ammo <= 0:
+		elif distance > SHOOT_DISTANCE or ammo <= 0:
 			firing_sound.stop()
 			muzzle_flash_sprite.stop()
 			is_shooting = false
@@ -69,8 +72,10 @@ func shooting():
 	for i in ammo:
 		var random_rotation = randi_range(-2, 2)
 		await get_tree().create_timer(0.1).timeout
-		var bullet_instance = bullet.instantiate()
+		var bullet_instance: Bullet = BULLET.instantiate()
 		owner.add_child(bullet_instance)
+		if bullet_instance:
+			bullet_instance.custom_bullet(8000, 1, false, true, BULLET_SPRITE, Vector2(100, 10), Vector2(-60, -55), 10, 5)
 		muzzle.rotation_degrees = random_rotation
 		bullet_instance.transform = muzzle.global_transform
 		ammo -= 1

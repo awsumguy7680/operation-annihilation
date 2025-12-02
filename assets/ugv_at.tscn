@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://b6u315teu0t6k"]
+[gd_scene load_steps=17 format=3 uid="uid://b6u315teu0t6k"]
 
 [ext_resource type="Texture2D" uid="uid://bprf5ovrdr5to" path="res://assets/sprites/UGV-AT.png" id="1_1m55o"]
 [ext_resource type="Script" uid="uid://cbwnrtx6mffws" path="res://assets/scripts/ugv_at.gd" id="1_7dsib"]
 [ext_resource type="Texture2D" uid="uid://b1kd00k7nyqhm" path="res://assets/sprites/UGV-AT(Launcher).png" id="2_nml7n"]
 [ext_resource type="Texture2D" uid="uid://c57nbn7l3of3x" path="res://assets/sprites/UGV-MG(Wreck).png" id="2_wml84"]
+[ext_resource type="AudioStream" uid="uid://bnahwcrvr71eq" path="res://assets/sounds/missilelaunch1.mp3" id="5_x1d5u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wml84"]
 atlas = ExtResource("1_1m55o")
@@ -83,7 +84,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wml84"]
 size = Vector2(400, 310)
 
-[node name="UGV-AT" type="Node2D"]
+[node name="UGV-AT" type="Node2D" groups=["Enemies"]]
 script = ExtResource("1_7dsib")
 
 [node name="BodySprites" type="AnimatedSprite2D" parent="."]
@@ -96,12 +97,17 @@ position = Vector2(-71, -87)
 sprite_frames = SubResource("SpriteFrames_7ymkh")
 offset = Vector2(71, 87)
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." groups=["Enemies"]]
+collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["Enemies"]]
 position = Vector2(-20, 5)
 shape = SubResource("RectangleShape2D_wml84")
 
 [node name="Wreck" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("2_wml84")
+
+[node name="LaunchSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_x1d5u")
+max_distance = 10000.0

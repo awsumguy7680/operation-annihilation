@@ -1,6 +1,10 @@
-[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://dl5ybu4actnds"]
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://dl5ybu4actnds"]
 
 [ext_resource type="Texture2D" uid="uid://djxjumbuemjs1" path="res://assets/sprites/UGV-AT(Missile).png" id="1_b4npv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4npv"]
+atlas = ExtResource("1_b4npv")
+region = Rect2(0, 2560, 1280, 1280)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfcsm"]
 atlas = ExtResource("1_b4npv")
@@ -20,6 +24,14 @@ region = Rect2(1280, 1280, 1280, 1280)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b4npv")
+}],
+"loop": true,
+"name": &"burnout",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qfcsm")

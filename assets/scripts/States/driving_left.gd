@@ -22,12 +22,18 @@ func start_rotate():
 		transitioned_state.emit(self, "Rotate_chassis_right")
 		call = false
 		return
+	else:
+		call = false
+		return
 
 func Physics_Update(_delta: float):
 	if Input.is_key_pressed(KEY_A) and tank.is_rotating == false:
 		chassis.play("default")
 	elif Input.is_key_pressed(KEY_D) and tank.is_rotating == false:
 		chassis.play_backwards("default")
+		if call == false:
+			start_rotate()
+			call = true
 		
 	if tank.velocity.x > 500:
 		if call == false:

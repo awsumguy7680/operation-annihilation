@@ -20,10 +20,16 @@ config/icon="res://icon.svg"
 folder_colors={
 "res://assets/": "red",
 "res://assets/scripts/": "purple",
+"res://assets/scripts/Custom_Projectiles/": "green",
 "res://assets/scripts/States/": "pink",
 "res://assets/sounds/": "yellow",
 "res://assets/sprites/": "blue"
 }
+
+[global_group]
+
+Enemies="All enemies, maybe make them a class later"
+Enemy_Missiles="All missiles launched by enemies"
 
 [rendering]
 

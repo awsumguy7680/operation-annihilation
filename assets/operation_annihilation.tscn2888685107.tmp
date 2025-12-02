@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://dqxju8y3m5gx2"]
+[gd_scene load_steps=13 format=4 uid="uid://dqxju8y3m5gx2"]
 
 [ext_resource type="PackedScene" uid="uid://but0lfvja3v5s" path="res://assets/Tank.tscn" id="1_ofhib"]
 [ext_resource type="Texture2D" uid="uid://b6shodquyi54y" path="res://assets/sprites/New Piskel-1.png.png" id="2_lie5n"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://dsk5ijhr4g5g7" path="res://assets/scripts/crosshair.gd" id="5_7j2xk"]
 [ext_resource type="AudioStream" uid="uid://dqj363kxtbr3" path="res://assets/sounds/CoffeebrewedinTimesofWar.wav" id="6_2g02s"]
 [ext_resource type="PackedScene" uid="uid://b6u315teu0t6k" path="res://assets/ugv_at.tscn" id="7_2g02s"]
-[ext_resource type="Script" uid="uid://b1c5qu3gvv1fp" path="res://assets/scripts/enemy_tracker.gd" id="8_xyfl3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4877k"]
 resource_name = "Tile0"
@@ -20,9 +19,6 @@ texture_region_size = Vector2i(2560, 2560)
 tile_size = Vector2i(2560, 2560)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_4877k")
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_xyfl3"]
-radius = 294.67
 
 [sub_resource type="QuadMesh" id="QuadMesh_2g02s"]
 size = Vector2(400000, 100000)
@@ -37,59 +33,31 @@ fill_from = Vector2(0.275229, 0)
 [node name="MainScene" type="Node2D"]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_ofhib")]
-position = Vector2(298, -344)
+position = Vector2(298, -509)
 
-[node name="Terrain" type="TileMapLayer" parent="."]
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD8/wAAAAAAAAAAAAABAAAAAAAAAAAAAAADAAAAAAAAAAAAAAACAAAAAAAAAAAAAAD7/wAAAAAAAAAAAAAEAAAAAAAAAAAAAAD6/wAAAAAAAAAAAAD5/wAAAAAAAAAAAAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD5/wEAAAAAAAAAAAD6/wEAAAAAAAAAAAD7/wEAAAAAAAAAAAD8/wEAAAAAAAAAAAD9/wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAD4/wIAAAAAAAAAAAD5/wIAAAAAAAAAAAD6/wIAAAAAAAAAAAD7/wIAAAAAAAAAAAD8/wIAAAAAAAAAAAD9/wIAAAAAAAAAAAD+/wIAAAAAAAAAAAD//wIAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_6ftv3")
 
 [node name="UGV-MG" parent="." instance=ExtResource("4_6ftv3")]
-position = Vector2(-17047, -160)
+position = Vector2(-9319, -160)
 
 [node name="Crosshair" type="Sprite2D" parent="."]
 z_index = 10
-scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_4icut")
 offset = Vector2(5, 5)
 script = ExtResource("5_7j2xk")
-
-[node name="Area2D" type="Area2D" parent="Crosshair"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="TargetFinder" type="CollisionShape2D" parent="Crosshair/Area2D"]
-shape = SubResource("CircleShape2D_xyfl3")
-
-[node name="Time2Lock" type="RichTextLabel" parent="Crosshair"]
-visible = false
-offset_left = -62.6667
-offset_top = -97.3333
-offset_right = 130.333
-offset_bottom = -57.3333
-scale = Vector2(2.01333, 2.01333)
-theme_override_colors/default_color = Color(1, 0, 0, 1)
-text = "LOCKING... 
-"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_2g02s")
 volume_db = 4.0
 
 [node name="UGV-AT" parent="." instance=ExtResource("7_2g02s")]
-position = Vector2(-7404, -215)
+position = Vector2(-14534, -215)
 
 [node name="Atmosphere" type="MeshInstance2D" parent="."]
 z_index = -10
-position = Vector2(-386, -199503)
+position = Vector2(0, -199168)
 rotation = 1.5708
 mesh = SubResource("QuadMesh_2g02s")
 texture = SubResource("GradientTexture2D_hwj63")
-
-[node name="Enemy_Tracker" type="Node" parent="."]
-script = ExtResource("8_xyfl3")
-
-[node name="UGV-AT2" parent="." instance=ExtResource("7_2g02s")]
-position = Vector2(-9254, -166)
-
-[connection signal="area_entered" from="Crosshair/Area2D" to="Crosshair" method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Crosshair/Area2D" to="Crosshair" method="_on_area_2d_area_exited"]
