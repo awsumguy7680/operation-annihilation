@@ -101,6 +101,7 @@ func _physics_process(delta: float):
 
 func _process(delta: float):
 	#Track target and avoid terrain
+	var tgt_distance = global_position.distance_to(target.global_position)
 	if self != null and target != null:
 		if guidance == "OPTICAL":
 			if global_position.y < -250:

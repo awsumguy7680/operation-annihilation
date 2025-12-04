@@ -4,7 +4,7 @@ class_name Driving_right
 @onready var tank: CharacterBody2D = $"../.."
 @onready var chassis: AnimatedSprite2D = $"../../Chassis"
 @onready var chassis_hitbox: CollisionPolygon2D = $"../../ChassisHitbox"
-var call = false
+@onready var chassis_rotate_timer: Timer = $"../../Chassis_Rotate_Timer"
 
 func set_chassis():
 	tank.is_rotating = false
@@ -16,16 +16,6 @@ func set_chassis():
 func enter_state():
 	set_chassis()
 
-func start_rotate():
-	await get_tree().create_timer(3).timeout
-	if tank.velocity.x < -500:
-		transitioned_state.emit(self, "Rotate_chassis_left")
-		call = false
-		return
-	else:
-		call = false
-		return
-
 func Physics_Update(_delta: float):
 	if Input.is_key_pressed(KEY_A) and tank.is_rotating == false:
 		chassis.play("default_mirrored")
@@ -33,6 +23,11 @@ func Physics_Update(_delta: float):
 		chassis.play_backwards("default_mirrored")
 	
 	if tank.velocity.x < -500:
-		if call == false:
-			start_rotate()
-			call = true
+		if chassis_rotate_timer.is_stopped():
+			chassis_rotate_timer.start()
+	else:
+		if not chassis_rotate_timer.is_stopped():
+			chassis_rotate_timer.stop()
+
+func _on_chassis_rotate_timer_timeout() -> void:
+	transitioned_state.emit(self, "Rotate_chassis_left")

@@ -13,8 +13,6 @@ const ROCKETMOTORLOOP = preload("res://assets/sounds/rocketmotorloop.mp3")
 @onready var chassis: AnimatedSprite2D = $Chassis
 @onready var turret_sprites: AnimatedSprite2D = $Turret
 @onready var chassis_hitbox: CollisionPolygon2D = $ChassisHitbox
-@onready var turret_hitbox: CollisionPolygon2D = $TurretHitbox
-@onready var state_machine: Node = $StateMachine
 @onready var laser_beam: Line2D = $Turret/LaserTurret/LaserBeam
 var missiles_list: Dictionary = {}
 var potential_target
@@ -50,19 +48,20 @@ var target
 @onready var lock_on_timer: Timer = $LockOn_Timer
 @onready var time_2_lock_display: RichTextLabel = $"../Crosshair/Time2Lock"
 
-
 #vehicle stats
-var global_delta: float
-var is_driving = false
-var is_rotating = false
-var facing_left = true
-var minigun_shooting = false
 @export var health: int
 @export var cannon_ammo: int
 @export var minigun_ammo: int
 @export var GTGM_ammo: int
 @export var laser_charge: float
 @export var laser_damage: float
+var global_delta: float
+var is_driving = false
+var is_rotating = false
+var is_turret_rotating = false
+var facing_left = true
+var turret_facing_left = true
+var minigun_shooting = false
 var _gun125mm: bool = true
 var _minigunselect: bool = false
 var _GTGM: bool = false
@@ -92,16 +91,28 @@ func _physics_process(delta: float) -> void:
 	var mouse_pos = get_global_mouse_position()
 	
 	cannon.look_at(mouse_pos)
-	if cannon.rotation_degrees >= 196:
-		cannon.rotation_degrees = 196
-	elif cannon.rotation_degrees <= 165:
-		cannon.rotation_degrees = 165
-	
 	minigun.look_at(mouse_pos)
-	if minigun.rotation_degrees >= 270:
-		minigun.rotation_degrees = 270
-	elif minigun.rotation_degrees <= 167:
-		minigun.rotation_degrees = 167
+	
+	if turret_facing_left == true:
+		if cannon.rotation_degrees >= 196:
+			cannon.rotation_degrees = 196
+		elif cannon.rotation_degrees <= 165:
+			cannon.rotation_degrees = 165
+		
+		if minigun.rotation_degrees >= 270:
+			minigun.rotation_degrees = 270
+		elif minigun.rotation_degrees <= 167:
+			minigun.rotation_degrees = 167
+	else:
+		if cannon.rotation_degrees <= -16:
+			cannon.rotation_degrees = -16
+		elif cannon.rotation_degrees >= 15:
+			cannon.rotation_degrees = 15
+		
+		if minigun.rotation_degrees <= -90:
+			minigun.rotation_degrees = -90
+		elif minigun.rotation_degrees >= 13:
+			minigun.rotation_degrees = 13
 	
 	#Laser Turret Handler
 	var closest_missiles: Array = []
@@ -131,7 +142,7 @@ func _physics_process(delta: float) -> void:
 			
 			if is_instance_valid(closest_msl):
 				var angle_to_msl = laser_turret.global_position.angle_to(closest_msl_global_pos)
-				if abs(angle_to_msl) < 1.74 and closest_msl_dist < 100000:
+				if abs(angle_to_msl) < 1.74 and closest_msl_dist < 50000 and not is_turret_rotating:
 					laser_firing = true
 					laser_hum.play()
 					laser_beam.visible = true
@@ -158,8 +169,6 @@ func _physics_process(delta: float) -> void:
 		laser_charge = move_toward(laser_charge, 100, 0.5)
 	
 	laser_charge_display.text = "Laser Charge: " + str(laser_charge) + "%"
-	
-	print(laser_charge)
 	
 	move_and_slide()
 
@@ -200,7 +209,7 @@ func _process(_delta: float) -> void:
 	#Target locking
 	if crosshair.over_area == true and _GTGM:
 		potential_target = crosshair.target_area.get_parent()
-		crosshair.global_position = potential_target.global_position
+		crosshair.global_position = crosshair.global_position.lerp(potential_target.global_position, 0.8)
 		if lock_on_timer.is_stopped() and target == null:
 			lock_on_timer.start()
 			time_2_lock_display.visible = true
@@ -251,7 +260,7 @@ func _input(event) -> void:
 			crosshair.texture = preload("res://assets/sprites/Crosshair.png")
 	#shooting
 	elif event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed() and not is_turret_rotating:
 			if _gun125mm == true and _minigunselect == false and _GTGM == false and cannon_ammo > 0 and on_cooldown == false:
 				gun_sound.play()
 				cannon_muzzle_flash.play()
@@ -285,7 +294,8 @@ func _input(event) -> void:
 					GTGM.custom_missile_handler(true, 25, "OPTICAL", target, 10000, 120, 3, 3.5)
 					GTGM.find_child("AnimatedSprite2D").flip_h = true
 					GTGM.global_transform = gtgm_launch_bay.global_transform
-					GTGM.global_rotation_degrees = 180
+					if turret_facing_left:
+						GTGM.global_rotation_degrees = 180
 					ammo_display.text = "AT Missiles: " + str(GTGM_ammo)
 					gtgm_launch_sound.play()
 					await get_tree().create_timer(0.5).timeout

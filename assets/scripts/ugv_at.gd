@@ -11,7 +11,7 @@ const SHOOT_DISTANCE: float = 20000.0
 
 #Self Variables
 var health = 100
-var ammo = 40
+var ammo = 4
 var on_cooldown = false
 var distance
 

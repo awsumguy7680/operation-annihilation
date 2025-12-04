@@ -1,7 +1,6 @@
 extends Node
 
 @export var initial_state: State
-@export var turret_initial_state: State
 
 #When additional vehicles are added, create a state thats some "menu state", where you're in no vehicle
 var current_state: State

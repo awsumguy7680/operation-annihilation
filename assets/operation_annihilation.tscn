@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://dqxju8y3m5gx2"]
+[gd_scene load_steps=14 format=4 uid="uid://dqxju8y3m5gx2"]
 
 [ext_resource type="PackedScene" uid="uid://but0lfvja3v5s" path="res://assets/Tank.tscn" id="1_ofhib"]
 [ext_resource type="Texture2D" uid="uid://b6shodquyi54y" path="res://assets/sprites/New Piskel-1.png.png" id="2_lie5n"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://dsk5ijhr4g5g7" path="res://assets/scripts/crosshair.gd" id="5_7j2xk"]
 [ext_resource type="AudioStream" uid="uid://dqj363kxtbr3" path="res://assets/sounds/CoffeebrewedinTimesofWar.wav" id="6_2g02s"]
 [ext_resource type="PackedScene" uid="uid://b6u315teu0t6k" path="res://assets/ugv_at.tscn" id="7_2g02s"]
-[ext_resource type="Script" uid="uid://b1c5qu3gvv1fp" path="res://assets/scripts/enemy_tracker.gd" id="8_xyfl3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4877k"]
 resource_name = "Tile0"
@@ -76,7 +75,7 @@ stream = ExtResource("6_2g02s")
 volume_db = 4.0
 
 [node name="UGV-AT" parent="." instance=ExtResource("7_2g02s")]
-position = Vector2(-7404, -215)
+position = Vector2(-19615, -215)
 
 [node name="Atmosphere" type="MeshInstance2D" parent="."]
 z_index = -10
@@ -84,12 +83,6 @@ position = Vector2(-386, -199503)
 rotation = 1.5708
 mesh = SubResource("QuadMesh_2g02s")
 texture = SubResource("GradientTexture2D_hwj63")
-
-[node name="Enemy_Tracker" type="Node" parent="."]
-script = ExtResource("8_xyfl3")
-
-[node name="UGV-AT2" parent="." instance=ExtResource("7_2g02s")]
-position = Vector2(-9254, -166)
 
 [connection signal="area_entered" from="Crosshair/Area2D" to="Crosshair" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Crosshair/Area2D" to="Crosshair" method="_on_area_2d_area_exited"]
