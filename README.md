@@ -7,5 +7,6 @@
   - https://kidscancode.org/godot_recipes/4.x/ai/homing_missile/index.html
   - https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/four-rocket-forces/
   - https://www.grc.nasa.gov/www/k-12/VirtualAero/BottleRocket/airplane/rktlo.html
+  - https://www.youtube.com/watch?v=zHYkcJyE52g
 
 - All music is from opengameart.org
