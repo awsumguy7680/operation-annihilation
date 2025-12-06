@@ -615,15 +615,15 @@ script = ExtResource("29_aw8ho")
 script = ExtResource("31_cawao")
 
 [node name="LockOn_Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 
 [node name="Turret_Rotate_Timer" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 
 [node name="Chassis_Rotate_Timer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
 
 [connection signal="timeout" from="LockOn_Timer" to="." method="_on_lock_on_timer_timeout"]
 [connection signal="timeout" from="Turret_Rotate_Timer" to="StateMachine(Turret)/Looking_Left" method="_on_turret_rotate_timer_timeout"]

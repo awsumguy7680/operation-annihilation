@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://4xvof6cu665c"
-path="res://.godot/imported/destoroya.wav-e5c7d29bed87f7ef88f347ce1c24be48.sample"
+path="res://.godot/imported/destoroya.wav-6f42d8ff9cec1e4271c984594a044eaf.sample"
 
 [deps]
 
-source_file="res://assets/sounds/destoroya.wav"
-dest_files=["res://.godot/imported/destoroya.wav-e5c7d29bed87f7ef88f347ce1c24be48.sample"]
+source_file="res://assets/sounds/Music/destoroya.wav"
+dest_files=["res://.godot/imported/destoroya.wav-6f42d8ff9cec1e4271c984594a044eaf.sample"]
 
 [params]
 

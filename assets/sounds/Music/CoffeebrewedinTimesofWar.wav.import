@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dqj363kxtbr3"
-path="res://.godot/imported/CoffeebrewedinTimesofWar.wav-14b976f95349a2e47072d8af1264610f.sample"
+path="res://.godot/imported/CoffeebrewedinTimesofWar.wav-ba5c686e2a8c6040a90a58e9f44f713d.sample"
 
 [deps]
 
-source_file="res://assets/sounds/CoffeebrewedinTimesofWar.wav"
-dest_files=["res://.godot/imported/CoffeebrewedinTimesofWar.wav-14b976f95349a2e47072d8af1264610f.sample"]
+source_file="res://assets/sounds/Music/CoffeebrewedinTimesofWar.wav"
+dest_files=["res://.godot/imported/CoffeebrewedinTimesofWar.wav-ba5c686e2a8c6040a90a58e9f44f713d.sample"]
 
 [params]
 

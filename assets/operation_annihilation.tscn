@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b4e5dsl7lyxle" path="res://assets/sprites/Crosshair.png" id="4_4icut"]
 [ext_resource type="PackedScene" uid="uid://b3v2p7s41gt83" path="res://assets/ugv_mg.tscn" id="4_6ftv3"]
 [ext_resource type="Script" uid="uid://dsk5ijhr4g5g7" path="res://assets/scripts/crosshair.gd" id="5_7j2xk"]
-[ext_resource type="AudioStream" uid="uid://dqj363kxtbr3" path="res://assets/sounds/CoffeebrewedinTimesofWar.wav" id="6_2g02s"]
+[ext_resource type="AudioStream" uid="uid://dqj363kxtbr3" path="res://assets/sounds/Music/CoffeebrewedinTimesofWar.wav" id="6_2g02s"]
 [ext_resource type="PackedScene" uid="uid://b6u315teu0t6k" path="res://assets/ugv_at.tscn" id="7_2g02s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4877k"]

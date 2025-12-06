@@ -12,8 +12,12 @@ config_version=5
 
 config/name="Operation Annihilation"
 run/main_scene="uid://dqxju8y3m5gx2"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [file_customization]
 

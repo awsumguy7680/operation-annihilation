@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dxoxgjd30pkoy"
-path="res://.godot/imported/mammoth.wav-4b28e2acfc28838a35377807a2158a52.sample"
+path="res://.godot/imported/mammoth.wav-15b92bcf7b0d98bc57dc909976f8266d.sample"
 
 [deps]
 
-source_file="res://assets/sounds/mammoth.wav"
-dest_files=["res://.godot/imported/mammoth.wav-4b28e2acfc28838a35377807a2158a52.sample"]
+source_file="res://assets/sounds/Music/mammoth.wav"
+dest_files=["res://.godot/imported/mammoth.wav-15b92bcf7b0d98bc57dc909976f8266d.sample"]
 
 [params]
 

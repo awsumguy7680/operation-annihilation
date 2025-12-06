@@ -1,0 +1,139 @@
+[gd_scene load_steps=18 format=3 uid="uid://dijf8w74hyuqt"]
+
+[ext_resource type="Texture2D" uid="uid://lxlp6jkxpxnv" path="res://assets/sprites/AH-7NimbleBird(Flying).png" id="1_h2t8j"]
+[ext_resource type="Texture2D" uid="uid://cfl08euj4kdeo" path="res://assets/sprites/AH7(Startup).png" id="2_0epbk"]
+[ext_resource type="Texture2D" uid="uid://cxcb1ffooc8xh" path="res://assets/sprites/AH7TailRotor.png" id="3_0epbk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfhoe"]
+atlas = ExtResource("1_h2t8j")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgx3d"]
+atlas = ExtResource("1_h2t8j")
+region = Rect2(2560, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5q58"]
+atlas = ExtResource("1_h2t8j")
+region = Rect2(0, 2560, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ij4wk"]
+atlas = ExtResource("1_h2t8j")
+region = Rect2(2560, 2560, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf6if"]
+atlas = ExtResource("2_0epbk")
+region = Rect2(0, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbpg5"]
+atlas = ExtResource("2_0epbk")
+region = Rect2(2560, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8wnc"]
+atlas = ExtResource("2_0epbk")
+region = Rect2(5120, 0, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtoml"]
+atlas = ExtResource("2_0epbk")
+region = Rect2(0, 2560, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyolw"]
+atlas = ExtResource("2_0epbk")
+region = Rect2(2560, 2560, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l51i"]
+atlas = ExtResource("2_0epbk")
+region = Rect2(5120, 2560, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohuxg"]
+atlas = ExtResource("2_0epbk")
+region = Rect2(0, 5120, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_elo3m"]
+atlas = ExtResource("2_0epbk")
+region = Rect2(2560, 5120, 2560, 2560)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqmnq"]
+atlas = ExtResource("2_0epbk")
+region = Rect2(5120, 5120, 2560, 2560)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ajoqs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfhoe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgx3d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5q58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ij4wk")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_yf6if")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_cbpg5")
+}, {
+"duration": 2.5,
+"texture": SubResource("AtlasTexture_j8wnc")
+}, {
+"duration": 2.5,
+"texture": SubResource("AtlasTexture_wtoml")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_lyolw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l51i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohuxg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_elo3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqmnq")
+}],
+"loop": false,
+"name": &"startup_shutdown",
+"speed": 10.0
+}]
+
+[node name="Heli" type="CharacterBody2D"]
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+position = Vector2(362, 6)
+sprite_frames = SubResource("SpriteFrames_ajoqs")
+animation = &"flying"
+
+[node name="TailRotor" type="Sprite2D" parent="Body"]
+position = Vector2(895, 5)
+texture = ExtResource("3_0epbk")
+offset = Vector2(5, 5)
+
+[node name="NoseMinigun" type="Sprite2D" parent="Body"]
+
+[node name="InnerPylon" type="Sprite2D" parent="Body"]
+position = Vector2(-169, 47)
+
+[node name="OuterPylon" type="Sprite2D" parent="Body"]
+position = Vector2(-168, 122)
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-713, 140, -711, 222, -658, 297, -547, 331, -367, 336, -92, 288, 50, 124, 236, 66, 773, 66, 839, 164, 935, 153, 902, 50, 982, -196, 909, -193, 769, -22, 65, -53, -37, -152, -300, -149, -384, -48, -593, 2)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(0.3, 0.3)
+
+[node name="Sounds" type="AudioStreamPlayer2D" parent="."]
