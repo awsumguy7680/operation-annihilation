@@ -95,6 +95,8 @@ frame_progress = 0.66242
 z_index = -1
 position = Vector2(-71, -87)
 sprite_frames = SubResource("SpriteFrames_7ymkh")
+frame = 6
+frame_progress = 1.0
 offset = Vector2(71, 87)
 
 [node name="Hitbox" type="Area2D" parent="." groups=["Enemies"]]

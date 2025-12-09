@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Operation Annihilation"
-run/main_scene="uid://dqxju8y3m5gx2"
+run/main_scene="uid://chb15ksej78e0"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
-[debug]
+[display]
 
-settings/stdout/print_fps=true
+window/stretch/mode="canvas_items"
 
 [file_customization]
 

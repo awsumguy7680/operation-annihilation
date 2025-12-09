@@ -1,0 +1,337 @@
+[gd_scene load_steps=8 format=3 uid="uid://lko3a2mhabra"]
+
+[ext_resource type="Script" uid="uid://1s1j6j1ccwhn" path="res://assets/scripts/selection_menu.gd" id="1_fif8t"]
+[ext_resource type="Texture2D" uid="uid://148bwvv22xin" path="res://assets/sprites/SelectionArrow.png" id="1_g5r10"]
+[ext_resource type="Texture2D" uid="uid://chcg7ifb4pjwb" path="res://assets/sprites/SelectionArrowDown.png" id="2_xpd6c"]
+[ext_resource type="Texture2D" uid="uid://cibx8713swqd4" path="res://assets/sprites/SelectionArrowHover.png" id="3_fif8t"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xpd6c"]
+load_path = "res://.godot/imported/UMBT-1.png.png-373fd57cffb326bdab06c82d7d458f60.ctex"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xpd6c"]
+bg_color = Color(0.21176471, 0.21176471, 0.21176471, 0.6901961)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fif8t"]
+bg_color = Color(0.3854925, 0.3854925, 0.38549235, 1)
+corner_radius_top_left = 5
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fif8t")
+
+[node name="VehicleName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.0
+offset_right = 170.0
+offset_bottom = 98.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "TANK: UMBT"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectedVehicleType" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.13020843
+anchor_top = -0.11419753
+anchor_right = 0.8853012
+anchor_bottom = 1.2281896
+offset_right = 1690.133
+offset_bottom = 1690.133
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.33979172, 0.33979172)
+texture = SubResource("CompressedTexture2D_xpd6c")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -5
+layout_mode = 0
+offset_right = 1173.0
+offset_bottom = 682.0
+mouse_filter = 2
+color = Color(0.30588236, 0.6431373, 0.8980392, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectR" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -234.99988
+offset_top = -89.000015
+offset_right = 1045.0
+offset_bottom = 1191.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.19999969, 0.19999969)
+texture_normal = ExtResource("1_g5r10")
+texture_pressed = ExtResource("2_xpd6c")
+texture_hover = ExtResource("3_fif8t")
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectL" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 226.99988
+offset_top = 165.0
+offset_right = 1507.0
+offset_bottom = 1445.0
+grow_vertical = 2
+rotation = 3.1415927
+scale = Vector2(0.19999969, 0.19999969)
+texture_normal = ExtResource("1_g5r10")
+texture_pressed = ExtResource("2_xpd6c")
+texture_hover = ExtResource("3_fif8t")
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="Menu" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0026041667
+anchor_top = 0.7638889
+anchor_right = 1.0260416
+anchor_bottom = 1.0555556
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="NamePanel" type="Panel" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0075949365
+anchor_top = 0.04761905
+anchor_right = 0.14852321
+anchor_bottom = 0.20474704
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
+metadata/_edit_use_anchors_ = true
+
+[node name="VehicleSpecificName" type="Label" parent="Menu/NamePanel"]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.09580839
+anchor_top = 0.02347661
+anchor_right = 0.92814374
+anchor_bottom = 0.9663268
+offset_top = 0.9989586
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxFlat_fif8t")
+text = "UMBT"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SpecsPanel" type="Panel" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16118143
+anchor_top = 0.04761905
+anchor_right = 0.42025316
+anchor_bottom = 0.20474704
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
+metadata/_edit_use_anchors_ = true
+
+[node name="Specs" type="Label" parent="Menu/SpecsPanel"]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.09580839
+anchor_top = 0.02347661
+anchor_right = 0.92814374
+anchor_bottom = 0.9663268
+offset_top = 0.9989586
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxFlat_fif8t")
+text = "Specifications"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="WeaponsPanel" type="Panel" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6135021
+anchor_top = 0.04761905
+anchor_right = 0.87257385
+anchor_bottom = 0.20474704
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
+metadata/_edit_use_anchors_ = true
+
+[node name="Specs" type="Label" parent="Menu/WeaponsPanel"]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.09580839
+anchor_top = 0.02347661
+anchor_right = 0.92814374
+anchor_bottom = 0.9663268
+offset_top = 0.9989586
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = SubResource("StyleBoxFlat_fif8t")
+text = "Weapons"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="WeaponsSelector" type="Panel" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.43459916
+anchor_top = 0.24338624
+anchor_right = 0.69367087
+anchor_bottom = 0.7037037
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
+metadata/_edit_use_anchors_ = true
+
+[node name="OptionButton" type="OptionButton" parent="Menu/WeaponsSelector"]
+layout_mode = 0
+anchor_left = 0.039087947
+anchor_top = 0.057471264
+anchor_right = 0.9641694
+anchor_bottom = 0.28735632
+metadata/_edit_use_anchors_ = true
+
+[node name="DescriptionPanel" type="Panel" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0075949365
+anchor_top = 0.23280415
+anchor_right = 0.14852321
+anchor_bottom = 0.7107831
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
+metadata/_edit_use_anchors_ = true
+
+[node name="Description" type="Label" parent="Menu/DescriptionPanel"]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.035928145
+anchor_top = 0.035029262
+anchor_right = 1.0538923
+anchor_bottom = 1.3965821
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = SubResource("StyleBoxFlat_fif8t")
+text = "The UMBT is a 
+semi-autonamous
+main battle tank built for 
+combat in the age of drone
+warfare
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="SpecValuesPanel" type="Panel" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.17974684
+anchor_top = 0.2751322
+anchor_right = 0.43966246
+anchor_bottom = 0.7531112
+offset_left = -22.0
+offset_top = -7.9999886
+offset_right = -22.0
+offset_bottom = -7.9999847
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
+metadata/_edit_use_anchors_ = true
+
+[node name="SpecValues1" type="Label" parent="Menu/SpecValuesPanel"]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01298705
+anchor_top = 0.022138901
+anchor_right = 0.5095265
+anchor_bottom = 1.3836918
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = SubResource("StyleBoxFlat_fif8t")
+text = "Mass: 55 Tons
+Engine: Turbine/Electric Hybrid
+Cannon: 120mm Smoothbore
+MG: 5.56 M134 Minigun
+Missile: Hellfires
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="SpecValues2" type="Label" parent="Menu/SpecValuesPanel"]
+z_index = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5162338
+anchor_top = 0.044277973
+anchor_right = 1.0127732
+anchor_bottom = 1.4058309
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+theme_override_styles/focus = SubResource("StyleBoxFlat_fif8t")
+text = "HP: 5000
+Top Speed: 60km/h
+Countermeasures: IR Smoke
+Crew: 1-2
+Designed: 2030
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="BackToMenu" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.08881441
+anchor_bottom = 0.08573745
+offset_right = -45.314194
+offset_bottom = -24.557869
+scale = Vector2(1.794986, 1.7921894)
+text = "MENU
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="DeployButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44791666
+anchor_top = 0.14814816
+anchor_right = 0.54801583
+anchor_bottom = 0.23388562
+offset_right = -45.314194
+offset_bottom = -24.557869
+scale = Vector2(1.794986, 1.7921894)
+theme_override_colors/font_color = Color(0, 0.8745098, 0, 1)
+text = "DEPLOY
+"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="SelectR" to="." method="_on_select_r_pressed"]
+[connection signal="pressed" from="SelectL" to="." method="_on_select_l_pressed"]
+[connection signal="pressed" from="BackToMenu" to="." method="_on_back_to_menu_pressed"]
+[connection signal="pressed" from="DeployButton" to="." method="_on_deploy_button_pressed"]

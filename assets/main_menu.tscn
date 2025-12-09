@@ -1,0 +1,118 @@
+[gd_scene load_steps=6 format=3 uid="uid://chb15ksej78e0"]
+
+[ext_resource type="Script" uid="uid://iubokdnqqblt" path="res://assets/scripts/main_menu.gd" id="1_nxgnl"]
+[ext_resource type="Texture2D" uid="uid://be20wcfhj8tpn" path="res://assets/sprites/GameTitle.png" id="2_0quft"]
+[ext_resource type="Texture2D" uid="uid://b6x4wcplijun7" path="res://assets/sprites/UMBTThumbnailchassis.png" id="2_udhl6"]
+[ext_resource type="Texture2D" uid="uid://gge4ag03kp2p" path="res://assets/sprites/UMBTThumbnailTurret.png" id="3_0quft"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhts7"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nxgnl")
+
+[node name="Play" type="Button" parent="."]
+z_index = 5
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -242.0
+offset_top = -177.0
+offset_right = 19.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_rhts7")
+text = "PLAY
+"
+
+[node name="Quit" type="Button" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = -177.0
+offset_right = 299.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_rhts7")
+text = "QUIT
+"
+
+[node name="Author" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -150.0
+offset_right = 83.0
+offset_bottom = -127.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "BY CJH"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -289.0
+offset_top = -58.0
+offset_right = 448.0
+offset_bottom = 239.0
+grow_horizontal = 2
+texture = ExtResource("2_0quft")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="UMBTThumnail" type="Node2D" parent="."]
+position = Vector2(575, 390.00003)
+scale = Vector2(0.28000033, 0.28000033)
+
+[node name="Sprite2D" type="Sprite2D" parent="UMBTThumnail"]
+texture = ExtResource("2_udhl6")
+
+[node name="Sprite2D2" type="Sprite2D" parent="UMBTThumnail"]
+position = Vector2(-160, -245)
+texture = ExtResource("3_0quft")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -7
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -596.0
+offset_top = -386.0
+offset_right = 623.0
+offset_bottom = 412.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

@@ -12,33 +12,52 @@ var ammo = 1000
 var distance
 
 #Variables for nodes
+var player_target = null
+@export var facing_left = false
 @onready var body_sprites: AnimatedSprite2D = $BodySprites
 @onready var wreck: Sprite2D = $Wreck
 @onready var turret: Sprite2D = $TurretSprite
 @onready var muzzle_flash_sprite: AnimatedSprite2D = $TurretSprite/MuzzleFlashSprite
 @onready var collision_shape_2d: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var hitbox: Area2D = $Hitbox
-@onready var character_body_2d: CharacterBody2D = $"../CharacterBody2D"
 @onready var main_scene: Node2D = $".."
 @onready var muzzle: Marker2D = $TurretSprite/Muzzle
 @onready var firing_sound: AudioStreamPlayer2D = $TurretSprite/Muzzle/FiringSound
+
+#Constants
 const BULLET = preload("res://assets/bullet.tscn")
 const BULLET_SPRITE = preload("res://assets/sprites/MGTracerGreen.png")
 
+#Setup
+func _ready() -> void:
+	for child in owner.get_children():
+		if child is CharacterBody2D:
+			player_target = child
+			break
+	if facing_left:
+		body_sprites.scale.x = -1.0
+		body_sprites.position.x = -40.0
+		turret.flip_h = true
+		const MIRRORED_TURRET_SPRITE = preload("res://assets/sprites/UGV-MG(TurretMirrored).png")
+		turret.texture = MIRRORED_TURRET_SPRITE
+	
 # Called when the node enters the scene tree for the first time.
 func _process(delta: float) -> void:
 	position.y = -160
 	if health > 0:
-		if character_body_2d:
-			distance = body_sprites.global_position.distance_to(character_body_2d.global_position)
+		if player_target:
+			distance = body_sprites.global_position.distance_to(player_target.global_position)
 		
 		#Makes MG turret always point at the player
-		if character_body_2d:
-			turret.look_at(character_body_2d.position)
+		if player_target:
+			turret.look_at(player_target.position)
 		
 		# Checks distance between the vehicle and the player, stops within a certain distance.
 		if distance >= STOP_DISTANCE:
-			position.x += SPEED * delta
+			if facing_left:
+				position.x -= SPEED * delta
+			else:
+				position.x += SPEED * delta
 			body_sprites.play()
 		else:
 			position.x = position.x

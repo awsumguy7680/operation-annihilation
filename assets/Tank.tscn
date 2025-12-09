@@ -504,6 +504,7 @@ offset = Vector2(-300, 200)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-852, -707)
 zoom = Vector2(0.3, 0.3)
+position_smoothing_enabled = true
 script = ExtResource("12_civsa")
 
 [node name="WeaponDisplay" type="RichTextLabel" parent="Camera2D"]
