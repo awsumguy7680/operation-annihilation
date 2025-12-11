@@ -37,9 +37,8 @@ func _process(_delta: float):
 
 func _on_main_scene_child_entered_tree(new_child: Node):
 	if new_child is CharacterBody2D:
-		if new_child is Player_Tank:
-			current_vehicle = new_child
-			reparent(current_vehicle, false)
+		current_vehicle = new_child
+		reparent(current_vehicle, false)
 
 func _on_main_scene_child_exiting_tree(removed_child: Node) -> void:
 	if removed_child is CharacterBody2D:
