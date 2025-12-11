@@ -60,6 +60,8 @@ func _on_body_entered(body: Node2D) -> void:
 			else:
 				body.damage(damage)
 				queue_free()
+		else:
+			queue_free()
 
 #area_entered is for if the bullet is fired by the player
 func _on_area_entered(area: Area2D) -> void:

@@ -9,7 +9,6 @@ const SHOOT_DISTANCE: float = 7000.0
 var is_shooting = false
 var health = 100
 var ammo = 1000
-var distance
 
 #Variables for nodes
 var player_target = null
@@ -30,10 +29,6 @@ const BULLET_SPRITE = preload("res://assets/sprites/MGTracerGreen.png")
 
 #Setup
 func _ready() -> void:
-	for child in owner.get_children():
-		if child is CharacterBody2D:
-			player_target = child
-			break
 	if facing_left:
 		body_sprites.scale.x = -1.0
 		body_sprites.position.x = -40.0
@@ -44,36 +39,42 @@ func _ready() -> void:
 # Called when the node enters the scene tree for the first time.
 func _process(delta: float) -> void:
 	position.y = -160
+	
 	if health > 0:
 		if player_target:
-			distance = body_sprites.global_position.distance_to(player_target.global_position)
+			var distance = body_sprites.global_position.distance_to(player_target.global_position)
 		
-		#Makes MG turret always point at the player
-		if player_target:
-			turret.look_at(player_target.position)
-		
-		# Checks distance between the vehicle and the player, stops within a certain distance.
-		if distance >= STOP_DISTANCE:
-			if facing_left:
-				position.x -= SPEED * delta
+			#Makes MG turret always point at the player
+			if player_target:
+				turret.look_at(player_target.position)
+			
+			# Checks distance between the vehicle and the player, stops within a certain distance.
+			if distance >= STOP_DISTANCE:
+				if facing_left:
+					position.x -= SPEED * delta
+				else:
+					position.x += SPEED * delta
+				body_sprites.play()
 			else:
-				position.x += SPEED * delta
-			body_sprites.play()
+				position.x = position.x
+				body_sprites.pause()
+			
+			#Starts shooting within a certain distance
+			if distance <= SHOOT_DISTANCE and is_shooting == false and ammo > 0:
+				is_shooting = true
+				muzzle_flash_sprite.play()
+				firing_sound.play()
+				shooting()
+			elif distance > SHOOT_DISTANCE or ammo <= 0:
+				firing_sound.stop()
+				muzzle_flash_sprite.stop()
+				is_shooting = false
+				return
 		else:
-			position.x = position.x
-			body_sprites.pause()
-		
-		#Starts shooting within a certain distance
-		if distance <= SHOOT_DISTANCE and is_shooting == false and ammo > 0:
-			is_shooting = true
-			muzzle_flash_sprite.play()
-			firing_sound.play()
-			shooting()
-		elif distance > SHOOT_DISTANCE or ammo <= 0:
-			firing_sound.stop()
-			muzzle_flash_sprite.stop()
-			is_shooting = false
-			return
+			for child in main_scene.get_children():
+				if child is CharacterBody2D:
+					player_target = child
+					break
 	else:
 		is_shooting = false
 		firing_sound.stop()

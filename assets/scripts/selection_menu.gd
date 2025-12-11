@@ -37,6 +37,7 @@ func _on_select_l_pressed() -> void:
 	set_vehicle(current_vehicle)
 
 func set_vehicle(vehicle: String):
+	PlayerVehicleLoader.assign_selected(vehicle)
 	if vehicle == "Tank":
 		selected_vehicle_type.texture = tank_sprite
 		selected_vehicle_type.position = Vector2(150.0, -74.0)

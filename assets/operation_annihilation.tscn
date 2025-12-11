@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=4 uid="uid://dqxju8y3m5gx2"]
+[gd_scene load_steps=13 format=4 uid="uid://dqxju8y3m5gx2"]
 
-[ext_resource type="PackedScene" uid="uid://but0lfvja3v5s" path="res://assets/Tank.tscn" id="1_ofhib"]
 [ext_resource type="Texture2D" uid="uid://b6shodquyi54y" path="res://assets/sprites/New Piskel-1.png.png" id="2_lie5n"]
 [ext_resource type="Texture2D" uid="uid://b4e5dsl7lyxle" path="res://assets/sprites/Crosshair.png" id="4_4icut"]
 [ext_resource type="PackedScene" uid="uid://b3v2p7s41gt83" path="res://assets/ugv_mg.tscn" id="4_6ftv3"]
 [ext_resource type="Script" uid="uid://dsk5ijhr4g5g7" path="res://assets/scripts/crosshair.gd" id="5_7j2xk"]
-[ext_resource type="AudioStream" uid="uid://qvlfrvl7nd1y" path="res://assets/sounds/Music/JammedwithLimbshigh.wav" id="6_2g02s"]
+[ext_resource type="Script" uid="uid://5trwk7bx1iqw" path="res://assets/scripts/player_camera.gd" id="6_qwo2b"]
 [ext_resource type="PackedScene" uid="uid://b6u315teu0t6k" path="res://assets/ugv_at.tscn" id="7_2g02s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4877k"]
@@ -34,9 +33,6 @@ gradient = SubResource("Gradient_xyfl3")
 fill_from = Vector2(0.275229, 0)
 
 [node name="MainScene" type="Node2D"]
-
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_ofhib")]
-position = Vector2(298, -344)
 
 [node name="Terrain" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+/wAAAAAAAAAAAAD9/wAAAAAAAAAAAAD8/wAAAAAAAAAAAAABAAAAAAAAAAAAAAADAAAAAAAAAAAAAAACAAAAAAAAAAAAAAD7/wAAAAAAAAAAAAAEAAAAAAAAAAAAAAD6/wAAAAAAAAAAAAD5/wAAAAAAAAAAAAD4/wAAAAAAAAAAAAD4/wEAAAAAAAAAAAD5/wEAAAAAAAAAAAD6/wEAAAAAAAAAAAD7/wEAAAAAAAAAAAD8/wEAAAAAAAAAAAD9/wEAAAAAAAAAAAD+/wEAAAAAAAAAAAD//wEAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAD4/wIAAAAAAAAAAAD5/wIAAAAAAAAAAAD6/wIAAAAAAAAAAAD7/wIAAAAAAAAAAAD8/wIAAAAAAAAAAAD9/wIAAAAAAAAAAAD+/wIAAAAAAAAAAAD//wIAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAFAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAIAAAAAAAAAAAAJAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAKAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAD3/wAAAAAAAAAAAAD2/wAAAAAAAAAAAAD2/wEAAAAAAAAAAAD2/wIAAAAAAAAAAAD3/wIAAAAAAAAAAAD3/wEAAAAAAAAAAAD1/wAAAAAAAAAAAAD1/wEAAAAAAAAAAAD1/wIAAAAAAAAAAAALAAAAAAAAAAAAAAALAAEAAAAAAAAAAAALAAIAAAAAAAAAAAA=")
@@ -70,17 +66,12 @@ theme_override_colors/default_color = Color(1, 0, 0, 1)
 text = "LOCKING... 
 "
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_2g02s")
-volume_db = 4.0
-autoplay = true
-
 [node name="UGV-AT" parent="." instance=ExtResource("7_2g02s")]
 position = Vector2(-19615, -215)
 
 [node name="Atmosphere" type="MeshInstance2D" parent="."]
 z_index = -10
-position = Vector2(-386, -199503)
+position = Vector2(-410, -198937)
 rotation = 1.5708
 mesh = SubResource("QuadMesh_2g02s")
 texture = SubResource("GradientTexture2D_hwj63")
@@ -93,5 +84,153 @@ facing_left = true
 position = Vector2(14499, -230)
 facing_left = true
 
+[node name="PlayerCamera" type="Camera2D" parent="."]
+position = Vector2(0, -336)
+zoom = Vector2(0.3, 0.3)
+script = ExtResource("6_qwo2b")
+
+[node name="Pause" type="Control" parent="PlayerCamera"]
+visible = false
+z_index = 8
+layout_mode = 3
+anchors_preset = 0
+offset_left = -710.0
+offset_top = -1302.0
+offset_right = 2235.0
+offset_bottom = 214.0
+scale = Vector2(0.5, 0.5)
+
+[node name="Panel" type="Panel" parent="PlayerCamera/Pause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1460.5
+offset_top = -756.5
+offset_right = 1460.5
+offset_bottom = 756.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerCamera/Pause/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.11143444
+anchor_top = 0.12491738
+anchor_right = 0.88856554
+anchor_bottom = 1.1645738
+offset_bottom = -0.00012207031
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Resume" type="Button" parent="PlayerCamera/Pause/Panel/VBoxContainer"]
+z_index = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 300
+text = "Resume"
+
+[node name="Quit2Selection" type="Button" parent="PlayerCamera/Pause/Panel/VBoxContainer"]
+z_index = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 300
+text = "Quit to selection"
+
+[node name="Quit2Selection2" type="Button" parent="PlayerCamera/Pause/Panel/VBoxContainer"]
+z_index = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 300
+text = "Quit game"
+
+[node name="Label" type="Label" parent="PlayerCamera/Pause/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -577.0
+offset_right = 577.0
+offset_bottom = 413.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 150
+text = "PAUSED
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponDisplay" type="RichTextLabel" parent="PlayerCamera"]
+offset_left = -623.0
+offset_top = -640.0
+offset_right = -173.0
+offset_bottom = -517.0
+scale = Vector2(3.73705, 3.99272)
+text = "Weapon: Cannon
+"
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Health" type="RichTextLabel" parent="PlayerCamera"]
+offset_left = -623.0
+offset_top = -551.0
+offset_right = -173.0
+offset_bottom = -428.0
+scale = Vector2(3.73705, 3.99272)
+text = "Health: 5000
+
+
+"
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Ammo" type="RichTextLabel" parent="PlayerCamera"]
+offset_left = -623.0
+offset_top = -465.0
+offset_right = -173.0
+offset_bottom = -342.0
+scale = Vector2(3.73705, 3.99272)
+text = "Cannon Ammo: 100
+
+
+
+"
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Score" type="RichTextLabel" parent="PlayerCamera"]
+offset_left = -626.0
+offset_top = -286.0
+offset_right = -176.0
+offset_bottom = -148.0
+scale = Vector2(3.73705, 3.99272)
+text = "Score: 0
+
+
+
+
+
+"
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[node name="LaserCharge" type="RichTextLabel" parent="PlayerCamera"]
+offset_left = -625.0
+offset_top = -379.0
+offset_right = -77.0
+offset_bottom = -218.0
+scale = Vector2(3.73705, 3.99272)
+text = "Laser Charge: 100%
+
+
+
+
+
+
+"
+fit_content = true
+metadata/_edit_use_anchors_ = true
+
+[connection signal="child_entered_tree" from="." to="PlayerCamera" method="_on_main_scene_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="PlayerCamera" method="_on_main_scene_child_exiting_tree"]
 [connection signal="area_entered" from="Crosshair/Area2D" to="Crosshair" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Crosshair/Area2D" to="Crosshair" method="_on_area_2d_area_exited"]

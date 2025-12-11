@@ -177,9 +177,9 @@ metadata/_edit_use_anchors_ = true
 [node name="WeaponsPanel" type="Panel" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.6135021
+anchor_left = 0.5755274
 anchor_top = 0.04761905
-anchor_right = 0.87257385
+anchor_right = 0.83459914
 anchor_bottom = 0.20474704
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
@@ -207,19 +207,16 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.43459916
 anchor_top = 0.24338624
-anchor_right = 0.69367087
+anchor_right = 0.985654
 anchor_bottom = 0.7037037
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
 metadata/_edit_use_anchors_ = true
 
-[node name="OptionButton" type="OptionButton" parent="Menu/WeaponsSelector"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/WeaponsSelector"]
 layout_mode = 0
-anchor_left = 0.039087947
-anchor_top = 0.057471264
-anchor_right = 0.9641694
-anchor_bottom = 0.28735632
-metadata/_edit_use_anchors_ = true
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="DescriptionPanel" type="Panel" parent="Menu"]
 layout_mode = 1

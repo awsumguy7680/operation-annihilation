@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://but0lfvja3v5s"]
+[gd_scene load_steps=79 format=3 uid="uid://but0lfvja3v5s"]
 
 [ext_resource type="Script" uid="uid://pv3up5x3xdif" path="res://assets/scripts/tank.gd" id="1_r26ri"]
 [ext_resource type="Texture2D" uid="uid://cruvdahrku88g" path="res://assets/sprites/UMBT(ChassisDriving).png" id="2_67lw7"]
@@ -17,7 +17,6 @@
 [ext_resource type="AudioStream" uid="uid://2jshv4te8cg4" path="res://assets/sounds/TankGun.wav" id="6_vu3nq"]
 [ext_resource type="AudioStream" uid="uid://pfjdfxxhaiwp" path="res://assets/sounds/MinigunSpoolUp.mp3" id="7_kwnc1"]
 [ext_resource type="AudioStream" uid="uid://csovxky1gkjly" path="res://assets/sounds/MinigunSpoolDown.mp3" id="8_yyigf"]
-[ext_resource type="Script" uid="uid://yehcmi33gwa5" path="res://assets/scripts/player_camera.gd" id="12_civsa"]
 [ext_resource type="AudioStream" uid="uid://405sw2mujs6j" path="res://assets/sounds/MissileLaunch2.mp3" id="14_qp6fy"]
 [ext_resource type="AudioStream" uid="uid://c6oyc4jbx5xxh" path="res://assets/sounds/lasersound.wav" id="15_ikd1v"]
 [ext_resource type="Script" uid="uid://hntmej36basl" path="res://assets/scripts/States/TankChassis/state_machine_chassis.gd" id="16_5fex3"]
@@ -500,78 +499,6 @@ z_index = -6
 position = Vector2(180, -280)
 texture = ExtResource("18_10ybp")
 offset = Vector2(-300, 200)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-852, -707)
-zoom = Vector2(0.3, 0.3)
-position_smoothing_enabled = true
-script = ExtResource("12_civsa")
-
-[node name="WeaponDisplay" type="RichTextLabel" parent="Camera2D"]
-offset_left = -623.0
-offset_top = -640.0
-offset_right = -173.0
-offset_bottom = -517.0
-scale = Vector2(3.73705, 3.99272)
-text = "Weapon: Cannon
-"
-fit_content = true
-
-[node name="Health" type="RichTextLabel" parent="Camera2D"]
-offset_left = -623.0
-offset_top = -551.0
-offset_right = -173.0
-offset_bottom = -428.0
-scale = Vector2(3.73705, 3.99272)
-text = "Health: 5000
-
-
-"
-fit_content = true
-
-[node name="Ammo" type="RichTextLabel" parent="Camera2D"]
-offset_left = -623.0
-offset_top = -465.0
-offset_right = -173.0
-offset_bottom = -342.0
-scale = Vector2(3.73705, 3.99272)
-text = "Cannon Ammo: 100
-
-
-
-"
-fit_content = true
-
-[node name="Score" type="RichTextLabel" parent="Camera2D"]
-offset_left = -626.0
-offset_top = -286.0
-offset_right = -176.0
-offset_bottom = -148.0
-scale = Vector2(3.73705, 3.99272)
-text = "Score: 0
-
-
-
-
-
-"
-fit_content = true
-
-[node name="LaserCharge" type="RichTextLabel" parent="Camera2D"]
-offset_left = -625.0
-offset_top = -379.0
-offset_right = -77.0
-offset_bottom = -218.0
-scale = Vector2(3.73705, 3.99272)
-text = "Laser Charge: 100%
-
-
-
-
-
-
-"
-fit_content = true
 
 [node name="EngineIdleSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_eids8")

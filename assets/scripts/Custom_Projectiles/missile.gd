@@ -20,10 +20,6 @@ var drag: float
 var player_missile
 var velocity = 0.0
 
-#Launchers
-@onready var ugv_at: Node2D = $"."
-#@onready var umbt: Player_Tank = $"."
-
 #Missile handlers
 func custom_missile_static_properties(msl_body, msl_body_offset: Vector2, collision_box: Vector2, collision_box_offset: Vector2, del: int, audio) -> void:
 	#Custom parameters, allowing many custom missile types
@@ -67,7 +63,7 @@ func custom_missile_handler(is_plr, hlth, msl_track, tgt, thrst, dmg, burn, stee
 	var burn_time = burn
 	
 	if not player_missile:
-		if target is Player_Tank:
+		if target is CharacterBody2D:
 			target.msl_alert(true, self)
 	
 	audio_stream_player_2d.play()

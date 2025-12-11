@@ -39,10 +39,10 @@ var target
 @onready var laser_hum: AudioStreamPlayer2D = $Turret/LaserTurret/LaserHum
 
 #UI
-@onready var weapon_display: RichTextLabel = $Camera2D/WeaponDisplay
-@onready var health_display: RichTextLabel = $Camera2D/Health
-@onready var ammo_display: RichTextLabel = $Camera2D/Ammo
-@onready var laser_charge_display: RichTextLabel = $Camera2D/LaserCharge
+#@onready var weapon_display: RichTextLabel = $Camera2D/WeaponDisplay
+#@onready var health_display: RichTextLabel = $Camera2D/Health
+#@onready var ammo_display: RichTextLabel = $Camera2D/Ammo
+#@onready var laser_charge_display: RichTextLabel = $Camera2D/LaserCharge
 @onready var crosshair: Crosshair = $"../Crosshair"
 @onready var target_finder: CollisionShape2D = $"../Crosshair/Area2D/TargetFinder"
 @onready var lock_on_timer: Timer = $LockOn_Timer
@@ -168,7 +168,7 @@ func _physics_process(delta: float) -> void:
 	if not laser_firing:
 		laser_charge = move_toward(laser_charge, 100, 0.5)
 	
-	laser_charge_display.text = "Laser Charge: " + str(laser_charge) + "%"
+	#laser_charge_display.text = "Laser Charge: " + str(laser_charge) + "%"
 	
 	move_and_slide()
 
@@ -190,12 +190,12 @@ func _process(_delta: float) -> void:
 	if shooting and minigun_shooting == true and minigun_ammo > 0 and _minigunselect:
 		minigun_muzzle_flash.play()
 		var bullet762 = BULLET.instantiate()
-		owner.add_child(bullet762)
+		self.get_parent().add_child(bullet762)
 		bullet762.custom_bullet(9000, 5, true, false, MINIGUN_BULLET_SPRITE, Vector2(120, 10), Vector2(0, 5), 5, null)
 		bullet762.find_child("Sprite2D").scale = Vector2(2, 1)
 		bullet762.transform = minigun_muzzle.global_transform
 		minigun_ammo -= 1
-		ammo_display.text = "Minigun Ammo: " + str(minigun_ammo)
+		#ammo_display.text = "Minigun Ammo: " + str(minigun_ammo)
 		if minigun_ammo <= 0:
 			minigun_fire_sound.stop()
 			minigun_shooting = false
@@ -245,18 +245,18 @@ func _input(event) -> void:
 				minigun_muzzle_flash.stop()
 				minigun_fire_sound.stop()
 				minigun_spool_down_sound.play()
-			weapon_display.text = "Weapon: Cannon"
-			ammo_display.text = "Cannon Ammo: " + str(cannon_ammo)
+			#weapon_display.text = "Weapon: Cannon"
+			#ammo_display.text = "Cannon Ammo: " + str(cannon_ammo)
 			crosshair.texture = preload("res://assets/sprites/Crosshair.png")
 		elif event.keycode == KEY_2:
 			_weapons_handler(false, false, true)
-			weapon_display.text = "Weapon: Anti-Tank Missile"
-			ammo_display.text = "AT Missiles: " + str(GTGM_ammo)
+			#weapon_display.text = "Weapon: Anti-Tank Missile"
+			#ammo_display.text = "AT Missiles: " + str(GTGM_ammo)
 			crosshair.texture = preload("res://assets/sprites/MissileCrosshair.png")
 		elif event.keycode == KEY_3:
 			_weapons_handler(false, true, false)
-			weapon_display.text = "Weapon: Minigun"
-			ammo_display.text = "Minigun Ammo: " + str(minigun_ammo)
+			#weapon_display.text = "Weapon: Minigun"
+			#ammo_display.text = "Minigun Ammo: " + str(minigun_ammo)
 			crosshair.texture = preload("res://assets/sprites/Crosshair.png")
 	#shooting
 	elif event is InputEventMouseButton:
@@ -265,11 +265,11 @@ func _input(event) -> void:
 				gun_sound.play()
 				cannon_muzzle_flash.play()
 				var shell_instance = BULLET.instantiate()
-				owner.add_child(shell_instance)
+				self.get_parent().add_child(shell_instance)
 				shell_instance.custom_bullet(10000, 200, true, false, SHELL125_SPRITE, Vector2(120, 30), Vector2(0, 5), 5, null)
 				shell_instance.transform = _125_mm_muzzle.global_transform
 				cannon_ammo -= 1
-				ammo_display.text = "Cannon Ammo: " + str(cannon_ammo)
+				#ammo_display.text = "Cannon Ammo: " + str(cannon_ammo)
 				weapons_cooldown(3)
 			elif _minigunselect == true and _gun125mm == false and _GTGM == false and minigun_ammo > 0 and minigun_shooting == false:
 				#see func _process for minigun shooting code
@@ -289,14 +289,14 @@ func _input(event) -> void:
 					await get_tree().create_timer(0.5).timeout
 					GTGM_ammo -= 1
 					var GTGM: Missile = MISSILE.instantiate()
-					owner.add_child(GTGM)
+					self.get_parent().add_child(GTGM)
 					GTGM.custom_missile_static_properties(GTGM_MISSILE_SPRITES, Vector2(630, 65), Vector2(120, 70), Vector2(-10, 0), 15, ROCKETMOTORLOOP)
 					GTGM.custom_missile_handler(true, 25, "OPTICAL", target, 10000, 120, 3, 3.5)
 					GTGM.find_child("AnimatedSprite2D").flip_h = true
 					GTGM.global_transform = gtgm_launch_bay.global_transform
 					if turret_facing_left:
 						GTGM.global_rotation_degrees = 180
-					ammo_display.text = "AT Missiles: " + str(GTGM_ammo)
+					#ammo_display.text = "AT Missiles: " + str(GTGM_ammo)
 					gtgm_launch_sound.play()
 					await get_tree().create_timer(0.5).timeout
 					turret_sprites.play_backwards()
@@ -312,7 +312,7 @@ func _input(event) -> void:
 #Function to take damage when hit by munitions
 func damage(damage_amount: int) -> void:
 	health -= damage_amount
-	health_display.text = "Health: " + str(health)
+	#health_display.text = "Health: " + str(health)
 
 #Function that tracks incoming missiles and triggers alerts
 func msl_alert(incoming: bool, missile):
