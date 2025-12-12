@@ -225,18 +225,12 @@ text = "1
 "
 metadata/_edit_use_anchors_ = true
 
-[node name="Container" type="Container" parent="CanvasLayer/HUD"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.74698794
-anchor_top = -0.04530202
-anchor_right = 1.1779425
-anchor_bottom = 0.28523493
-grow_horizontal = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="WeaponIcon" type="TextureRect" parent="CanvasLayer/HUD/Container"]
-layout_mode = 2
+[node name="WeaponIcon" type="TextureRect" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 2686.6665
+offset_top = -90.00001
+offset_right = 3326.6665
+offset_bottom = 550.0
 texture = ExtResource("8_hwj63")
 
 [node name="MslWarning" type="VBoxContainer" parent="CanvasLayer/HUD"]

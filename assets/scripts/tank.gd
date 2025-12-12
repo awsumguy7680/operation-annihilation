@@ -47,6 +47,7 @@ var target
 
 #vehicle stats
 @export var health: int
+@export var armor: int
 @export var cannon_ammo: int
 @export var minigun_ammo: int
 @export var GTGM_ammo: int
@@ -185,7 +186,7 @@ func _process(_delta: float) -> void:
 		minigun_muzzle_flash.play()
 		var bullet762 = BULLET.instantiate()
 		self.get_parent().add_child(bullet762)
-		bullet762.custom_bullet(9000, 5, true, false, MINIGUN_BULLET_SPRITE, Vector2(120, 10), Vector2(0, 5), 5, null)
+		bullet762.custom_bullet(9000, 5, true, true, MINIGUN_BULLET_SPRITE, Vector2(120, 10), Vector2(0, 5), 5, 25)
 		bullet762.find_child("Sprite2D").scale = Vector2(2, 1)
 		bullet762.transform = minigun_muzzle.global_transform
 		minigun_ammo -= 1

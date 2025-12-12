@@ -7,8 +7,9 @@ const SHOOT_DISTANCE: float = 7000.0
 
 #Self Variables
 var is_shooting = false
-var health = 100
-var ammo = 1000
+@export var health: int
+@export var armor: int
+@export var ammo: int
 
 #Variables for nodes
 var player_target = null
@@ -95,7 +96,7 @@ func shooting():
 		var bullet_instance: Bullet = BULLET.instantiate()
 		owner.add_child(bullet_instance)
 		if bullet_instance:
-			bullet_instance.custom_bullet(8000, 1, false, true, BULLET_SPRITE, Vector2(100, 10), Vector2(-60, -55), 10, 5)
+			bullet_instance.custom_bullet(8000, 1, false, true, BULLET_SPRITE, Vector2(100, 10), Vector2(-60, -55), 10, 10)
 		muzzle.rotation_degrees = random_rotation
 		bullet_instance.transform = muzzle.global_transform
 		ammo -= 1

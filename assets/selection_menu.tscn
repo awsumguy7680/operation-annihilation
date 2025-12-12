@@ -207,7 +207,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.43459916
 anchor_top = 0.24338624
-anchor_right = 0.985654
+anchor_right = 0.96202534
 anchor_bottom = 0.7037037
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
@@ -278,7 +278,7 @@ text = "Mass: 55 Tons
 Engine: Turbine/Electric Hybrid
 Cannon: 120mm Smoothbore
 MG: 5.56 M134 Minigun
-Missile: Hellfires
+Missile: GTGM
 "
 metadata/_edit_use_anchors_ = true
 

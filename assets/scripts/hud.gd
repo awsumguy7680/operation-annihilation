@@ -4,7 +4,7 @@ extends Control
 @onready var health_display: RichTextLabel = $Health
 @onready var weapon_display: RichTextLabel = $WeaponDisplay
 @onready var ammo_display: RichTextLabel = $Ammo
-@onready var weapon_icon: TextureRect = $Container/WeaponIcon
+@onready var weapon_icon: TextureRect = $WeaponIcon
 @onready var weapon_num: Label = $WeaponNum
 @onready var msl_warning: VBoxContainer = $MslWarning
 @onready var warning_label: Label = $MslWarning/WarningLabel
@@ -46,9 +46,6 @@ func _process(_delta: float):
 			for i in current_vehicle.incoming_missiles_by_type:
 				if current_vehicle.incoming_missiles_by_type[i] > 0:
 					warning_label.text = "MSL ALERT: " + i + " x" + str(current_vehicle.incoming_missiles_by_type[i])
-			
-			#Flash warning
-			#var alpha = warning_label.get_theme_color("font_color").a
 			
 		else:
 			warning_label.visible = false

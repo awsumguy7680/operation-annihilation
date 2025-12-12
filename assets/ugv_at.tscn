@@ -86,6 +86,8 @@ size = Vector2(400, 310)
 
 [node name="UGV-AT" type="Node2D" groups=["Enemies"]]
 script = ExtResource("1_7dsib")
+health = 100
+armor = 1
 
 [node name="BodySprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7dsib")

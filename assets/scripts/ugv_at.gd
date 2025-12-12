@@ -10,7 +10,8 @@ const STOP_DISTANCE: float = 5000.0
 const SHOOT_DISTANCE: float = 20000.0
 
 #Self Variables
-var health = 100
+@export var health: int
+@export var armor: int
 @export var ammo = 4
 var on_cooldown = false
 

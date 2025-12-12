@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7v4mwa7ersvv"]
+
+[ext_resource type="Texture2D" uid="uid://1kf2067yu78b" path="res://assets/sprites/RFVChassis.png" id="1_m8me4"]
+[ext_resource type="Texture2D" uid="uid://bi7piwo4lo4wq" path="res://assets/sprites/UGV-RFV-Turret.png" id="2_nxmax"]
+[ext_resource type="Texture2D" uid="uid://bh80ib1lxf8hp" path="res://assets/sprites/UGV-RFV-27mmGun.png" id="3_b6ml5"]
+[ext_resource type="Texture2D" uid="uid://c4sp8vld6dm73" path="res://assets/sprites/UGV-RFV(Wreck).png" id="4_nxmax"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3maa"]
+atlas = ExtResource("1_m8me4")
+region = Rect2(0, 0, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clb42"]
+atlas = ExtResource("1_m8me4")
+region = Rect2(0, 1280, 1280, 1280)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ic4lg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3maa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clb42")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="UGV-RFV" type="Area2D"]
+
+[node name="Chassis" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ic4lg")
+frame_progress = 0.2550761
+
+[node name="Turret" type="Sprite2D" parent="."]
+texture = ExtResource("2_nxmax")
+
+[node name="Chaingun" type="Sprite2D" parent="Turret"]
+z_index = -5
+z_as_relative = false
+position = Vector2(100, -70)
+texture = ExtResource("3_b6ml5")
+offset = Vector2(170, 0)
+
+[node name="Hitbox" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-48, 279, 263, 284, 419, 81, 119, -22, 116, -148, -218, -153, -219, -37, -508, 79, -352, 271)
+
+[node name="Wreck" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_nxmax")

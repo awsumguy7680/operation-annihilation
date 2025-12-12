@@ -12,14 +12,14 @@ class_name Bullet extends Area2D
 @export var deflect_chance: int
 
 #Bullet Handlers
-func custom_bullet(spd, dmg, is_plr, deflect, sprite, hitbox, offset, despawn, chance):
+func custom_bullet(spd, dmg: int, is_plr: bool, deflect: bool, sprite, hitbox, offset, despawn, pen):
 	#Parameters for custom bullets
 	#is_plr is asking whether the bullet is one fired by the player or an enemy
 	#deflects is asking whether the bullet can deflect off armor or not
 	#hitbox is a Vector2 that determines the size of the hitbox to match the sprite
 	#offset is a Vector2 that determines the offset of the bullet sprite so it's centered
 	#despawn sets despawn time
-	#chance only needs to be assigned if deflect is true, this determines the chance of deflection
+	#pen means penetration, if can_deflect is true then the bullet will deflect armor/pen times
 	speed = spd
 	damage = dmg
 	is_player_bullet = is_plr
@@ -31,7 +31,7 @@ func custom_bullet(spd, dmg, is_plr, deflect, sprite, hitbox, offset, despawn, c
 			sprite_2d.offset = offset
 	
 	if can_deflect == true:
-		deflect_chance = chance
+		deflect_chance = pen
 	
 	if collision_shape_2d:
 		if collision_shape_2d.shape is RectangleShape2D:
@@ -45,29 +45,38 @@ func _physics_process(delta: float) -> void:
 	queue_free()
 
 #body_enetered is for if the bullet is fired by an enemy
-func _on_body_entered(body: Node2D) -> void:
-	if not is_player_bullet:
-		if body is CharacterBody2D:
-			if can_deflect:
-				var random_deflection_chance = randi_range(0, deflect_chance - 1)
-				var random_deflection_angle = randi_range(-45, 45)
-				if random_deflection_chance == 0:
-					rotation_degrees += random_deflection_angle
-					return
-				else:
-					body.damage(damage)
-					queue_free()
-			else:
-				body.damage(damage)
-				queue_free()
+func _on_body_entered(body: Node2D):
+		if body is CharacterBody2D or Area2D and not TileMapLayer:
+			armor_penetration(body)
 		else:
 			queue_free()
 
 #area_entered is for if the bullet is fired by the player
-func _on_area_entered(area: Area2D) -> void:
+func _on_area_entered(area: Area2D):
 	if is_player_bullet:
 		if area.is_in_group("Enemies"):
 			var enemy_node = area.get_parent()
 			if enemy_node.has_method("enemy_damage"):
-				enemy_node.enemy_damage(damage)
+				armor_penetration(enemy_node)
+
+func armor_penetration(target_hit):
+	if can_deflect:
+		var random_penetration_chance = randi_range(0, (target_hit.armor / deflect_chance))
+		var random_deflection_angle = randi_range(-45, 45)
+		if random_penetration_chance == 0:
+			if not is_player_bullet:
+				target_hit.damage(damage)
 				queue_free()
+			else:
+				target_hit.enemy_damage(damage)
+				queue_free()
+		else:
+			rotation_degrees += random_deflection_angle
+			return
+	else:
+		if not is_player_bullet:
+			target_hit.damage(damage)
+			queue_free()
+		else:
+			target_hit.enemy_damage(damage)
+			queue_free()

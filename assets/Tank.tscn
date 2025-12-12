@@ -397,6 +397,7 @@ animations = [{
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_r26ri")
 health = 5000
+armor = 1000
 cannon_ammo = 100
 minigun_ammo = 1500
 GTGM_ammo = 15

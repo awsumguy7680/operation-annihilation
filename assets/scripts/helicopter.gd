@@ -10,6 +10,7 @@ const MAX_PITCH = 10.0
 
 #stats
 @export var health: int
+@export var armor: int
 @export var nose_minigun_ammo: int
 @export var engine_on: bool
 var incoming_missiles: int = 0

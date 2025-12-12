@@ -14,6 +14,9 @@ var current_vehicle_key = 0
 var current_vehicle = "Tank"
 var weapon_options = 0
 
+func _ready():
+	PlayerVehicleLoader.assign_selected("Tank")
+
 #Return to Main Menu
 func _on_back_to_menu_pressed() -> void:
 	get_tree().change_scene_to_file("res://assets/main_menu.tscn")
@@ -53,7 +56,7 @@ func set_vehicle(vehicle: String):
 		Engine: Turbine/Electric Hybrid
 		Cannon: 120mm Smoothbore
 		MG: 5.56 M134 Minigun
-		Missile: Hellfires
+		Missile: GTGM
 		"
 		spec_values_2.text = "HP: 5000
 		Top Speed: 60km/h
