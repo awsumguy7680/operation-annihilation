@@ -1,6 +1,7 @@
 extends Node
 
 @export var current_selected_vehicle = "Tank"
+var current_loaded_vehicle = null
 var loaded_vehicle = false
 
 const tank = preload("res://assets/Tank.tscn")
@@ -12,11 +13,11 @@ func assign_selected(vehicle_name: String):
 func load_vehicle(vehicle_name: String):
 	var main = get_tree().current_scene
 	if vehicle_name == "Tank":
-		var vehicle = tank.instantiate()
-		main.add_child(vehicle)
+		current_loaded_vehicle = tank.instantiate()
+		main.add_child(current_loaded_vehicle)
 	elif vehicle_name == "Helicopter":
-		var vehicle = heli.instantiate()
-		main.add_child(vehicle)
+		current_loaded_vehicle = heli.instantiate()
+		main.add_child(current_loaded_vehicle)
 
 func _process(_delta):
 	if not loaded_vehicle:
@@ -25,11 +26,7 @@ func _process(_delta):
 				load_vehicle(current_selected_vehicle)
 				loaded_vehicle = true
 				break
-	else:
-		if get_tree().current_scene.name != "MainScene":
-			for child in get_tree().current_scene.get_children():
-				if child is CharacterBody2D:
-					child.queue_free()
-					break
-		#else:
-			#print("dormant")
+	elif loaded_vehicle:
+		if not is_instance_valid(current_loaded_vehicle):
+			current_loaded_vehicle = null
+			loaded_vehicle = null

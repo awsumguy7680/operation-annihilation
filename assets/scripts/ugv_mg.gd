@@ -83,7 +83,7 @@ func _process(delta: float) -> void:
 		turret.visible = false
 		collision_shape_2d.disabled = true
 		wreck.visible = true
-		await get_tree().create_timer(4).timeout
+		await get_tree().create_timer(4, false).timeout
 		queue_free()
 		return
 
@@ -91,7 +91,7 @@ func _process(delta: float) -> void:
 func shooting():
 	for i in ammo:
 		var random_rotation = randi_range(-2, 2)
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.1, false).timeout
 		var bullet_instance: Bullet = BULLET.instantiate()
 		owner.add_child(bullet_instance)
 		if bullet_instance:

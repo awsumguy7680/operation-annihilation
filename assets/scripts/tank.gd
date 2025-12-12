@@ -15,6 +15,7 @@ const ROCKETMOTORLOOP = preload("res://assets/sounds/rocketmotorloop.mp3")
 @onready var chassis_hitbox: CollisionPolygon2D = $ChassisHitbox
 @onready var laser_beam: Line2D = $Turret/LaserTurret/LaserBeam
 var missiles_list: Dictionary = {}
+var incoming_missiles_by_type: Dictionary = {"OPTICAL": 0, "BOMB": 0}
 var potential_target
 var target
 
@@ -39,10 +40,6 @@ var target
 @onready var laser_hum: AudioStreamPlayer2D = $Turret/LaserTurret/LaserHum
 
 #UI
-#@onready var weapon_display: RichTextLabel = $Camera2D/WeaponDisplay
-#@onready var health_display: RichTextLabel = $Camera2D/Health
-#@onready var ammo_display: RichTextLabel = $Camera2D/Ammo
-#@onready var laser_charge_display: RichTextLabel = $Camera2D/LaserCharge
 @onready var crosshair: Crosshair = $"../Crosshair"
 @onready var target_finder: CollisionShape2D = $"../Crosshair/Area2D/TargetFinder"
 @onready var lock_on_timer: Timer = $LockOn_Timer
@@ -62,11 +59,10 @@ var is_turret_rotating = false
 var facing_left = true
 var turret_facing_left = true
 var minigun_shooting = false
-var _gun125mm: bool = true
-var _minigunselect: bool = false
-var _GTGM: bool = false
 var on_cooldown = false
 var incoming_missiles = 0
+var weapons: Array = ["Cannon", "GTGM", "Minigun"]
+var current_weapon = weapons[0]
 
 func _physics_process(delta: float) -> void:
 	if health <= 0:
@@ -142,7 +138,7 @@ func _physics_process(delta: float) -> void:
 			
 			if is_instance_valid(closest_msl):
 				var angle_to_msl = laser_turret.global_position.angle_to(closest_msl_global_pos)
-				if abs(angle_to_msl) < 1.74 and closest_msl_dist < 50000 and not is_turret_rotating:
+				if abs(angle_to_msl) < 1.74 and closest_msl_dist < 50000 and not is_turret_rotating and laser_charge > 0.0:
 					laser_firing = true
 					laser_hum.play()
 					laser_beam.visible = true
@@ -168,8 +164,6 @@ func _physics_process(delta: float) -> void:
 	if not laser_firing:
 		laser_charge = move_toward(laser_charge, 100, 0.5)
 	
-	#laser_charge_display.text = "Laser Charge: " + str(laser_charge) + "%"
-	
 	move_and_slide()
 
 func _process(_delta: float) -> void:
@@ -187,7 +181,7 @@ func _process(_delta: float) -> void:
 		engine_idle_sound.play()
 	
 	#minigun rapid fire handler, see func _input for rest of minigun code
-	if shooting and minigun_shooting == true and minigun_ammo > 0 and _minigunselect:
+	if shooting and minigun_shooting == true and minigun_ammo > 0 and current_weapon == "Minigun" and not is_turret_rotating:
 		minigun_muzzle_flash.play()
 		var bullet762 = BULLET.instantiate()
 		self.get_parent().add_child(bullet762)
@@ -195,7 +189,6 @@ func _process(_delta: float) -> void:
 		bullet762.find_child("Sprite2D").scale = Vector2(2, 1)
 		bullet762.transform = minigun_muzzle.global_transform
 		minigun_ammo -= 1
-		#ammo_display.text = "Minigun Ammo: " + str(minigun_ammo)
 		if minigun_ammo <= 0:
 			minigun_fire_sound.stop()
 			minigun_shooting = false
@@ -207,13 +200,13 @@ func _process(_delta: float) -> void:
 		minigun_muzzle_flash.stop()
 	
 	#Target locking
-	if crosshair.over_area == true and _GTGM:
+	if crosshair.over_area == true and current_weapon == "GTGM":
 		potential_target = crosshair.target_area.get_parent()
 		crosshair.global_position = crosshair.global_position.lerp(potential_target.global_position, 0.8)
 		if lock_on_timer.is_stopped() and target == null:
 			lock_on_timer.start()
 			time_2_lock_display.visible = true
-	elif not crosshair.over_area or not _GTGM:
+	elif not crosshair.over_area or current_weapon != "GTGM":
 		target = null
 		potential_target = null
 		time_2_lock_display.visible = false
@@ -226,42 +219,30 @@ func _process(_delta: float) -> void:
 #Function to add cooldowns for different weapons to prevent rapid firing
 func weapons_cooldown(cooldown: int) -> void:
 	on_cooldown = true
-	await get_tree().create_timer(cooldown).timeout
+	await get_tree().create_timer(cooldown, false).timeout
 	on_cooldown = false
-
-#function to quickly run through weapon selection
-func _weapons_handler(gun_select, minigun_select, AT_select):
-	_gun125mm = gun_select
-	_minigunselect = minigun_select
-	_GTGM = AT_select
 
 func _input(event) -> void:
 	#weapons selection
 	if event is InputEventKey and event.is_pressed():
 		if event.keycode == KEY_1:
-			_weapons_handler(true, false, false)
+			current_weapon = weapons[0]
 			if minigun_shooting or minigun_muzzle_flash.is_playing():
 				minigun_shooting = false
 				minigun_muzzle_flash.stop()
 				minigun_fire_sound.stop()
 				minigun_spool_down_sound.play()
-			#weapon_display.text = "Weapon: Cannon"
-			#ammo_display.text = "Cannon Ammo: " + str(cannon_ammo)
 			crosshair.texture = preload("res://assets/sprites/Crosshair.png")
 		elif event.keycode == KEY_2:
-			_weapons_handler(false, false, true)
-			#weapon_display.text = "Weapon: Anti-Tank Missile"
-			#ammo_display.text = "AT Missiles: " + str(GTGM_ammo)
+			current_weapon = weapons[1]
 			crosshair.texture = preload("res://assets/sprites/MissileCrosshair.png")
 		elif event.keycode == KEY_3:
-			_weapons_handler(false, true, false)
-			#weapon_display.text = "Weapon: Minigun"
-			#ammo_display.text = "Minigun Ammo: " + str(minigun_ammo)
+			current_weapon = weapons[2]
 			crosshair.texture = preload("res://assets/sprites/Crosshair.png")
 	#shooting
 	elif event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed() and not is_turret_rotating:
-			if _gun125mm == true and _minigunselect == false and _GTGM == false and cannon_ammo > 0 and on_cooldown == false:
+			if current_weapon == "Cannon" and cannon_ammo > 0 and on_cooldown == false:
 				gun_sound.play()
 				cannon_muzzle_flash.play()
 				var shell_instance = BULLET.instantiate()
@@ -269,24 +250,23 @@ func _input(event) -> void:
 				shell_instance.custom_bullet(10000, 200, true, false, SHELL125_SPRITE, Vector2(120, 30), Vector2(0, 5), 5, null)
 				shell_instance.transform = _125_mm_muzzle.global_transform
 				cannon_ammo -= 1
-				#ammo_display.text = "Cannon Ammo: " + str(cannon_ammo)
 				weapons_cooldown(3)
-			elif _minigunselect == true and _gun125mm == false and _GTGM == false and minigun_ammo > 0 and minigun_shooting == false:
+			elif current_weapon == "Minigun" and minigun_ammo > 0 and minigun_shooting == false:
 				#see func _process for minigun shooting code
 				minigun_spool_up_sound.play()
-				await get_tree().create_timer(0.5).timeout
+				await get_tree().create_timer(0.5, false).timeout
 				minigun_shooting = true
 				minigun_fire_sound.play()
-			elif _GTGM == true and _gun125mm == false and _minigunselect == false and GTGM_ammo > 0 and on_cooldown == false:
+			elif current_weapon == "GTGM" and GTGM_ammo > 0 and on_cooldown == false:
 				if target == null:
 					time_2_lock_display.visible = true
 					time_2_lock_display.text = "NO TARGET"
-					await get_tree().create_timer(0.5).timeout
+					await get_tree().create_timer(0.5, false).timeout
 					time_2_lock_display.visible = false
 				else:
 					turret_sprites.play()
 					on_cooldown = true
-					await get_tree().create_timer(0.5).timeout
+					await get_tree().create_timer(0.5, false).timeout
 					GTGM_ammo -= 1
 					var GTGM: Missile = MISSILE.instantiate()
 					self.get_parent().add_child(GTGM)
@@ -296,11 +276,10 @@ func _input(event) -> void:
 					GTGM.global_transform = gtgm_launch_bay.global_transform
 					if turret_facing_left:
 						GTGM.global_rotation_degrees = 180
-					#ammo_display.text = "AT Missiles: " + str(GTGM_ammo)
 					gtgm_launch_sound.play()
-					await get_tree().create_timer(0.5).timeout
+					await get_tree().create_timer(0.5, false).timeout
 					turret_sprites.play_backwards()
-					await get_tree().create_timer(0.5).timeout
+					await get_tree().create_timer(0.5, false).timeout
 					on_cooldown = false
 		elif event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
 			if minigun_muzzle_flash.is_playing():
@@ -312,16 +291,17 @@ func _input(event) -> void:
 #Function to take damage when hit by munitions
 func damage(damage_amount: int) -> void:
 	health -= damage_amount
-	#health_display.text = "Health: " + str(health)
 
 #Function that tracks incoming missiles and triggers alerts
-func msl_alert(incoming: bool, missile):
+func msl_alert(incoming: bool, missile, missile_guidance: String):
 	if incoming:
 		incoming_missiles += 1
 		missiles_list[missile.name] = missile
+		incoming_missiles_by_type[missile_guidance] += 1
 	else:
 		incoming_missiles -= 1
 		missiles_list.erase(missile.name)
+		incoming_missiles_by_type[missile_guidance] -= 1
 
 #Locks the target when the lock_on_timer thats fired in _process is done
 func _on_lock_on_timer_timeout() -> void:

@@ -38,7 +38,7 @@ func custom_missile_static_properties(msl_body, msl_body_offset: Vector2, collis
 			collision_shape_2d.position = collision_box_offset
 	
 	#Delete the missile after delete time
-	await get_tree().create_timer(delete_time).timeout
+	await get_tree().create_timer(delete_time, false).timeout
 	if not player_missile:
 		add_to_group("Enemy_Missiles")
 		target.msl_alert(false, self)
@@ -64,11 +64,11 @@ func custom_missile_handler(is_plr, hlth, msl_track, tgt, thrst, dmg, burn, stee
 	
 	if not player_missile:
 		if target is CharacterBody2D:
-			target.msl_alert(true, self)
+			target.msl_alert(true, self, guidance)
 	
 	audio_stream_player_2d.play()
 	animated_sprite_2d.play()
-	await get_tree().create_timer(burn_time).timeout
+	await get_tree().create_timer(burn_time, false).timeout
 	audio_stream_player_2d.stop()
 	animated_sprite_2d.stop()
 	animated_sprite_2d.animation = "burnout"
@@ -119,15 +119,15 @@ func _process(delta: float):
 func _on_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D and not player_missile:
 		body.damage(damage)
-		target.msl_alert(false, self)
+		target.msl_alert(false, self, guidance)
 		queue_free()
 	elif not player_missile:
 		queue_free()
 		if not player_missile:
-			target.msl_alert(false, self)
+			target.msl_alert(false, self, guidance)
 	elif body is TileMapLayer:
 		if not player_missile:
-			target.msl_alert(false, self)
+			target.msl_alert(false, self, guidance)
 		queue_free()
 
 #Area entered is for if the missile is fired by the player
@@ -143,5 +143,5 @@ func missile_damage(dmge):
 	health -= dmge
 	if health <= 0:
 		if not player_missile:
-			target.msl_alert(false, self)
+			target.msl_alert(false, self, guidance)
 		queue_free()

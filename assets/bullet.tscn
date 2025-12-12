@@ -5,6 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hpu58"]
 
 [node name="Bullet" type="Area2D"]
+process_mode = 1
 z_index = -3
 script = ExtResource("1_5orsb")
 

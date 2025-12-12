@@ -2,6 +2,7 @@ class_name Helicopter extends CharacterBody2D
 
 #Bodies
 @onready var tail_rotor: Sprite2D = $Body/TailRotor
+var incoming_missiles_by_type: Array = ["IR x", "RADAR x"]
 
 #Constants
 const SPEED = 3000.0
@@ -15,7 +16,8 @@ var incoming_missiles: int = 0
 
 #weapons
 @onready var nose_minigun: Sprite2D = $Body/NoseMinigun
-var pylon_weapons: Array = []
+var weapons: Array = ["Nose Minigun", "Empty", "Empty"]
+var current_weapon = weapons[0]
 
 func _physics_process(_delta: float):
 	# Get the input direction and handle the movement/deceleration.
@@ -23,19 +25,19 @@ func _physics_process(_delta: float):
 	
 	#Horizontal Movement
 	if Input.is_key_pressed(KEY_A):
-		velocity.x = move_toward(velocity.x, -SPEED, SPEED / 100)
+		velocity.x = move_toward(velocity.x, -SPEED, SPEED / 50)
 		rotation_degrees = move_toward(rotation_degrees, -MAX_PITCH, 1)
 	elif Input.is_key_pressed(KEY_D):
-		velocity.x = move_toward(velocity.x, SPEED, SPEED / 100)
+		velocity.x = move_toward(velocity.x, SPEED, SPEED / 50)
 		rotation_degrees = move_toward(rotation_degrees, MAX_PITCH, 1)
 	else:
-		if velocity.x <= -SPEED:
+		if velocity.x < 0:
 			rotation_degrees = move_toward(rotation_degrees, MAX_PITCH, 1)
-		elif velocity.x >= SPEED:
+		elif velocity.x > 0:
 			rotation_degrees = move_toward(rotation_degrees, -MAX_PITCH, 1)
 		else:
 			rotation_degrees = move_toward(rotation_degrees, 0.0, 1)
-		velocity.x = move_toward(velocity.x, 0, SPEED / 100)
+		velocity.x = move_toward(velocity.x, 0, SPEED / 50)
 
 	#Vertical Movement
 	if Input.is_key_pressed(KEY_W):
@@ -44,10 +46,6 @@ func _physics_process(_delta: float):
 		velocity.y = move_toward(velocity.y, SPEED, SPEED / 75)
 	else:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
-		
-		
-	#if velocity.x > 0:
-		
 	
 	move_and_slide()
 
@@ -62,9 +60,11 @@ func _process(_delta: float):
 	elif nose_minigun.rotation_degrees <= 125.0:
 		nose_minigun.rotation_degrees = 125.0
 
+#func _input(event: InputEvent):
+	#pass
+
 func damage(damage_amount: int):
 	health -= damage_amount
-	print(health)
 
 func msl_alert(incoming: bool, _missile):
 	if incoming:

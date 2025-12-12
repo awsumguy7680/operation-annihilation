@@ -12,6 +12,7 @@ var helicopter_sprite = preload("res://assets/sprites/AH-7NimbleBird.png")
 var vehicle_types: Array = ["Tank", "Helicopter"]
 var current_vehicle_key = 0
 var current_vehicle = "Tank"
+var weapon_options = 0
 
 #Return to Main Menu
 func _on_back_to_menu_pressed() -> void:
@@ -20,7 +21,7 @@ func _on_back_to_menu_pressed() -> void:
 #Vehicle Type Selection
 func _on_select_r_pressed() -> void:
 	current_vehicle_key += 1
-	if current_vehicle_key > 1: #When adding the jet set this to be greater than 2
+	if current_vehicle_key > 1: #When adding the jet set to 2
 		current_vehicle_key = 0
 		current_vehicle = vehicle_types[0]
 	else:
@@ -80,6 +81,9 @@ func set_vehicle(vehicle: String):
 		Countermeasures: Flares
 		Crew: 2
 		Designed: 2027"
+
+func create_weapon_previews(num_weapons: int):
+	pass
 
 #Start Game
 func _on_deploy_button_pressed() -> void:

@@ -116,7 +116,7 @@ size = Vector2(579, 20)
 
 [node name="Heli" type="CharacterBody2D"]
 script = ExtResource("1_wfhoe")
-health = 1500
+health = 2500
 nose_minigun_ammo = 1000
 engine_on = true
 

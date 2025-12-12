@@ -6,6 +6,7 @@
 size = Vector2(120, 70)
 
 [node name="Missile" type="Area2D"]
+process_mode = 1
 script = ExtResource("1_qcqkr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

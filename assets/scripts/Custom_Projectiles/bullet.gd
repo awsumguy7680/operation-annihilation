@@ -41,7 +41,7 @@ func custom_bullet(spd, dmg, is_plr, deflect, sprite, hitbox, offset, despawn, c
 	
 func _physics_process(delta: float) -> void:
 	position += transform.x * speed * delta
-	await get_tree().create_timer(despawn_time).timeout
+	await get_tree().create_timer(despawn_time, false).timeout
 	queue_free()
 
 #body_enetered is for if the bullet is fired by an enemy

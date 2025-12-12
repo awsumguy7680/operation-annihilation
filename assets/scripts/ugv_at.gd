@@ -64,7 +64,7 @@ func _process(delta: float) -> void:
 				body_sprites.pause()
 			
 			#Starts shooting within a certain distance
-			if distance <= SHOOT_DISTANCE and health > 0 and ammo > 0 and on_cooldown == false:
+			if distance <= SHOOT_DISTANCE and health > 0 and ammo > 0 and on_cooldown == false and player_target is Player_Tank:
 				ammo -= 1
 				var missile_instance: Missile = MISSILE.instantiate()
 				owner.add_child(missile_instance)
@@ -77,7 +77,7 @@ func _process(delta: float) -> void:
 				if missile_instance:
 					missile_instance.custom_missile_static_properties(AT_MISSILE_SPRITE_FRAMES, Vector2(50, 85), Vector2(220, 50), Vector2(30, 0), 15, ROCKETMOTORLOOP)
 					missile_instance.custom_missile_handler(false, 50, "OPTICAL", player_target, 10000, 200, 3, 2.0)
-				await get_tree().create_timer(3).timeout
+				await get_tree().create_timer(3, false).timeout
 				on_cooldown = false
 			elif distance > SHOOT_DISTANCE or health <= 0:
 				pass
@@ -91,7 +91,7 @@ func _process(delta: float) -> void:
 		turret.visible = false
 		collision_shape_2d.disabled = true
 		wreck.visible = true
-		await get_tree().create_timer(4).timeout
+		await get_tree().create_timer(4, false).timeout
 		queue_free()
 		return
 
