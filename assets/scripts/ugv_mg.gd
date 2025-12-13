@@ -4,16 +4,18 @@ extends Node2D
 const SPEED = 300
 const STOP_DISTANCE: float = 5000.0
 const SHOOT_DISTANCE: float = 7000.0
+const BULLET = preload("res://assets/bullet.tscn")
+const BULLET_SPRITE = preload("res://assets/sprites/MGTracerGreen.png")
 
 #Self Variables
 var is_shooting = false
 @export var health: int
 @export var armor: int
 @export var ammo: int
+@export var facing_left: bool
 
 #Variables for nodes
 var player_target = null
-@export var facing_left = false
 @onready var body_sprites: AnimatedSprite2D = $BodySprites
 @onready var wreck: Sprite2D = $Wreck
 @onready var turret: Sprite2D = $TurretSprite
@@ -24,12 +26,8 @@ var player_target = null
 @onready var muzzle: Marker2D = $TurretSprite/Muzzle
 @onready var firing_sound: AudioStreamPlayer2D = $TurretSprite/Muzzle/FiringSound
 
-#Constants
-const BULLET = preload("res://assets/bullet.tscn")
-const BULLET_SPRITE = preload("res://assets/sprites/MGTracerGreen.png")
-
 #Setup
-func _ready() -> void:
+func _ready():
 	if facing_left:
 		body_sprites.scale.x = -1.0
 		body_sprites.position.x = -40.0
@@ -38,7 +36,7 @@ func _ready() -> void:
 		turret.texture = MIRRORED_TURRET_SPRITE
 	
 # Called when the node enters the scene tree for the first time.
-func _process(delta: float) -> void:
+func _process(delta: float):
 	position.y = -160
 	
 	if health > 0:
@@ -91,17 +89,15 @@ func _process(delta: float) -> void:
 #Handles shooting bullets
 func shooting():
 	for i in ammo:
-		var random_rotation = randi_range(-2, 2)
 		await get_tree().create_timer(0.1, false).timeout
 		var bullet_instance: Bullet = BULLET.instantiate()
 		owner.add_child(bullet_instance)
 		if bullet_instance:
-			bullet_instance.custom_bullet(8000, 1, false, true, BULLET_SPRITE, Vector2(100, 10), Vector2(-60, -55), 10, 10)
-		muzzle.rotation_degrees = random_rotation
+			bullet_instance.custom_bullet(8000, 1, false, true, BULLET_SPRITE, Vector2(100, 10), Vector2(-60, -55), 10, 10, 2.0)
 		bullet_instance.transform = muzzle.global_transform
 		ammo -= 1
 		if is_shooting == false:
 			break
 
-func enemy_damage(damage: int) -> void:
+func enemy_damage(damage: int):
 	health -= damage

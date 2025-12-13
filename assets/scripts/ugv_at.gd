@@ -13,11 +13,11 @@ const SHOOT_DISTANCE: float = 20000.0
 @export var health: int
 @export var armor: int
 @export var ammo = 4
+@export var facing_left: bool
 var on_cooldown = false
 
 #Variables for Nodes
 var player_target = null
-@export var facing_left = false
 @onready var main_scene: Node2D = $".."
 @onready var body_sprites: AnimatedSprite2D = $BodySprites
 @onready var wreck: Sprite2D = $Wreck
@@ -26,7 +26,7 @@ var player_target = null
 @onready var launch_sound: AudioStreamPlayer2D = $LaunchSound
 
 #Setup
-func _ready() -> void:
+func _ready():
 	if facing_left:
 		body_sprites.scale.x = -1.0
 		body_sprites.position.x = -40.0
@@ -35,7 +35,7 @@ func _ready() -> void:
 		turret.z_index = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(delta: float):
 	position.y = -160
 	
 	if health > 0:
@@ -96,5 +96,5 @@ func _process(delta: float) -> void:
 		queue_free()
 		return
 
-func enemy_damage(damage: int) -> void:
+func enemy_damage(damage: int):
 	health -= damage

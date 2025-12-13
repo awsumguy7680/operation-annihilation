@@ -6,13 +6,15 @@ class_name Bullet extends Area2D
 @export var can_deflect: bool
 @export var speed: int
 @export var damage: int
+@export var spread_range: int
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @export var despawn_time: int
 @export var deflect_chance: int
+var spread_applied = false
 
 #Bullet Handlers
-func custom_bullet(spd, dmg: int, is_plr: bool, deflect: bool, sprite, hitbox, offset, despawn, pen):
+func custom_bullet(spd, dmg: int, is_plr: bool, deflect: bool, sprite, hitbox, offset, despawn, pen, sprd):
 	#Parameters for custom bullets
 	#is_plr is asking whether the bullet is one fired by the player or an enemy
 	#deflects is asking whether the bullet can deflect off armor or not
@@ -25,6 +27,7 @@ func custom_bullet(spd, dmg: int, is_plr: bool, deflect: bool, sprite, hitbox, o
 	is_player_bullet = is_plr
 	can_deflect = deflect
 	despawn_time = despawn
+	spread_range = sprd
 	
 	if sprite_2d:
 			sprite_2d.texture = sprite
@@ -36,28 +39,40 @@ func custom_bullet(spd, dmg: int, is_plr: bool, deflect: bool, sprite, hitbox, o
 	if collision_shape_2d:
 		if collision_shape_2d.shape is RectangleShape2D:
 			(collision_shape_2d.shape as RectangleShape2D).size = hitbox
-		
-	
-	
+
+func _process(_adelta: float) -> void:
+	if spread_range != 0 and spread_applied == false:
+		var random_spread_angle = randf_range(-spread_range, spread_range)
+		rotation_degrees += random_spread_angle
+		spread_applied = true
+
 func _physics_process(delta: float) -> void:
 	position += transform.x * speed * delta
 	await get_tree().create_timer(despawn_time, false).timeout
 	queue_free()
 
-#body_enetered is for if the bullet is fired by an enemy
+#body entered is for if the bullet is hitting collisionpolygon2ds
 func _on_body_entered(body: Node2D):
-		if body is CharacterBody2D or Area2D and not TileMapLayer:
+	if is_player_bullet:
+		if body.is_in_group("Enemies"):
+			var enemy_node = body.get_parent()
+			if enemy_node.has_method("enemy_damage"):
+				armor_penetration(enemy_node)
+	else:
+		if body is CharacterBody2D or body is Area2D and not (body is TileMapLayer):
 			armor_penetration(body)
 		else:
 			queue_free()
 
-#area_entered is for if the bullet is fired by the player
+#area_entered is for if the bullet is fired by the player (generally)
 func _on_area_entered(area: Area2D):
 	if is_player_bullet:
 		if area.is_in_group("Enemies"):
 			var enemy_node = area.get_parent()
 			if enemy_node.has_method("enemy_damage"):
 				armor_penetration(enemy_node)
+			elif area.has_method("enemy_damage"):
+				armor_penetration(area)
 
 func armor_penetration(target_hit):
 	if can_deflect:

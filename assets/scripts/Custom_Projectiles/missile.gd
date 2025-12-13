@@ -134,8 +134,13 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area is Area2D and player_missile:
 		if area.is_in_group("Enemies"):
-			area.get_parent().enemy_damage(damage)
-			queue_free()
+			var enemy_node = area.get_parent()
+			if enemy_node.has_method("enemy_damage"):
+				enemy_node.enemy_damage(damage)
+				queue_free()
+			elif area.has_method("enemy_damage"):
+				area.enemy_damage(damage)
+				queue_free()
 	elif player_missile:
 		queue_free()
 

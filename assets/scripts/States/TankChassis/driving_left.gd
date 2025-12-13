@@ -3,6 +3,7 @@ class_name Driving_left
 
 @onready var tank: CharacterBody2D = $"../.."
 @onready var chassis: AnimatedSprite2D = $"../../Chassis"
+@onready var wreck: Sprite2D = $"../../Wreck"
 @onready var chassis_hitbox: CollisionPolygon2D = $"../../ChassisHitbox"
 @onready var chassis_rotate_timer: Timer = $"../../Chassis_Rotate_Timer"
 
@@ -12,6 +13,8 @@ func set_chassis():
 	chassis.position = Vector2(-420.0, 0.0)
 	chassis_hitbox.scale.x = 1.0
 	chassis_hitbox.position.x = -35.0
+	wreck.flip_h = false
+	wreck.position.x = -120.0
 
 func enter_state():
 	set_chassis()

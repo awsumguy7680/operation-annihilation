@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7t74y04vndyj"
-path="res://.godot/imported/MGTracerRed.png-6860225ebddb8099894423b2784c097f.ctex"
+uid="uid://63f12wv811po"
+path="res://.godot/imported/RunwaySection.png-22bb81b84a7a2c3a6f4b6be979c2461c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/MGTracerRed.png"
-dest_files=["res://.godot/imported/MGTracerRed.png-6860225ebddb8099894423b2784c097f.ctex"]
+source_file="res://assets/sprites/RunwaySection.png"
+dest_files=["res://.godot/imported/RunwaySection.png-22bb81b84a7a2c3a6f4b6be979c2461c.ctex"]
 
 [params]
 

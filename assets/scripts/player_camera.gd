@@ -1,17 +1,18 @@
 extends Camera2D
 
-var zoomed_in = true
+var zoom_spd = 0.01
+var max_zoom = Vector2(0.3, 0.3)
+var min_zoom = Vector2(0.05, 0.05)
 
 var current_vehicle = null
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.keycode == KEY_I and event.is_pressed() and zoomed_in == true:
-			zoom = Vector2(0.1, 0.1)
-			zoomed_in = false
-		elif event.keycode == KEY_I and event.is_pressed() and zoomed_in == false:
-			zoom = Vector2(0.3, 0.3)
-			zoomed_in = true
+func _unhandled_input(event: InputEvent):
+	if event.is_action_pressed("zoom_in"):
+		zoom += Vector2(zoom_spd, zoom_spd)
+		zoom = clamp(zoom, min_zoom, max_zoom)
+	elif event.is_action_pressed("zoom_out"):
+		zoom -= Vector2(zoom_spd, zoom_spd)
+		zoom = clamp(zoom, min_zoom, max_zoom)
 
 func _on_main_scene_child_entered_tree(new_child: Node):
 	if new_child is CharacterBody2D:

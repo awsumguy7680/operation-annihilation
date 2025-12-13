@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7t74y04vndyj"
-path="res://.godot/imported/MGTracerRed.png-6860225ebddb8099894423b2784c097f.ctex"
+uid="uid://dwvead16yv77v"
+path="res://.godot/imported/UGV-RFV(Gunfire).png-ef2f6d09da68d40a3859d0f1dcd4a238.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/MGTracerRed.png"
-dest_files=["res://.godot/imported/MGTracerRed.png-6860225ebddb8099894423b2784c097f.ctex"]
+source_file="res://assets/sprites/UGV-RFV(Gunfire).png"
+dest_files=["res://.godot/imported/UGV-RFV(Gunfire).png-ef2f6d09da68d40a3859d0f1dcd4a238.ctex"]
 
 [params]
 

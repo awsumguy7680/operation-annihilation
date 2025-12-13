@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://dqxju8y3m5gx2"]
+[gd_scene load_steps=19 format=4 uid="uid://dqxju8y3m5gx2"]
 
 [ext_resource type="Texture2D" uid="uid://b6shodquyi54y" path="res://assets/sprites/New Piskel-1.png.png" id="2_lie5n"]
 [ext_resource type="Texture2D" uid="uid://b4e5dsl7lyxle" path="res://assets/sprites/Crosshair.png" id="4_4icut"]
@@ -9,6 +9,9 @@
 [ext_resource type="Script" uid="uid://dlu167c1o3gbm" path="res://assets/scripts/hud.gd" id="7_hwj63"]
 [ext_resource type="PackedScene" uid="uid://bbkpclmd1mwsm" path="res://assets/pause_menu.tscn" id="7_xyfl3"]
 [ext_resource type="Texture2D" uid="uid://cgmoeu4jokfsn" path="res://assets/sprites/TankShellHUDIcon.png" id="8_hwj63"]
+[ext_resource type="Texture2D" uid="uid://qx41rtuh2fcp" path="res://assets/sprites/GuardTower.png" id="10_p0u2x"]
+[ext_resource type="Texture2D" uid="uid://63f12wv811po" path="res://assets/sprites/RunwaySection.png" id="11_wb3wn"]
+[ext_resource type="PackedScene" uid="uid://c7v4mwa7ersvv" path="res://assets/ugv_rfv.tscn" id="12_5jtor"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4877k"]
 resource_name = "Tile0"
@@ -80,11 +83,11 @@ mesh = SubResource("QuadMesh_2g02s")
 texture = SubResource("GradientTexture2D_hwj63")
 
 [node name="UGV-MG2" parent="." instance=ExtResource("4_6ftv3")]
-position = Vector2(11776, -196)
+position = Vector2(34832, -196)
 facing_left = true
 
 [node name="UGV-AT2" parent="." instance=ExtResource("7_2g02s")]
-position = Vector2(14499, -230)
+position = Vector2(37281, -230)
 facing_left = true
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
@@ -97,13 +100,15 @@ script = ExtResource("6_qwo2b")
 
 [node name="HUD" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 60.0
-offset_top = 27.0
-offset_right = 3656.6665
-offset_bottom = 2013.6665
+anchor_left = 0.052083332
+anchor_top = 0.041666668
+anchor_right = 0.9887153
+anchor_bottom = 0.96141976
+offset_right = 2517.6665
+offset_bottom = 1390.6665
 scale = Vector2(0.3, 0.3)
 script = ExtResource("7_hwj63")
+metadata/_edit_use_anchors_ = true
 
 [node name="LaserCharge" type="RichTextLabel" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -249,11 +254,82 @@ horizontal_alignment = 1
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("7_xyfl3")]
 visible = false
-offset_left = 421.0
-offset_top = -11.999996
-offset_right = 3366.0
-offset_bottom = 1504.0
+anchors_preset = -1
+anchor_left = 0.3654514
+anchor_top = -0.018518513
+anchor_right = 0.62109375
+anchor_bottom = 0.2154321
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 2650.5
+offset_bottom = 1364.4
 scale = Vector2(0.1, 0.1)
+metadata/_edit_use_anchors_ = true
+
+[node name="DeathScreen" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchor_left = 0.08203125
+anchor_top = 0.18209876
+anchor_right = 0.91796875
+anchor_bottom = 0.81790125
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="YouDied" type="Label" parent="CanvasLayer/DeathScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.26012462
+anchor_top = 0.38349515
+anchor_right = 0.7522784
+anchor_bottom = 0.85679615
+offset_left = -1.5258789e-05
+offset_bottom = 3.0517578e-05
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9254902, 0, 0, 1)
+theme_override_font_sizes/font_size = 70
+text = "OBLITERATED
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Airbase" type="Node2D" parent="."]
+
+[node name="GuardTower" type="Sprite2D" parent="Airbase"]
+z_index = -10
+position = Vector2(-2933, -599)
+texture = ExtResource("10_p0u2x")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Airbase"]
+position = Vector2(2932, 60)
+texture = ExtResource("11_wb3wn")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Airbase"]
+position = Vector2(5492, 60)
+texture = ExtResource("11_wb3wn")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Airbase"]
+position = Vector2(10612, 60)
+texture = ExtResource("11_wb3wn")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Airbase"]
+position = Vector2(13172, 60)
+texture = ExtResource("11_wb3wn")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Airbase"]
+position = Vector2(14452, 60)
+texture = ExtResource("11_wb3wn")
+flip_h = true
+
+[node name="Sprite2D5" type="Sprite2D" parent="Airbase"]
+position = Vector2(8052, 60)
+texture = ExtResource("11_wb3wn")
+
+[node name="UGV-RFV" parent="." instance=ExtResource("12_5jtor")]
+position = Vector2(-3629, -280)
 
 [connection signal="child_entered_tree" from="." to="PlayerCamera" method="_on_main_scene_child_entered_tree"]
 [connection signal="child_entered_tree" from="." to="CanvasLayer/HUD" method="_on_main_scene_child_entered_tree"]

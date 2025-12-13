@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7t74y04vndyj"
-path="res://.godot/imported/MGTracerRed.png-6860225ebddb8099894423b2784c097f.ctex"
+uid="uid://1x3imjjrxsbf"
+path="res://.godot/imported/UMBT(Wreck).png-32008514b4306e5ed2ba3e687877e784.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/MGTracerRed.png"
-dest_files=["res://.godot/imported/MGTracerRed.png-6860225ebddb8099894423b2784c097f.ctex"]
+source_file="res://assets/sprites/UMBT(Wreck).png"
+dest_files=["res://.godot/imported/UMBT(Wreck).png-32008514b4306e5ed2ba3e687877e784.ctex"]
 
 [params]
 

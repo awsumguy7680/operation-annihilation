@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bgfifbftyygpt" path="res://assets/scripts/Custom_Projectiles/bullet.gd" id="1_5orsb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hpu58"]
+size = Vector2(20, 1)
 
 [node name="Bullet" type="Area2D"]
 process_mode = 1
@@ -10,7 +11,7 @@ z_index = -3
 script = ExtResource("1_5orsb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-offset = Vector2(-75, 5)
+offset = Vector2(0, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hpu58")
