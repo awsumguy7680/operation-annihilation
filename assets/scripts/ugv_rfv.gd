@@ -3,10 +3,13 @@ extends Area2D
 #Constants
 const SPEED = 250
 const STOP_DISTANCE: float = 5000
-const GUN_SHOOT_DISTANCE: float = 8000.0
-const MSL_SHOOT_DISTANCE: float = 12000.0
-const BULLET = preload("res://assets/bullet.tscn")
+const GUN_SHOOT_DISTANCE: float = 12000.0
+const MSL_SHOOT_DISTANCE: float = 15000.0
+var BULLET = Preloader.BULLET
+var MISSILE = Preloader.MISSILE
 const BULLET_SPRITE = preload("res://assets/sprites/MGTracerRed.png")
+const RFV_MSL_SPRITE_FRAMES = preload("res://assets/sprites/RFV_GTGM.tres")
+const ROCKET_MOTOR_LOOP = preload("res://assets/sounds/rocketmotorloop.mp3")
 
 #Self Variables
 var is_shooting = false
@@ -23,10 +26,11 @@ var player_target = null
 @onready var chassis: AnimatedSprite2D = $Chassis
 @onready var turret: Sprite2D = $Turret
 @onready var muzzle: Marker2D = $Turret/Chaingun/Muzzle
+@onready var launch_tube: Marker2D = $Turret/LaunchTube
 @onready var chaingun: AnimatedSprite2D = $Turret/Chaingun
 @onready var hitbox: CollisionPolygon2D = $Hitbox
 @onready var wreck: Sprite2D = $Wreck
-@onready var sfx: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var gun_sound: AudioStreamPlayer2D = $Turret/Chaingun/GunSound
 @onready var main_scene = get_tree().current_scene
 
 func _ready():
@@ -35,8 +39,9 @@ func _ready():
 		chassis.offset.x = -100.0
 		turret.flip_h = true
 		turret.offset.x = -100.0
-		chaingun.flip_h = true
-		chaingun.offset.x = -22.0
+		launch_tube.position.x = -166.0
+		launch_tube.rotation_degrees = -135.0
+		chaingun.flip_v = true
 		chaingun.position.x = -190.0
 		hitbox.scale.x = -1.0
 		hitbox.position.x = -80.0
@@ -49,20 +54,23 @@ func _process(delta: float):
 	if health > 0:
 		if player_target:
 			var distance = global_position.distance_to(player_target.global_position)
-		
-			#Makes MG turret always point at the player
+			
+			
+			chaingun.look_at(player_target.global_position)
+			#Makes chaingun always point at the player
 			if player_target:
-				chaingun.look_at(player_target.position)
-				
 				if facing_left:
-					chaingun.rotation_degrees = clamp(chaingun.rotation_degrees, 15.0, -20.0)
+					if chaingun.rotation_degrees <= 165.0 or chaingun.rotation_degrees >= 200.0:
+						past_max_gun_angle = true
+					else:
+						past_max_gun_angle = false
+					chaingun.rotation_degrees = clamp(chaingun.rotation_degrees, 165.0, 200.0)
 				else:
+					if chaingun.rotation_degrees <= -20.0 or chaingun.rotation_degrees >= 15.0:
+						past_max_gun_angle = true
+					else:
+						past_max_gun_angle = false
 					chaingun.rotation_degrees = clamp(chaingun.rotation_degrees, -20.0, 15.0)
-				
-				if abs(chaingun.rotation_degrees) >= 15.0 or abs(chaingun.rotation_degrees) >= 20.0:
-					past_max_gun_angle = true
-				else:
-					past_max_gun_angle = false
 			
 			# Checks distance between the vehicle and the player, stops within a certain distance.
 			if distance >= STOP_DISTANCE:
@@ -86,10 +94,18 @@ func _process(delta: float):
 				chaingun.stop()
 			
 			#Missiles
-			if distance <= MSL_SHOOT_DISTANCE and on_cooldown == false and msl_ammo > 0:
-				pass
-			else:
-				pass
+			if distance <= MSL_SHOOT_DISTANCE and on_cooldown == false and msl_ammo > 0 and player_target is Player_Tank:
+				msl_ammo -= 1
+				on_cooldown = true
+				var missile_instance: Missile = MISSILE.instantiate()
+				owner.add_child(missile_instance)
+				missile_instance.transform = launch_tube.global_transform
+				missile_instance.scale = Vector2(1.0, 1.0,)
+				if missile_instance:
+					missile_instance.custom_missile_static_properties(RFV_MSL_SPRITE_FRAMES, Vector2(0.0, 0.0), Vector2(110.0, 40.0), Vector2(-5.0, 0.0), 10, ROCKET_MOTOR_LOOP)
+					missile_instance.custom_missile_handler(false, 25, "OPTICAL", player_target, 9000, 100, 2, 1.8)
+				await get_tree().create_timer(2, false).timeout
+				on_cooldown = false
 		else:
 			for child in main_scene.get_children():
 				if child is CharacterBody2D:
@@ -117,7 +133,7 @@ func chaingun_shooting():
 		bullet27mm.transform = muzzle.global_transform
 		bullet27mm.find_child("Sprite2D").scale.x = 2.0
 		gun_ammo -= 1
-		if is_shooting == false:
+		if is_shooting == false or health <= 0:
 			break
 
 func enemy_damage(damage: int):

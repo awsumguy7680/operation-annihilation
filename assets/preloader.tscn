@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyom0idj4hj8k"]
+
+[ext_resource type="Script" uid="uid://cxt32et1046ah" path="res://assets/scripts/preloader.gd" id="1_lhshc"]
+
+[node name="Preloader" type="Node"]
+script = ExtResource("1_lhshc")

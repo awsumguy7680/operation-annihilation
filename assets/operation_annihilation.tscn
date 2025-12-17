@@ -329,7 +329,11 @@ position = Vector2(8052, 60)
 texture = ExtResource("11_wb3wn")
 
 [node name="UGV-RFV" parent="." instance=ExtResource("12_5jtor")]
-position = Vector2(-3629, -280)
+position = Vector2(-21337, -285)
+
+[node name="UGV-RFV2" parent="." instance=ExtResource("12_5jtor")]
+position = Vector2(30561, -301)
+facing_left = true
 
 [connection signal="child_entered_tree" from="." to="PlayerCamera" method="_on_main_scene_child_entered_tree"]
 [connection signal="child_entered_tree" from="." to="CanvasLayer/HUD" method="_on_main_scene_child_entered_tree"]

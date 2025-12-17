@@ -58,6 +58,9 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.33979172, 0.33979172)
 texture = SubResource("CompressedTexture2D_xpd6c")
+expand_mode = 1
+stretch_mode = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -5
@@ -202,7 +205,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="WeaponsSelector" type="Panel" parent="Menu"]
+[node name="WeaponsSelectorPanel" type="Panel" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.43459916
@@ -213,10 +216,19 @@ grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/WeaponsSelector"]
+[node name="WeaponsSelector" type="HBoxContainer" parent="Menu/WeaponsSelectorPanel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 150.0
+offset_bottom = 70.0
+metadata/_edit_use_anchors_ = true
+
+[node name="OptionButton" type="OptionButton" parent="Menu/WeaponsSelectorPanel/WeaponsSelector"]
+custom_minimum_size = Vector2(150, 70)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+alignment = 1
+icon_alignment = 1
 
 [node name="DescriptionPanel" type="Panel" parent="Menu"]
 layout_mode = 1

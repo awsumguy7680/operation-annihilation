@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Music="*res://assets/Music.tscn"
 PlayerVehicleLoader="*res://assets/player_vehicle_loader.tscn"
+Preloader="*res://assets/preloader.tscn"
 
 [display]
 
@@ -29,7 +30,7 @@ window/stretch/mode="canvas_items"
 folder_colors={
 "res://assets/": "red",
 "res://assets/scripts/": "purple",
-"res://assets/scripts/Custom_Projectiles/": "green",
+"res://assets/scripts/CustomizableObjects/": "green",
 "res://assets/scripts/States/": "pink",
 "res://assets/sounds/": "yellow",
 "res://assets/sprites/": "blue"

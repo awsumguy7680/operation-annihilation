@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfl08euj4kdeo"
-path="res://.godot/imported/AH7(Startup).png-24d557908902833dd0cf840f06b82049.ctex"
+uid="uid://c0233i7wj476n"
+path="res://.godot/imported/AH-7(Body).png-f894658e1a35875c63216298a48c87b7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/AH7(Startup).png"
-dest_files=["res://.godot/imported/AH7(Startup).png-24d557908902833dd0cf840f06b82049.ctex"]
+source_file="res://assets/sprites/AH-7(Body).png"
+dest_files=["res://.godot/imported/AH-7(Body).png-f894658e1a35875c63216298a48c87b7.ctex"]
 
 [params]
 

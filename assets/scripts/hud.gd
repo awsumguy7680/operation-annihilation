@@ -51,6 +51,9 @@ func _process(_delta: float):
 			warning_label.visible = false
 			
 
+func death_screen():
+	pass
+
 func _on_main_scene_child_entered_tree(node: Node):
 	if node is CharacterBody2D:
 		current_vehicle = node

@@ -2,7 +2,7 @@ class_name Helicopter extends CharacterBody2D
 
 #Bodies
 @onready var tail_rotor: Sprite2D = $Body/TailRotor
-var incoming_missiles_by_type: Array = ["IR x", "RADAR x"]
+var incoming_missiles_by_type: Dictionary = {"IR": 0, "RADAR": 0}
 
 #Constants
 const SPEED = 3000.0
@@ -14,6 +14,8 @@ const MAX_PITCH = 10.0
 @export var nose_minigun_ammo: int
 @export var engine_on: bool
 var despawning = false
+var flying_left = true
+var is_rotating = false
 var incoming_missiles: int = 0
 
 #UI
@@ -76,21 +78,31 @@ func _process(_delta: float):
 	else:
 		tail_rotor.rotation_degrees -= 20
 		
+		
 		var mouse_pos = get_global_mouse_position()
 		nose_minigun.look_at(mouse_pos)
 		
-		if nose_minigun.rotation_degrees >= 190.0:
-			nose_minigun.rotation_degrees = 190.0
-		elif nose_minigun.rotation_degrees <= 125.0:
-			nose_minigun.rotation_degrees = 125.0
+		if flying_left:
+			if nose_minigun.rotation_degrees >= 190.0:
+				nose_minigun.rotation_degrees = 190.0
+			elif nose_minigun.rotation_degrees <= 125.0:
+				nose_minigun.rotation_degrees = 125.0
+		else:
+			if nose_minigun.rotation_degrees >= 415.0:
+				nose_minigun.rotation_degrees = 415.0
+			elif nose_minigun.rotation_degrees <= 350.0:
+				nose_minigun.rotation_degrees = 350.0
 
-#func _input(event: InputEvent):
-	#pass
+func _input(event: InputEvent):
+	pass
+
+func spawn_with_loadout(hardpoint1weapon, hardpoint2weapon):
+	pass
 
 func damage(damage_amount: int):
 	health -= damage_amount
 
-func msl_alert(incoming: bool, _missile):
+func msl_alert(incoming: bool, missile, missile_guidance):
 	if incoming:
 		incoming_missiles += 1
 	else:

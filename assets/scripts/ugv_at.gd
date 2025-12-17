@@ -2,7 +2,7 @@ extends Node2D
 
 #Constants
 const SPEED = 300
-const MISSILE = preload("res://assets/missile.tscn")
+var MISSILE = Preloader.MISSILE
 const AT_MISSILE_SPRITE_FRAMES = preload("res://assets/sprites/AT_Missile_Sprite_Frames.tres")
 const ROCKETMOTORLOOP = preload("res://assets/sounds/rocketmotorloop.mp3")
 
@@ -80,8 +80,6 @@ func _process(delta: float):
 					missile_instance.custom_missile_handler(false, 50, "OPTICAL", player_target, 10000, 200, 3, 2.0)
 				await get_tree().create_timer(3, false).timeout
 				on_cooldown = false
-			elif distance > SHOOT_DISTANCE or health <= 0:
-				pass
 		else:
 			for child in main_scene.get_children():
 				if child is CharacterBody2D:

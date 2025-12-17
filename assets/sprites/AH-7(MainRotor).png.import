@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6rhi65t8dyp4"
-path="res://.godot/imported/AH-7NimbleBird.png-ea212f09c4d2ebfb28b8b21b89ca02ae.ctex"
+uid="uid://ut5thwx2bif"
+path="res://.godot/imported/AH-7(MainRotor).png-0acae90355a08f4456b8928c90af0765.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/AH-7NimbleBird.png"
-dest_files=["res://.godot/imported/AH-7NimbleBird.png-ea212f09c4d2ebfb28b8b21b89ca02ae.ctex"]
+source_file="res://assets/sprites/AH-7(MainRotor).png"
+dest_files=["res://.godot/imported/AH-7(MainRotor).png-0acae90355a08f4456b8928c90af0765.ctex"]
 
 [params]
 

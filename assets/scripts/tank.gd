@@ -2,8 +2,8 @@ class_name Player_Tank extends CharacterBody2D
 
 #Constants
 const SPEED = 600.0
-const BULLET = preload("res://assets/bullet.tscn")
-const MISSILE = preload("res://assets/missile.tscn")
+var BULLET = Preloader.BULLET
+var MISSILE = Preloader.MISSILE
 const SHELL125_SPRITE = preload("res://assets/sprites/UMBTShell.png")
 const MINIGUN_BULLET_SPRITE = preload("res://assets/sprites/MinigunRound.png")
 const GTGM_MISSILE_SPRITES = preload("res://assets/sprites/UMBT_GTGM_Sprite_Frames.tres")
@@ -157,7 +157,7 @@ func _physics_process(delta: float) -> void:
 				missiles_list.erase(key)
 			elif m is Area2D and is_instance_valid(m):
 				closest_missiles.append(m.global_position.distance_to(global_position))
-
+		
 		if missiles_list.size() > 0:
 			if closest_missiles.size() > 0:
 				var closest_msl_dist = closest_missiles.min()
@@ -216,7 +216,7 @@ func _process(_delta: float) -> void:
 			engine_idle_sound.play()
 		
 		#minigun rapid fire handler, see func _input for rest of minigun code
-		if shooting and minigun_shooting == true and minigun_ammo > 0 and current_weapon == "Minigun" and not is_turret_rotating and health > 0:
+		if shooting and minigun_shooting == true and minigun_ammo > 0 and current_weapon == "Minigun" and not is_turret_rotating:
 			minigun_muzzle_flash.play()
 			var bullet762 = BULLET.instantiate()
 			self.get_parent().add_child(bullet762)
@@ -235,8 +235,11 @@ func _process(_delta: float) -> void:
 			minigun_muzzle_flash.stop()
 		
 		#Target locking
-		if crosshair.over_area == true and current_weapon == "GTGM" and health > 0:
-			potential_target = crosshair.target_area.get_parent()
+		if crosshair.over_area == true and current_weapon == "GTGM":
+			if crosshair.target_area.get_parent().name == "MainScene":
+				potential_target = crosshair.target_area
+			else:
+				potential_target = crosshair.target_area.get_parent()
 			crosshair.global_position = crosshair.global_position.lerp(potential_target.global_position, 0.8)
 			if lock_on_timer.is_stopped() and target == null:
 				lock_on_timer.start()

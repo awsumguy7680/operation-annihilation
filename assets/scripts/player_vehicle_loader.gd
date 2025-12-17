@@ -4,8 +4,8 @@ extends Node
 var current_loaded_vehicle = null
 var loaded_vehicle = false
 
-const tank = preload("res://assets/Tank.tscn")
-const heli = preload("res://assets/Helicopter.tscn")
+const TANK = preload("res://assets/Tank.tscn")
+const HELI = preload("res://assets/Helicopter.tscn")
 
 func assign_selected(vehicle_name: String):
 	current_selected_vehicle = vehicle_name
@@ -13,10 +13,10 @@ func assign_selected(vehicle_name: String):
 func load_vehicle(vehicle_name: String):
 	var main = get_tree().current_scene
 	if vehicle_name == "Tank":
-		current_loaded_vehicle = tank.instantiate()
+		current_loaded_vehicle = TANK.instantiate()
 		main.add_child(current_loaded_vehicle)
 	elif vehicle_name == "Helicopter":
-		current_loaded_vehicle = heli.instantiate()
+		current_loaded_vehicle = HELI.instantiate()
 		main.add_child(current_loaded_vehicle)
 
 func _process(_delta):

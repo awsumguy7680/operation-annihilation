@@ -4,7 +4,7 @@ extends Node2D
 const SPEED = 300
 const STOP_DISTANCE: float = 5000.0
 const SHOOT_DISTANCE: float = 7000.0
-const BULLET = preload("res://assets/bullet.tscn")
+var BULLET = Preloader.BULLET
 const BULLET_SPRITE = preload("res://assets/sprites/MGTracerGreen.png")
 
 #Self Variables

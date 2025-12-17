@@ -3,6 +3,7 @@ extends Control
 @onready var selected_vehicle_type: TextureRect = $SelectedVehicleType
 @onready var vehicle_name: Label = $VehicleName
 @onready var vehicle_specific_name: Label = $Menu/NamePanel/VehicleSpecificName
+@onready var weapons_selector: HBoxContainer = $Menu/WeaponsSelectorPanel/WeaponsSelector
 @onready var description: Label = $Menu/DescriptionPanel/Description
 @onready var spec_values_1: Label = $Menu/SpecValuesPanel/SpecValues1
 @onready var spec_values_2: Label = $Menu/SpecValuesPanel/SpecValues2
@@ -43,6 +44,7 @@ func _on_select_l_pressed() -> void:
 func set_vehicle(vehicle: String):
 	PlayerVehicleLoader.assign_selected(vehicle)
 	if vehicle == "Tank":
+		delete_hardpoints_and_selectors()
 		selected_vehicle_type.texture = tank_sprite
 		selected_vehicle_type.position = Vector2(150.0, -74.0)
 		vehicle_name.text = "TANK: UMBT"
@@ -64,8 +66,11 @@ func set_vehicle(vehicle: String):
 		Crew: 1-2
 		Designed: 2030"
 	elif vehicle == "Helicopter":
+		delete_hardpoints_and_selectors()
+		create_hardpoint(Vector2(1110, 1400), "Outer Pylon", 1)
+		create_hardpoint(Vector2(1110, 1325), "Inner Pylon", -1)
 		selected_vehicle_type.texture = helicopter_sprite
-		selected_vehicle_type.position = Vector2(150.0, -112.0)
+		selected_vehicle_type.position = Vector2(161.0, -101.0)
 		vehicle_name.text = "HELICOPTER: AH-7 NIMBLE BIRD"
 		vehicle_specific_name.text = "AH-7"
 		description.text = "The AH-7 'Nimble Bird' is a fast 
@@ -85,8 +90,24 @@ func set_vehicle(vehicle: String):
 		Crew: 2
 		Designed: 2027"
 
-func create_weapon_previews(num_weapons: int):
+#Adds a single hardpoint, call multiple times
+func create_hardpoint(pos: Vector2, hardpointname: String, zindex: int):
+	var hardpoint = Marker2D.new()
+	selected_vehicle_type.add_child(hardpoint)
+	hardpoint.position = pos
+	hardpoint.name = hardpointname
+	hardpoint.z_index = zindex
+
+func create_weapon_selector(selectorname):
 	pass
+
+func delete_hardpoints_and_selectors():
+	for i in selected_vehicle_type.get_children():
+		if i is Marker2D:
+			i.queue_free()
+	for v in weapons_selector.get_children():
+		if v is OptionButton:
+			v.queue_free()
 
 #Start Game
 func _on_deploy_button_pressed() -> void:
