@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cnr7eyc0oiemn"]
+
+[node name="RocketPod" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="."]

@@ -24,8 +24,12 @@ var incoming_missiles: int = 0
 
 #weapons
 @onready var nose_minigun: Sprite2D = $Body/NoseMinigun
-var weapons: Array = ["Nose Minigun", "Empty", "Empty"]
-var current_weapon = weapons[0]
+var weapons: Dictionary = {}
+var current_weapon = "Nose Minigun"
+
+func _ready() -> void:
+	weapons["Nose Minigun"] = nose_minigun_ammo
+	print(weapons)
 
 func _physics_process(_delta: float):
 	# Get the input direction and handle the movement/deceleration.
@@ -76,8 +80,10 @@ func _process(_delta: float):
 		get_tree().change_scene_to_file("res://assets/selection_menu.tscn")
 		queue_free()
 	else:
-		tail_rotor.rotation_degrees -= 20
-		
+		if flying_left:
+			tail_rotor.rotation_degrees -= 20
+		else:
+			tail_rotor.rotation_degrees += 20
 		
 		var mouse_pos = get_global_mouse_position()
 		nose_minigun.look_at(mouse_pos)
@@ -93,11 +99,11 @@ func _process(_delta: float):
 			elif nose_minigun.rotation_degrees <= 350.0:
 				nose_minigun.rotation_degrees = 350.0
 
-func _input(event: InputEvent):
-	pass
+#func _input(event: InputEvent):
+	#pass
 
-func spawn_with_loadout(hardpoint1weapon, hardpoint2weapon):
-	pass
+#func _ready():
+	#spawn_with_loadout(PlayerVehicleLoader.loadout)
 
 func damage(damage_amount: int):
 	health -= damage_amount

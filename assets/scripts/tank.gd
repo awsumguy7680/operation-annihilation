@@ -310,7 +310,7 @@ func _input(event) -> void:
 						var GTGM: Missile = MISSILE.instantiate()
 						self.get_parent().add_child(GTGM)
 						GTGM.custom_missile_static_properties(GTGM_MISSILE_SPRITES, Vector2(630, 65), Vector2(120, 70), Vector2(-10, 0), 15, ROCKETMOTORLOOP)
-						GTGM.custom_missile_handler(true, 25, "OPTICAL", target, 10000, 120, 3, 3.5)
+						GTGM.custom_missile_handler(true, 25, "OPTICAL", target, 10000, 120, 3, 3.5, true)
 						GTGM.find_child("AnimatedSprite2D").flip_h = true
 						GTGM.global_transform = gtgm_launch_bay.global_transform
 						if turret_facing_left:

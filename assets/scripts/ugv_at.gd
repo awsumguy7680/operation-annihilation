@@ -77,7 +77,7 @@ func _process(delta: float):
 				on_cooldown = true
 				if missile_instance:
 					missile_instance.custom_missile_static_properties(AT_MISSILE_SPRITE_FRAMES, Vector2(50, 85), Vector2(220, 50), Vector2(30, 0), 15, ROCKETMOTORLOOP)
-					missile_instance.custom_missile_handler(false, 50, "OPTICAL", player_target, 10000, 200, 3, 2.0)
+					missile_instance.custom_missile_handler(false, 50, "OPTICAL", player_target, 10000, 200, 3, 2.0, true)
 				await get_tree().create_timer(3, false).timeout
 				on_cooldown = false
 		else:

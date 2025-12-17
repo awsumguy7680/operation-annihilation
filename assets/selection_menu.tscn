@@ -217,18 +217,33 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xpd6c")
 metadata/_edit_use_anchors_ = true
 
 [node name="WeaponsSelector" type="HBoxContainer" parent="Menu/WeaponsSelectorPanel"]
-layout_mode = 0
-offset_right = 150.0
-offset_bottom = 70.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0064
+anchor_top = 0.28735632
+anchor_right = 0.9856
+anchor_bottom = 0.74712646
+alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="OptionButton" type="OptionButton" parent="Menu/WeaponsSelectorPanel/WeaponsSelector"]
-custom_minimum_size = Vector2(150, 70)
+[node name="OptionNames" type="HBoxContainer" parent="Menu/WeaponsSelectorPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0656
+anchor_top = -0.0057471264
+anchor_right = 0.9856
+anchor_bottom = 0.25862068
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Menu/WeaponsSelectorPanel/OptionNames"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 2
 size_flags_vertical = 0
-alignment = 1
-icon_alignment = 1
+text = "Option 1"
+horizontal_alignment = 3
+vertical_alignment = 1
 
 [node name="DescriptionPanel" type="Panel" parent="Menu"]
 layout_mode = 1

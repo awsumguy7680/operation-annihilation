@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1n5c1b1ubaxv"
-path="res://.godot/imported/AH-7NimbleBird.png-ea212f09c4d2ebfb28b8b21b89ca02ae.ctex"
+uid="uid://dnf850hbtju0l"
+path="res://.godot/imported/Hangar.png-26dff7af5e124da096b519da699df60d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/AH-7NimbleBird.png"
-dest_files=["res://.godot/imported/AH-7NimbleBird.png-ea212f09c4d2ebfb28b8b21b89ca02ae.ctex"]
+source_file="res://assets/sprites/Hangar.png"
+dest_files=["res://.godot/imported/Hangar.png-26dff7af5e124da096b519da699df60d.ctex"]
 
 [params]
 

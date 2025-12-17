@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://dqxju8y3m5gx2"]
+[gd_scene load_steps=20 format=4 uid="uid://dqxju8y3m5gx2"]
 
 [ext_resource type="Texture2D" uid="uid://b6shodquyi54y" path="res://assets/sprites/New Piskel-1.png.png" id="2_lie5n"]
 [ext_resource type="Texture2D" uid="uid://b4e5dsl7lyxle" path="res://assets/sprites/Crosshair.png" id="4_4icut"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://qx41rtuh2fcp" path="res://assets/sprites/GuardTower.png" id="10_p0u2x"]
 [ext_resource type="Texture2D" uid="uid://63f12wv811po" path="res://assets/sprites/RunwaySection.png" id="11_wb3wn"]
 [ext_resource type="PackedScene" uid="uid://c7v4mwa7ersvv" path="res://assets/ugv_rfv.tscn" id="12_5jtor"]
+[ext_resource type="Texture2D" uid="uid://dnf850hbtju0l" path="res://assets/sprites/Hangar.png" id="12_l8cjo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4877k"]
 resource_name = "Tile0"
@@ -324,9 +325,26 @@ position = Vector2(14452, 60)
 texture = ExtResource("11_wb3wn")
 flip_h = true
 
+[node name="Sprite2D8" type="Sprite2D" parent="Airbase"]
+position = Vector2(17012, 60)
+texture = ExtResource("11_wb3wn")
+flip_h = true
+
 [node name="Sprite2D5" type="Sprite2D" parent="Airbase"]
 position = Vector2(8052, 60)
 texture = ExtResource("11_wb3wn")
+
+[node name="Hangar" type="Sprite2D" parent="Airbase"]
+z_index = -4
+position = Vector2(10000, -1200)
+scale = Vector2(2, 2)
+texture = ExtResource("12_l8cjo")
+
+[node name="Hangar2" type="Sprite2D" parent="Airbase"]
+z_index = -4
+position = Vector2(15000, -1200)
+scale = Vector2(2, 2)
+texture = ExtResource("12_l8cjo")
 
 [node name="UGV-RFV" parent="." instance=ExtResource("12_5jtor")]
 position = Vector2(-21337, -285)

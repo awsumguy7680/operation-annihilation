@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1n5c1b1ubaxv"
-path="res://.godot/imported/AH-7NimbleBird.png-ea212f09c4d2ebfb28b8b21b89ca02ae.ctex"
+uid="uid://bnvasyhcb3fvv"
+path="res://.godot/imported/RKT25Pod.png-9f38f3cc4c9cc78e9129d86da6d1f0be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/AH-7NimbleBird.png"
-dest_files=["res://.godot/imported/AH-7NimbleBird.png-ea212f09c4d2ebfb28b8b21b89ca02ae.ctex"]
+source_file="res://assets/sprites/RKT25Pod.png"
+dest_files=["res://.godot/imported/RKT25Pod.png-9f38f3cc4c9cc78e9129d86da6d1f0be.ctex"]
 
 [params]
 

@@ -103,7 +103,7 @@ func _process(delta: float):
 				missile_instance.scale = Vector2(1.0, 1.0,)
 				if missile_instance:
 					missile_instance.custom_missile_static_properties(RFV_MSL_SPRITE_FRAMES, Vector2(0.0, 0.0), Vector2(110.0, 40.0), Vector2(-5.0, 0.0), 10, ROCKET_MOTOR_LOOP)
-					missile_instance.custom_missile_handler(false, 25, "OPTICAL", player_target, 9000, 100, 2, 1.8)
+					missile_instance.custom_missile_handler(false, 25, "OPTICAL", player_target, 9000, 100, 2, 1.8, true)
 				await get_tree().create_timer(2, false).timeout
 				on_cooldown = false
 		else:
