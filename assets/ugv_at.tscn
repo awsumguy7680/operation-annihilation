@@ -84,10 +84,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wml84"]
 size = Vector2(400, 310)
 
-[node name="UGV-AT" type="Node2D" groups=["Enemies", "Enemy_Vehicles"]]
+[node name="UGV-AT" type="Node2D" groups=["Enemies", "Enemy_Vehicles", "Ground_Enemies"]]
 script = ExtResource("1_7dsib")
 health = 100
 armor = 1
+ammo = 4
 value = 5
 
 [node name="BodySprites" type="AnimatedSprite2D" parent="."]
@@ -102,10 +103,10 @@ frame = 6
 frame_progress = 1.0
 offset = Vector2(71, 87)
 
-[node name="Hitbox" type="Area2D" parent="." groups=["Enemies"]]
+[node name="Hitbox" type="Area2D" parent="." groups=["Enemies", "Ground_Enemies"]]
 collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["Enemies"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["Enemies", "Ground_Enemies"]]
 visible = false
 position = Vector2(-20, 5)
 shape = SubResource("RectangleShape2D_wml84")

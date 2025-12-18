@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://dqxju8y3m5gx2"]
+[gd_scene load_steps=24 format=4 uid="uid://dqxju8y3m5gx2"]
 
 [ext_resource type="Texture2D" uid="uid://b6shodquyi54y" path="res://assets/sprites/New Piskel-1.png.png" id="2_lie5n"]
 [ext_resource type="Texture2D" uid="uid://b4e5dsl7lyxle" path="res://assets/sprites/Crosshair.png" id="4_4icut"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c7v4mwa7ersvv" path="res://assets/ugv_rfv.tscn" id="12_5jtor"]
 [ext_resource type="Texture2D" uid="uid://dnf850hbtju0l" path="res://assets/sprites/Hangar.png" id="12_l8cjo"]
 [ext_resource type="Script" uid="uid://bavr5fp0r4vf6" path="res://assets/scripts/cloud_generator.gd" id="15_xus0i"]
+[ext_resource type="PackedScene" uid="uid://d0qb6r5dff3d8" path="res://assets/uav_rl.tscn" id="16_0eadi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4877k"]
 resource_name = "Tile0"
@@ -66,7 +67,6 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="TargetFinder" type="CollisionShape2D" parent="Crosshair/Area2D"]
-visible = false
 shape = SubResource("CircleShape2D_xyfl3")
 
 [node name="Time2Lock" type="RichTextLabel" parent="Crosshair"]
@@ -356,13 +356,13 @@ position = Vector2(8052, 60)
 texture = ExtResource("11_wb3wn")
 
 [node name="Hangar" type="Sprite2D" parent="Airbase"]
-z_index = -4
+z_index = -6
 position = Vector2(10000, -1200)
 scale = Vector2(2, 2)
 texture = ExtResource("12_l8cjo")
 
 [node name="Hangar2" type="Sprite2D" parent="Airbase"]
-z_index = -4
+z_index = -6
 position = Vector2(15000, -1200)
 scale = Vector2(2, 2)
 texture = ExtResource("12_l8cjo")
@@ -385,6 +385,13 @@ facing_left = true
 script = ExtResource("15_xus0i")
 num_clouds = 50
 cloud_speed = 5.0
+
+[node name="UAV-RL" parent="." instance=ExtResource("16_0eadi")]
+position = Vector2(-15721, -1899)
+
+[node name="UAV-RL2" parent="." instance=ExtResource("16_0eadi")]
+position = Vector2(43620, -2385)
+facing_left = true
 
 [connection signal="child_entered_tree" from="." to="PlayerCamera" method="_on_main_scene_child_entered_tree"]
 [connection signal="child_entered_tree" from="." to="CanvasLayer/HUD" method="_on_main_scene_child_entered_tree"]

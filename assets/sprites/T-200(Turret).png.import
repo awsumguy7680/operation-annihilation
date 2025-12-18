@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7o8m4ot07n4k"
-path="res://.godot/imported/T200.png-85a21362081250fefa51bba09177dc06.ctex"
+uid="uid://cy3yhnis14xwh"
+path="res://.godot/imported/T-200(Turret).png-a64e7e7a840e833e538d7af3d811fa1a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/T200.png"
-dest_files=["res://.godot/imported/T200.png-85a21362081250fefa51bba09177dc06.ctex"]
+source_file="res://assets/sprites/T-200(Turret).png"
+dest_files=["res://.godot/imported/T-200(Turret).png-a64e7e7a840e833e538d7af3d811fa1a.ctex"]
 
 [params]
 

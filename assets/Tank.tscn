@@ -459,6 +459,8 @@ flip_v = true
 position = Vector2(680, 1.00172)
 rotation = -3.14159
 sprite_frames = SubResource("SpriteFrames_r26ri")
+frame = 8
+frame_progress = 1.0
 offset = Vector2(680, 45)
 
 [node name="125mmMuzzle" type="Marker2D" parent="Turret/Cannon"]

@@ -58,22 +58,20 @@ func _process(delta: float):
 		if player_target:
 			var distance = global_position.distance_to(player_target.global_position)
 			
-			
 			chaingun.look_at(player_target.global_position)
-			#Makes chaingun always point at the player
-			if player_target:
-				if facing_left:
-					if chaingun.rotation_degrees <= 165.0 or chaingun.rotation_degrees >= 200.0:
-						past_max_gun_angle = true
-					else:
-						past_max_gun_angle = false
-					chaingun.rotation_degrees = clamp(chaingun.rotation_degrees, 165.0, 200.0)
+			
+			if facing_left:
+				if chaingun.rotation_degrees <= 165.0 or chaingun.rotation_degrees >= 200.0:
+					past_max_gun_angle = true
 				else:
-					if chaingun.rotation_degrees <= -20.0 or chaingun.rotation_degrees >= 15.0:
-						past_max_gun_angle = true
-					else:
-						past_max_gun_angle = false
-					chaingun.rotation_degrees = clamp(chaingun.rotation_degrees, -20.0, 15.0)
+					past_max_gun_angle = false
+				chaingun.rotation_degrees = clamp(chaingun.rotation_degrees, 165.0, 200.0)
+			else:
+				if chaingun.rotation_degrees <= -20.0 or chaingun.rotation_degrees >= 15.0:
+					past_max_gun_angle = true
+				else:
+					past_max_gun_angle = false
+				chaingun.rotation_degrees = clamp(chaingun.rotation_degrees, -20.0, 15.0)
 			
 			# Checks distance between the vehicle and the player, stops within a certain distance.
 			if distance >= STOP_DISTANCE:
@@ -116,7 +114,6 @@ func _process(delta: float):
 					break
 	else:
 		#sfx.stop()
-		#muzzle_flash_sprite.stop()
 		chassis.visible = false
 		turret.visible = false
 		chaingun.visible = false

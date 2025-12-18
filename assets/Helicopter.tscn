@@ -1,12 +1,18 @@
-[gd_scene load_steps=28 format=3 uid="uid://dijf8w74hyuqt"]
+[gd_scene load_steps=60 format=3 uid="uid://dijf8w74hyuqt"]
 
 [ext_resource type="Script" uid="uid://qf8bjul1a8p0" path="res://assets/scripts/helicopter.gd" id="1_wfhoe"]
 [ext_resource type="Texture2D" uid="uid://beosj5culfn1r" path="res://assets/sprites/AH-7(Rotation).png" id="2_h5q58"]
 [ext_resource type="Texture2D" uid="uid://cxcb1ffooc8xh" path="res://assets/sprites/AH7TailRotor.png" id="3_0epbk"]
 [ext_resource type="Texture2D" uid="uid://ut5thwx2bif" path="res://assets/sprites/AH-7(MainRotor).png" id="4_ij4wk"]
+[ext_resource type="Texture2D" uid="uid://cvuitip3hum08" path="res://assets/sprites/AH7NoseMinigun(Firing).png" id="5_ohuxg"]
 [ext_resource type="Texture2D" uid="uid://bnake5rndekw2" path="res://assets/sprites/AH7NoseMinigun.png" id="5_wgx3d"]
+[ext_resource type="AudioStream" uid="uid://csuo72dtxldsk" path="res://assets/sounds/MinigunFireLoop.mp3" id="6_ajoqs"]
+[ext_resource type="Texture2D" uid="uid://c7c32dmnlac4m" path="res://assets/sprites/RKT50(Rotation).png" id="6_lyolw"]
+[ext_resource type="Texture2D" uid="uid://bkfa1a4isdri3" path="res://assets/sprites/AIM12(Rotation).png" id="7_1l51i"]
+[ext_resource type="AudioStream" uid="uid://pfjdfxxhaiwp" path="res://assets/sounds/MinigunSpoolUp.mp3" id="7_6hxar"]
 [ext_resource type="AudioStream" uid="uid://bfutrlk16738n" path="res://assets/sounds/helicopter1sound1.mp3" id="7_ij4wk"]
 [ext_resource type="Script" uid="uid://disoak8w0c8i2" path="res://assets/scripts/States/HeliRotation/heli_state_machine.gd" id="7_yf6if"]
+[ext_resource type="AudioStream" uid="uid://csovxky1gkjly" path="res://assets/sounds/MinigunSpoolDown.mp3" id="8_417ff"]
 [ext_resource type="Script" uid="uid://dn7jhnriip47i" path="res://assets/scripts/States/HeliRotation/flying_left.gd" id="8_yf6if"]
 [ext_resource type="Script" uid="uid://dmuy46wcimvau" path="res://assets/scripts/States/HeliRotation/rotate_heli_right.gd" id="9_cbpg5"]
 [ext_resource type="Script" uid="uid://cu8whyc3kwhmq" path="res://assets/scripts/States/HeliRotation/flying_right.gd" id="10_j8wnc"]
@@ -119,14 +125,205 @@ animations = [{
 "speed": 20.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_upf10"]
+atlas = ExtResource("5_wgx3d")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrubt"]
+atlas = ExtResource("5_ohuxg")
+region = Rect2(0, 0, 640, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7b4t"]
+atlas = ExtResource("5_ohuxg")
+region = Rect2(640, 0, 640, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnxav"]
+atlas = ExtResource("5_ohuxg")
+region = Rect2(0, 640, 640, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li1dw"]
+atlas = ExtResource("5_ohuxg")
+region = Rect2(640, 640, 640, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_07byn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_upf10")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrubt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7b4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnxav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li1dw")
+}],
+"loop": true,
+"name": &"firing",
+"speed": 20.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hxar"]
+atlas = ExtResource("6_lyolw")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_417ff"]
+atlas = ExtResource("6_lyolw")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_triyw"]
+atlas = ExtResource("6_lyolw")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ny3v"]
+atlas = ExtResource("6_lyolw")
+region = Rect2(0, 384, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvg3h"]
+atlas = ExtResource("6_lyolw")
+region = Rect2(384, 384, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6378"]
+atlas = ExtResource("6_lyolw")
+region = Rect2(768, 384, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vtpf"]
+atlas = ExtResource("6_lyolw")
+region = Rect2(0, 768, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3osg"]
+atlas = ExtResource("6_lyolw")
+region = Rect2(384, 768, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c2wwb"]
+atlas = ExtResource("6_lyolw")
+region = Rect2(768, 768, 384, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6wlml"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hxar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_417ff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_triyw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ny3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xvg3h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6378")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vtpf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3osg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c2wwb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wlml"]
+atlas = ExtResource("7_1l51i")
+region = Rect2(0, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tnlg"]
+atlas = ExtResource("7_1l51i")
+region = Rect2(384, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y20uc"]
+atlas = ExtResource("7_1l51i")
+region = Rect2(768, 0, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kcm6d"]
+atlas = ExtResource("7_1l51i")
+region = Rect2(0, 384, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlg84"]
+atlas = ExtResource("7_1l51i")
+region = Rect2(384, 384, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tecjv"]
+atlas = ExtResource("7_1l51i")
+region = Rect2(768, 384, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4gw0"]
+atlas = ExtResource("7_1l51i")
+region = Rect2(0, 768, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5361"]
+atlas = ExtResource("7_1l51i")
+region = Rect2(384, 768, 384, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqo63"]
+atlas = ExtResource("7_1l51i")
+region = Rect2(768, 768, 384, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_upf10"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wlml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tnlg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y20uc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kcm6d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlg84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tecjv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4gw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5361")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqo63")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h5q58"]
 size = Vector2(579, 20)
 
 [node name="Heli" type="CharacterBody2D"]
 script = ExtResource("1_wfhoe")
-health = 1500
+health = 2500
 armor = 25
 nose_minigun_ammo = 1000
+rockets = 32
 engine_on = true
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
@@ -138,6 +335,29 @@ scale = Vector2(9.999999, 9.999999)
 sprite_frames = SubResource("SpriteFrames_cbpg5")
 autoplay = "default"
 
+[node name="NoseMinigun" type="AnimatedSprite2D" parent="Body"]
+z_index = -1
+position = Vector2(-760, 210)
+rotation = 3.1415925
+sprite_frames = SubResource("SpriteFrames_07byn")
+autoplay = "default"
+offset = Vector2(50, 0)
+flip_h = true
+flip_v = true
+
+[node name="MinigunFireSound" type="AudioStreamPlayer2D" parent="Body/NoseMinigun"]
+stream = ExtResource("6_ajoqs")
+pitch_scale = 2.0
+
+[node name="MinigunSpoolUp" type="AudioStreamPlayer2D" parent="Body/NoseMinigun"]
+stream = ExtResource("7_6hxar")
+
+[node name="MinigunSpoolDown" type="AudioStreamPlayer2D" parent="Body/NoseMinigun"]
+stream = ExtResource("8_417ff")
+
+[node name="Muzzle" type="Marker2D" parent="Body/NoseMinigun"]
+position = Vector2(204.00003, 1.7834249e-05)
+
 [node name="TailRotor" type="Sprite2D" parent="Body"]
 z_index = 2
 position = Vector2(895, 4.9999995)
@@ -145,25 +365,31 @@ scale = Vector2(0.99999994, 0.99999994)
 texture = ExtResource("3_0epbk")
 offset = Vector2(5, 5)
 
-[node name="NoseMinigun" type="Sprite2D" parent="Body"]
-z_index = -1
-position = Vector2(-760, 209.99998)
-rotation = -3.1415925
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("5_wgx3d")
-offset = Vector2(50, 0)
-flip_h = true
-flip_v = true
-
 [node name="InnerPylon" type="Marker2D" parent="Body"]
 position = Vector2(-168.99997, 47)
 scale = Vector2(0.99999994, 0.99999994)
+
+[node name="RocketPod" type="AnimatedSprite2D" parent="Body/InnerPylon"]
+z_index = 3
+z_as_relative = false
+position = Vector2(168.99995, -47.000008)
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_6wlml")
 
 [node name="OuterPylon" type="Marker2D" parent="Body"]
 position = Vector2(-169, 122)
 scale = Vector2(0.99999994, 0.99999994)
 
+[node name="IRMissile" type="AnimatedSprite2D" parent="Body/OuterPylon"]
+z_index = 4
+z_as_relative = false
+position = Vector2(-11, -2)
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_upf10")
+offset = Vector2(18, -12)
+
 [node name="Hitbox" type="CollisionPolygon2D" parent="."]
+visible = false
 position = Vector2(359, 0)
 polygon = PackedVector2Array(-713, 140, -711, 222, -658, 297, -547, 331, -367, 336, -92, 288, 50, 124, 236, 66, 773, 66, 839, 164, 935, 153, 902, 50, 982, -196, 909, -193, 769, -22, 65, -53, -37, -152, -300, -149, -384, -48, -593, 2)
 
@@ -171,7 +397,7 @@ polygon = PackedVector2Array(-713, 140, -711, 222, -658, 297, -547, 331, -367, 3
 position = Vector2(-67.5, 416)
 shape = SubResource("RectangleShape2D_h5q58")
 
-[node name="Sounds" type="AudioStreamPlayer2D" parent="."]
+[node name="Rotor" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_ij4wk")
 volume_db = 10.0
 autoplay = true
@@ -197,5 +423,10 @@ script = ExtResource("10_j8wnc")
 [node name="Rotate_Heli_Left" type="Node" parent="HeliStateMachine"]
 script = ExtResource("11_wtoml")
 
+[node name="IR_Lock_Timer" type="Timer" parent="."]
+process_mode = 1
+one_shot = true
+
 [connection signal="timeout" from="RotateTimer" to="HeliStateMachine/Flying_Left" method="_on_rotate_timer_timeout"]
 [connection signal="timeout" from="RotateTimer" to="HeliStateMachine/Flying_Right" method="_on_rotate_timer_timeout"]
+[connection signal="timeout" from="IR_Lock_Timer" to="." method="_on_ir_lock_timer_timeout"]

@@ -13,12 +13,13 @@ func add_score(val):
 	if score > nuclear_threshold:
 		print("nukes ready")
 
-func _process(_delta: float):
-	if get_tree().current_scene.name == "MainScene":
-		var enemies = get_tree().get_nodes_in_group("Enemy_Vehicles")
-		for i in enemies:
-			enemies_properties[i] = [i.health, i.ammo, i.global_position]
-		print(enemies_properties)
+#func _process(_delta: float):
+	#if get_tree().current_scene.name == "MainScene":
+		#var enemies = get_tree().get_nodes_in_group("Enemy_Vehicles")
+		#for i in enemies:
+			#if not enemies.has(i):
+				#enemies_properties[i] = [i.health, i.ammo, i.global_position]
+		#print(enemies_properties)
 
-func _add_enemies()
-	
+#func _add_enemies()
+	#

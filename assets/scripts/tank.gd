@@ -4,8 +4,8 @@ class_name Player_Tank extends CharacterBody2D
 const SPEED = 600.0
 var BULLET = Preloader.BULLET
 var MISSILE = Preloader.MISSILE
-const SHELL125_SPRITE = preload("res://assets/sprites/UMBTShell.png")
-const MINIGUN_BULLET_SPRITE = preload("res://assets/sprites/MinigunRound.png")
+var SHELL125_SPRITE = Preloader.SHELL125_SPRITE
+var MINIGUN_BULLET_SPRITE = Preloader.MINIGUN_BULLET_SPRITE
 const GTGM_MISSILE_SPRITES = preload("res://assets/sprites/UMBT_GTGM_Sprite_Frames.tres")
 const ROCKETMOTORLOOP = preload("res://assets/sounds/rocketmotorloop.mp3")
 
@@ -235,7 +235,7 @@ func _process(_delta: float) -> void:
 			minigun_muzzle_flash.stop()
 		
 		#Target locking
-		if crosshair.over_area == true and current_weapon == "GTGM":
+		if crosshair.over_area == true and current_weapon == "GTGM" and crosshair.target_area.is_in_group("Ground_Enemies"):
 			if crosshair.target_area.get_parent().name == "MainScene":
 				potential_target = crosshair.target_area
 			else:
@@ -244,7 +244,7 @@ func _process(_delta: float) -> void:
 			if lock_on_timer.is_stopped() and target == null:
 				lock_on_timer.start()
 				time_2_lock_display.visible = true
-		elif not crosshair.over_area or current_weapon != "GTGM":
+		elif not crosshair.over_area or current_weapon != "GTGM" or crosshair.target_area.is_in_group("Ground_Enemies"):
 			target = null
 			potential_target = null
 			time_2_lock_display.visible = false
@@ -271,13 +271,14 @@ func _input(event) -> void:
 					minigun_muzzle_flash.stop()
 					minigun_fire_sound.stop()
 					minigun_spool_down_sound.play()
-				crosshair.texture = preload("res://assets/sprites/Crosshair.png")
+				crosshair.texture = Preloader.CROSS_GUN
 			elif event.keycode == KEY_2:
 				current_weapon = weapons[1]
-				crosshair.texture = preload("res://assets/sprites/MissileCrosshair.png")
+				crosshair.texture = Preloader.CROSS_OPTICAL
+				time_2_lock_display.add_theme_color_override("default_color", Color(255.0, 0.0, 0.0)) 
 			elif event.keycode == KEY_3:
 				current_weapon = weapons[2]
-				crosshair.texture = preload("res://assets/sprites/Crosshair.png")
+				crosshair.texture = Preloader.CROSS_GUN
 		#shooting
 		elif event is InputEventMouseButton:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed() and not is_turret_rotating:

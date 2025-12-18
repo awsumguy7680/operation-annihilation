@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://fw6j2xgsr046"]
+
+[node name="Jet" type="CharacterBody2D"]

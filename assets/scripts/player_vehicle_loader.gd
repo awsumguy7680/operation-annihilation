@@ -3,6 +3,7 @@ extends Node
 @export var current_selected_vehicle = "Tank"
 var current_loaded_vehicle = null
 var loaded_vehicle = false
+#var loadout: Dictionary = {}
 
 const TANK = preload("res://assets/Tank.tscn")
 const HELI = preload("res://assets/Helicopter.tscn")

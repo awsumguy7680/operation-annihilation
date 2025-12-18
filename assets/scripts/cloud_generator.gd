@@ -23,7 +23,7 @@ func _ready():
 			cloud_sprite.texture = CLOUD3
 		cloud_sprite.name = "Cloud" + str(i)
 		cloud_sprite.scale = Vector2(10.0, 10.0)
-		cloud_sprite.z_index = -2
+		cloud_sprite.z_index = -9
 		main_scene.add_child.call_deferred(cloud_sprite)
 		cloud_sprite.global_position = Vector2(random_x, random_y)
 		clouds_list.append(cloud_sprite)

@@ -54,7 +54,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cj7al"]
 size = Vector2(399, 300)
 
-[node name="UGV-MG" type="Node2D" groups=["Enemies", "Enemy_Vehicles"]]
+[node name="UGV-MG" type="Node2D" groups=["Enemies", "Enemy_Vehicles", "Ground_Enemies"]]
 script = ExtResource("1_mbnho")
 health = 100
 armor = 5
@@ -88,10 +88,10 @@ stream = ExtResource("5_agshs")
 volume_db = -15.0
 max_distance = 10000.0
 
-[node name="Hitbox" type="Area2D" parent="." groups=["Enemies"]]
+[node name="Hitbox" type="Area2D" parent="." groups=["Enemies", "Ground_Enemies"]]
 collision_layer = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["Enemies"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" groups=["Enemies", "Ground_Enemies"]]
 visible = false
 position = Vector2(-19.5, 10)
 shape = SubResource("RectangleShape2D_cj7al")

@@ -109,7 +109,6 @@ func _physics_process(delta: float):
 
 func _process(delta: float):
 	#Track target and avoid terrain
-	#var tgt_distance = global_position.distance_to(target.global_position)
 	if is_active:
 		if self != null and target != null:
 			if guidance == "OPTICAL":
@@ -119,12 +118,26 @@ func _process(delta: float):
 					var max_steer = steer_force * delta
 					rotation += clamp(angle_diff, -max_steer, max_steer)
 				else:
-					var desired_angle = ((global_position - Vector2(1000, 1000)) - global_position).angle()
+					var desired_angle = ((target.global_position - Vector2(INF, INF)) - global_position).angle()
 					var angle_diff = wrapf(desired_angle - rotation, -PI, PI)
 					var max_steer = steer_force * delta
 					rotation += clamp(angle_diff, -max_steer, max_steer)
-			elif guidance == "LASER":
-				pass
+			if guidance == "IR":
+				var desired_angle = (target.global_position - global_position).angle() + PI
+				var angle_diff = wrapf(desired_angle - rotation, -PI, PI)
+				var max_steer = steer_force * delta
+				rotation += clamp(angle_diff, -max_steer, max_steer)
+				#if not target.flared:
+					#pass
+				#else:
+					#target = null
+		elif self != null and target == null:
+			if guidance == "LASER":
+				var mouse_position = get_global_mouse_position()
+				var desired_angle = (mouse_position - global_position).angle() + PI
+				var angle_diff = wrapf(desired_angle - rotation, -PI, PI)
+				var max_steer = steer_force * delta
+				rotation += clamp(angle_diff, -max_steer, max_steer)
 		elif target == null:
 			return
 

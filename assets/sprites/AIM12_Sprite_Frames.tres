@@ -1,0 +1,45 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://canosh6e0drjo"]
+
+[ext_resource type="Texture2D" uid="uid://ceuwygcp6xi71" path="res://assets/sprites/AIM-12(Burnout).png" id="1_a0xel"]
+[ext_resource type="Texture2D" uid="uid://c8w2mf04c76e8" path="res://assets/sprites/AIM-12(Burn).png" id="2_t8jf4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kme2x"]
+atlas = ExtResource("1_a0xel")
+region = Rect2(0, 0, 160, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqfal"]
+atlas = ExtResource("2_t8jf4")
+region = Rect2(0, 0, 640, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6yxk"]
+atlas = ExtResource("2_t8jf4")
+region = Rect2(0, 240, 640, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pvqwy"]
+atlas = ExtResource("2_t8jf4")
+region = Rect2(0, 480, 640, 240)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kme2x")
+}],
+"loop": false,
+"name": &"burnout",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqfal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6yxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pvqwy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]

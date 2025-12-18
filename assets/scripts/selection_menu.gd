@@ -11,9 +11,10 @@ class_name Selection_Menu extends Control
 @onready var score_label: Label = $ScoreLabel
 var tank_sprite = preload("res://assets/sprites/UMBT-1.png.png")
 var helicopter_sprite = preload("res://assets/sprites/AH-7NimbleBird.png")
+var jet_sprite = preload("res://assets/sprites/F-66_KingviperPreview.png")
 var ah7_pylon_sprite = preload("res://assets/sprites/AH-7Pylon.png")
 
-var vehicle_types: Array = ["Tank", "Helicopter"]
+var vehicle_types: Array = ["Tank", "Helicopter", "Jet"]
 var weapon_hardpoints: Dictionary = {}
 var selected_weapons: Dictionary = {}
 var hardpoints: Dictionary = {}
@@ -22,7 +23,7 @@ var current_vehicle = "Tank"
 
 func _ready():
 	PlayerVehicleLoader.assign_selected("Tank")
-	PlayerVehicleLoader.loadout = {}
+	#PlayerVehicleLoader.loadout = {}
 	score_label.text = "SCORE: " + str(GameMaster.score)
 
 #Return to Main Menu
@@ -32,7 +33,7 @@ func _on_back_to_menu_pressed() -> void:
 #Vehicle Type Selection
 func _on_select_r_pressed() -> void:
 	current_vehicle_key += 1
-	if current_vehicle_key > 1: #When adding the jet set to 2
+	if current_vehicle_key > 2: #When adding the jet set to 2
 		current_vehicle_key = 0
 		current_vehicle = vehicle_types[0]
 	else:
@@ -42,8 +43,8 @@ func _on_select_r_pressed() -> void:
 func _on_select_l_pressed() -> void:
 	current_vehicle_key -= 1
 	if current_vehicle_key < 0:
-		current_vehicle_key = 1
-		current_vehicle = vehicle_types[1]
+		current_vehicle_key = 2
+		current_vehicle = vehicle_types[2]
 	else:
 		current_vehicle = vehicle_types[current_vehicle_key]
 	set_vehicle(current_vehicle)
@@ -51,7 +52,8 @@ func _on_select_l_pressed() -> void:
 func set_vehicle(vehicle: String):
 	PlayerVehicleLoader.assign_selected(vehicle)
 	if vehicle == "Tank":
-		delete_hardpoints_and_selectors()
+		delete_pylon()
+		#delete_hardpoints_and_selectors()
 		selected_vehicle_type.texture = tank_sprite
 		selected_vehicle_type.position = Vector2(150.0, -74.0)
 		vehicle_name.text = "TANK: UMBT"
@@ -69,17 +71,17 @@ func set_vehicle(vehicle: String):
 		"
 		spec_values_2.text = "HP: 5000
 		Top Speed: 60km/h
-		Countermeasures: IR Smoke
+		Countermeasures: Laser CIWS
 		Crew: 1-2
 		Designed: 2030"
 	elif vehicle == "Helicopter":
-		delete_hardpoints_and_selectors()
-		create_hardpoint(Vector2(1110, 1400), "OuterPylon", 1)
-		create_hardpoint(Vector2(1110, 1325), "InnerPylon", 2)
-		var outer_pylon_options: Array = ["Minigun", "GTGM", "AIM-12", "RKT-25"]
-		create_weapon_selector("OuterPylon", outer_pylon_options)
-		var inner_pylon_options: Array = ["GTGM x4", "AGM-90", "RKT-50", "RKT-25"]
-		create_weapon_selector("InnerPylon", inner_pylon_options)
+		#delete_hardpoints_and_selectors()
+		#create_hardpoint(Vector2(1110, 1400), "OuterPylon", 1)
+		#create_hardpoint(Vector2(1110, 1325), "InnerPylon", 2)
+		#var outer_pylon_options: Array = ["Minigun", "GTGM", "AIM-12", "RKT-25"]
+		#create_weapon_selector("OuterPylon", outer_pylon_options)
+		#var inner_pylon_options: Array = ["GTGM x4", "AGM-90", "RKT-50", "RKT-25"]
+		#create_weapon_selector("InnerPylon", inner_pylon_options)
 		selected_vehicle_type.texture = helicopter_sprite
 		selected_vehicle_type.position = Vector2(161.0, -101.0)
 		var pylon = Sprite2D.new()
@@ -99,84 +101,114 @@ func set_vehicle(vehicle: String):
 		Engine: 2x Turboshaft engine
 		MG: 5.56 M134 Minigun
 		Missile: Rockets, Optical/IR MSL
-		HP: 1500"
+		HP: 2500"
 		spec_values_2.text = "Top Speed: 320km/h
 		Service Ceiling: 7,000m
 		Countermeasures: Flares
 		Crew: 2
 		Designed: 2027"
+	elif vehicle == "Jet":
+		selected_vehicle_type.texture = jet_sprite
+		selected_vehicle_type.position = Vector2(125.0, -110.0)
+		delete_pylon()
+		vehicle_name.text = "JET: F-66 KINGVIPER"
+		vehicle_specific_name.text = "F-66"
+		description.text = "The F-66 is an advanced stealth
+		fighter capable of high speeds
+		and altitudes. Although to do
+		this it must be light and as such
+		it has a limited loadout.
+		"
+		spec_values_1.text = "Dry Mass: 13.7 Tons
+		Engine: Afterburning Turbojet
+		Cannon: 20mm Rotary Cannon
+		Bomb: PGB-125s
+		Missile: AIM-12
+		"
+		spec_values_2.text = "HP: 1000
+		Top Speed: Mach 1.8
+		Countermeasures: Flares/Chaff
+		Crew: 1
+		Designed: 2040
+		"
+
+#Temporary
+func delete_pylon():
+	for i in selected_vehicle_type.get_children():
+		if i is Sprite2D:
+			i.queue_free()
 
 #Adds a single hardpoint, call multiple times
-func create_hardpoint(pos: Vector2, hardpointname: String, zindex: int):
-	var hardpoint = Marker2D.new()
-	selected_vehicle_type.add_child(hardpoint)
-	hardpoint.position = pos
-	hardpoint.name = hardpointname
-	hardpoint.z_index = zindex
-	hardpoints[hardpointname] = hardpoint
-	var sprite = Sprite2D.new()
-	sprite.name = "WeaponSprite"
-	hardpoint.add_child(sprite)
+#func create_hardpoint(pos: Vector2, hardpointname: String, zindex: int):
+	#var hardpoint = Marker2D.new()
+	#selected_vehicle_type.add_child(hardpoint)
+	#hardpoint.position = pos
+	#hardpoint.name = hardpointname
+	#hardpoint.z_index = zindex
+	#hardpoints[hardpointname] = hardpoint
+	#var sprite = Sprite2D.new()
+	#sprite.name = "WeaponSprite"
+	#hardpoint.add_child(sprite)
 
 #Adds the selector dropdown menus for weapons
-func create_weapon_selector(selectorname, options: Array):
-	var option = OptionButton.new()
-	var option_label = Label.new()
-	weapons_selector.add_child(option)
-	option_names.add_child(option_label)
-	option.name = selectorname
-	option.item_selected.connect(_on_weapon_option_selected.bind(selectorname))
-	option.custom_minimum_size = Vector2(150.0, 40.0)
-	option.alignment = HORIZONTAL_ALIGNMENT_CENTER
-	option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	option.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-	option.expand_icon = true
-	option_label.text = selectorname
-	option_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_FILL
-	option_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	option_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	option_label.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-	option.add_item("Empty", 0)
-	for i in options:
-		option.add_item(i)
-	selected_weapons[selectorname] = "Empty"
-	weapon_hardpoints[selectorname] = option
-	PlayerVehicleLoader.loadout = selected_weapons
+#func create_weapon_selector(selectorname, options: Array):
+	#var option = OptionButton.new()
+	#var option_label = Label.new()
+	#weapons_selector.add_child(option)
+	#option_names.add_child(option_label)
+	#option.name = selectorname
+	#option.item_selected.connect(_on_weapon_option_selected.bind(selectorname))
+	#option.custom_minimum_size = Vector2(150.0, 40.0)
+	#option.alignment = HORIZONTAL_ALIGNMENT_CENTER
+	#option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#option.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	#option.expand_icon = true
+	#option_label.text = selectorname
+	#option_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_FILL
+	#option_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	#option_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#option_label.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	#option.add_item("Empty", 0)
+	#for i in options:
+		#option.add_item(i)
+	#selected_weapons[selectorname] = "Empty"
+	#weapon_hardpoints[selectorname] = option
+	#PlayerVehicleLoader.loadout = selected_weapons
 
 #Deletes all everything for when you switch to a different vehicle
-func delete_hardpoints_and_selectors():
-	for i in selected_vehicle_type.get_children():
-		if i is Marker2D or Sprite2D:
-			i.queue_free()
-	for v in weapons_selector.get_children():
-		if v is OptionButton:
-			v.queue_free()
-	for j in option_names.get_children():
-		if j is Label:
-			j.queue_free()
-	weapon_hardpoints.clear()
-	selected_weapons.clear()
-	PlayerVehicleLoader.loadout.clear()
+#func delete_hardpoints_and_selectors():
+	#for i in selected_vehicle_type.get_children():
+		#if i is Marker2D or Sprite2D:
+			#i.queue_free()
+	#for v in weapons_selector.get_children():
+		#if v is OptionButton:
+			#v.queue_free()
+	#for j in option_names.get_children():
+		#if j is Label:
+			#j.queue_free()
+	#weapon_hardpoints.clear()
+	#selected_weapons.clear()
+	#PlayerVehicleLoader.loadout.clear()
 
-func _on_weapon_option_selected(index:int, selectorname: String):
-	var button: OptionButton = weapon_hardpoints[selectorname]
-	var selected = button.get_item_text(index)
-	
-	selected_weapons[selectorname] = selected
-	PlayerVehicleLoader.loadout = selected_weapons
-	
-	update_weapon_preview(selectorname, selected)
+#func _on_weapon_option_selected(index:int, selectorname: String):
+	#var button: OptionButton = weapon_hardpoints[selectorname]
+	#var selected = button.get_item_text(index)
+	#
+	#selected_weapons[selectorname] = selected
+	#PlayerVehicleLoader.loadout = selected_weapons
+	#
+	#update_weapon_preview(selectorname, selected)
 
-func update_weapon_preview(hardpoint_name, weapon_name):
-	if hardpoints.has(hardpoint_name):
-		var hardpoint = hardpoints[hardpoint_name]
-		var sprite = hardpoint.get_node("WeaponSprite")
-		
-		if weapon_name == "Empty":
-			sprite.texture = null
-			return
-		else:
-			sprite.texture = Preloader.weapon_previews[weapon_name]
+#func update_weapon_preview(hardpoint_name, weapon_name):
+	#if hardpoints.has(hardpoint_name):
+		#var hardpoint = hardpoints[hardpoint_name]
+		#var sprite = hardpoint.get_node("WeaponSprite")
+		#
+		#if weapon_name == "Empty":
+			#sprite.texture = null
+			#return
+		#else:
+			#sprite.texture = Preloader.weapon_previews[weapon_name]
 
 #Start Game
 func _on_deploy_button_pressed() -> void:

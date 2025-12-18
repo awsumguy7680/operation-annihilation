@@ -106,7 +106,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="UGV-RFV" type="Area2D" groups=["Enemies", "Enemy_Vehicles"]]
+[node name="UGV-RFV" type="Area2D" groups=["Enemies", "Enemy_Vehicles", "Ground_Enemies"]]
 collision_layer = 3
 script = ExtResource("1_yi6cs")
 health = 500
@@ -142,7 +142,7 @@ position = Vector2(-9.000001, 7.9999995)
 scale = Vector2(0.099999994, 0.099999994)
 pitch_scale = 0.5
 
-[node name="Hitbox" type="CollisionPolygon2D" parent="." groups=["Enemies"]]
+[node name="Hitbox" type="CollisionPolygon2D" parent="." groups=["Enemies", "Ground_Enemies"]]
 visible = false
 polygon = PackedVector2Array(-48, 279, 263, 284, 419, 81, 119, -22, 116, -148, -218, -153, -219, -37, -508, 79, -352, 271)
 
