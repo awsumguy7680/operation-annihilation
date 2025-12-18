@@ -4,23 +4,25 @@ extends Control
 @onready var health_display: RichTextLabel = $Health
 @onready var weapon_display: RichTextLabel = $WeaponDisplay
 @onready var ammo_display: RichTextLabel = $Ammo
+@onready var score_display: RichTextLabel = $Score
 @onready var weapon_icon: TextureRect = $WeaponIcon
 @onready var weapon_num: Label = $WeaponNum
 @onready var msl_warning: VBoxContainer = $MslWarning
 @onready var warning_label: Label = $MslWarning/WarningLabel
-@onready var laser_charge_display: RichTextLabel = $LaserCharge
+@onready var misc: RichTextLabel = $LaserCharge
 
 var current_vehicle = null
 
 func _process(_delta: float):
+	score_display.text = "Score: " + str(GameMaster.score)
 	if current_vehicle:
 		if current_vehicle is Player_Tank:
 			var apfsds_icon = preload("res://assets/sprites/TankShellHUDIcon.png")
 			var minigun_icon = preload("res://assets/sprites/MinigunHUDIcon.png")
 			var gtgm_icon = preload("res://assets/sprites/GTGMHUDIcon.png")
 			health_display.text = "Health: " + str(current_vehicle.health)
-			laser_charge_display.visible = true
-			laser_charge_display.text = "Laser Charge: " + str(current_vehicle.laser_charge) + "%"
+			misc.visible = true
+			misc.text = "Laser Charge: " + str(current_vehicle.laser_charge) + "%"
 			weapon_display.text = current_vehicle.current_weapon
 			weapon_num.text = str(current_vehicle.weapons.find(current_vehicle.current_weapon) + 1)
 			if current_vehicle.current_weapon == "Cannon":
@@ -35,7 +37,8 @@ func _process(_delta: float):
 		elif current_vehicle is Helicopter:
 			var minigun_icon = preload("res://assets/sprites/MinigunHUDIcon.png")
 			health_display.text = "Health: " + str(current_vehicle.health)
-			laser_charge_display.visible = false
+			misc.visible = true
+			misc.text = "Altitude: " + str(int(abs(current_vehicle.global_position.y) / 100) - 4) + "m"
 			weapon_display.text = current_vehicle.current_weapon
 			if current_vehicle.current_weapon == "Nose Minigun":
 				weapon_icon.texture = minigun_icon

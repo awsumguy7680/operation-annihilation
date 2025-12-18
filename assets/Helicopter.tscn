@@ -155,11 +155,11 @@ offset = Vector2(50, 0)
 flip_h = true
 flip_v = true
 
-[node name="Hardpoint1" type="Marker2D" parent="Body"]
+[node name="InnerPylon" type="Marker2D" parent="Body"]
 position = Vector2(-168.99997, 47)
 scale = Vector2(0.99999994, 0.99999994)
 
-[node name="Hardpoint2" type="Marker2D" parent="Body"]
+[node name="OuterPylon" type="Marker2D" parent="Body"]
 position = Vector2(-169, 122)
 scale = Vector2(0.99999994, 0.99999994)
 

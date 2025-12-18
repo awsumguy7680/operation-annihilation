@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bso10xi8su1u0"]
+
+[ext_resource type="Script" uid="uid://sypbxbru1esg" path="res://assets/scripts/game_master.gd" id="1_5yk56"]
+
+[node name="GameMaster" type="Node"]
+script = ExtResource("1_5yk56")
+nuclear_threshold = 10000

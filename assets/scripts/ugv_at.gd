@@ -12,7 +12,8 @@ const SHOOT_DISTANCE: float = 20000.0
 #Self Variables
 @export var health: int
 @export var armor: int
-@export var ammo = 4
+@export var ammo: int
+@export var value: int
 @export var facing_left: bool
 var on_cooldown = false
 
@@ -91,6 +92,7 @@ func _process(delta: float):
 		collision_shape_2d.disabled = true
 		wreck.visible = true
 		await get_tree().create_timer(4, false).timeout
+		GameMaster.add_score(value)
 		queue_free()
 		return
 

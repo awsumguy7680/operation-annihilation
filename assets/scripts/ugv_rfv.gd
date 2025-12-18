@@ -19,7 +19,9 @@ var on_cooldown = false
 @export var armor: int
 @export var gun_ammo: int
 @export var msl_ammo: int
+@export var value: int
 @export var facing_left: bool
+var ammo
 
 #Variables for nodes
 var player_target = null
@@ -50,6 +52,7 @@ func _ready():
 
 func _process(delta: float):
 	position.y = -280.0
+	ammo = gun_ammo + msl_ammo
 	
 	if health > 0:
 		if player_target:
@@ -120,6 +123,7 @@ func _process(delta: float):
 		hitbox.disabled = true
 		wreck.visible = true
 		await get_tree().create_timer(4, false).timeout
+		GameMaster.add_score(value)
 		queue_free()
 		return
 		

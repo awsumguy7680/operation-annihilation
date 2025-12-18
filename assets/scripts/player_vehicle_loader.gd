@@ -3,7 +3,6 @@ extends Node
 @export var current_selected_vehicle = "Tank"
 var current_loaded_vehicle = null
 var loaded_vehicle = false
-var loadout: Dictionary = {}
 
 const TANK = preload("res://assets/Tank.tscn")
 const HELI = preload("res://assets/Helicopter.tscn")
@@ -18,7 +17,6 @@ func load_vehicle(vehicle_name: String):
 		main.add_child(current_loaded_vehicle)
 	elif vehicle_name == "Helicopter":
 		current_loaded_vehicle = HELI.instantiate()
-		current_loaded_vehicle.weapons = loadout
 		main.add_child(current_loaded_vehicle)
 
 func _process(_delta):

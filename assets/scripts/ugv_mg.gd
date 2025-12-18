@@ -12,6 +12,7 @@ var is_shooting = false
 @export var health: int
 @export var armor: int
 @export var ammo: int
+@export var value: int
 @export var facing_left: bool
 
 #Variables for nodes
@@ -83,21 +84,23 @@ func _process(delta: float):
 		collision_shape_2d.disabled = true
 		wreck.visible = true
 		await get_tree().create_timer(4, false).timeout
+		GameMaster.add_score(value)
 		queue_free()
 		return
 
 #Handles shooting bullets
 func shooting():
-	for i in ammo:
-		await get_tree().create_timer(0.1, false).timeout
-		var bullet_instance: Bullet = BULLET.instantiate()
-		owner.add_child(bullet_instance)
-		if bullet_instance:
-			bullet_instance.custom_bullet(8000, 1, false, true, BULLET_SPRITE, Vector2(100, 10), Vector2(-60, -55), 10, 10, 2.0)
-		bullet_instance.transform = muzzle.global_transform
-		ammo -= 1
-		if is_shooting == false:
-			break
+	if player_target != null:
+		for i in ammo:
+			await get_tree().create_timer(0.1, false).timeout
+			var bullet_instance: Bullet = BULLET.instantiate()
+			owner.add_child(bullet_instance)
+			if bullet_instance:
+				bullet_instance.custom_bullet(8000, 1, false, true, BULLET_SPRITE, Vector2(100, 10), Vector2(-60, -55), 10, 10, 2.0)
+			bullet_instance.transform = muzzle.global_transform
+			ammo -= 1
+			if is_shooting == false:
+				break
 
 func enemy_damage(damage: int):
 	health -= damage

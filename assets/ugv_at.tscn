@@ -84,10 +84,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wml84"]
 size = Vector2(400, 310)
 
-[node name="UGV-AT" type="Node2D" groups=["Enemies"]]
+[node name="UGV-AT" type="Node2D" groups=["Enemies", "Enemy_Vehicles"]]
 script = ExtResource("1_7dsib")
 health = 100
 armor = 1
+value = 5
 
 [node name="BodySprites" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_7dsib")

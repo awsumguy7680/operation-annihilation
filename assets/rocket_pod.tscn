@@ -1,7 +1,11 @@
-[gd_scene format=3 uid="uid://cnr7eyc0oiemn"]
+[gd_scene load_steps=2 format=3 uid="uid://cnr7eyc0oiemn"]
+
+[ext_resource type="Script" uid="uid://hkrb8plmdokd" path="res://assets/scripts/CustomizableObjects/rocket_pod.gd" id="1_ljvj6"]
 
 [node name="RocketPod" type="Node2D"]
+script = ExtResource("1_ljvj6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+animation = &""
 
 [node name="Marker2D" type="Marker2D" parent="."]

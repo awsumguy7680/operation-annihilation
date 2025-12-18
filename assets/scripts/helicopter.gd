@@ -7,6 +7,7 @@ var incoming_missiles_by_type: Dictionary = {"IR": 0, "RADAR": 0}
 #Constants
 const SPEED = 3000.0
 const MAX_PITCH = 10.0
+var MISSILE = Preloader.MISSILE
 
 #stats
 @export var health: int
@@ -17,6 +18,7 @@ var despawning = false
 var flying_left = true
 var is_rotating = false
 var incoming_missiles: int = 0
+var target: Node
 
 #UI
 @onready var death_screen: Control = $"../CanvasLayer/DeathScreen"
@@ -24,12 +26,23 @@ var incoming_missiles: int = 0
 
 #weapons
 @onready var nose_minigun: Sprite2D = $Body/NoseMinigun
+@onready var inner_pylon: Marker2D = $Body/InnerPylon
+@onready var outer_pylon: Marker2D = $Body/OuterPylon
 var weapons: Dictionary = {}
 var current_weapon = "Nose Minigun"
 
-func _ready() -> void:
-	weapons["Nose Minigun"] = nose_minigun_ammo
-	print(weapons)
+#func _ready() -> void:
+	#weapons["Nose Minigun"] = nose_minigun_ammo
+	#
+	#for hardpoint_name in PlayerVehicleLoader.loadout:
+		#var weapon_name = PlayerVehicleLoader.loadout[hardpoint_name]
+		#if weapon_name == "Empty":
+			#continue
+		#if weapon_name == "GTGM":
+			#var msl = MISSILE.instantiate()
+			#msl.custom_missile_static_properties(Preloader.GTGM_MISSILE_SPRITES, Vector2(630, 65), Vector2(120, 70), Vector2(-10, 0), 15, Preloader.ROCKETMOTORLOOP)
+			#msl.custom_missile_handler(true, 25, "OPTICAL", target, 10000, 120, 3, 3.5, false)
+			#outer_pylon.add_child(msl)
 
 func _physics_process(_delta: float):
 	# Get the input direction and handle the movement/deceleration.
@@ -98,12 +111,6 @@ func _process(_delta: float):
 				nose_minigun.rotation_degrees = 415.0
 			elif nose_minigun.rotation_degrees <= 350.0:
 				nose_minigun.rotation_degrees = 350.0
-
-#func _input(event: InputEvent):
-	#pass
-
-#func _ready():
-	#spawn_with_loadout(PlayerVehicleLoader.loadout)
 
 func damage(damage_amount: int):
 	health -= damage_amount

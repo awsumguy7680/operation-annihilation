@@ -29,7 +29,8 @@ func custom_missile_static_properties(msl_body, msl_body_offset: Vector2, collis
 	#current msl_body are "UGV_AT_MISSILE", "UMBT_GTGM"
 	delete_time = del
 	
-	audio_stream_player_2d.stream = audio
+	if audio != null:
+		audio_stream_player_2d.stream = audio
 	
 	animated_sprite_2d.sprite_frames = msl_body
 	animated_sprite_2d.offset = msl_body_offset

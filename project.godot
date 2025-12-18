@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Music="*res://assets/Music.tscn"
 PlayerVehicleLoader="*res://assets/player_vehicle_loader.tscn"
 Preloader="*res://assets/preloader.tscn"
+GameMaster="*res://assets/game_master.tscn"
 
 [display]
 
@@ -40,6 +41,7 @@ folder_colors={
 
 Enemies="All enemies, maybe make them a class later"
 Enemy_Missiles="All missiles launched by enemies"
+Enemy_Vehicles=""
 
 [input]
 

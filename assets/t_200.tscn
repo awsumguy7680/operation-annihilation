@@ -1,0 +1,78 @@
+[gd_scene load_steps=11 format=3 uid="uid://b2fqimnv8ee1y"]
+
+[ext_resource type="Texture2D" uid="uid://c7o8m4ot07n4k" path="res://assets/sprites/T200.png" id="1_55hu6"]
+[ext_resource type="Texture2D" uid="uid://cl1j5be61fqtx" path="res://assets/sprites/T200Gun.png" id="2_3awp7"]
+[ext_resource type="Texture2D" uid="uid://c13krxurjbacs" path="res://assets/sprites/T200MG.png" id="3_au875"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qai5"]
+atlas = ExtResource("1_55hu6")
+region = Rect2(0, 0, 1400, 540)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab8da"]
+atlas = ExtResource("1_55hu6")
+region = Rect2(0, 540, 1400, 540)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s1qjf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qai5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ab8da")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmcem"]
+atlas = ExtResource("2_3awp7")
+region = Rect2(0, 0, 970, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cdt4u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jmcem")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu008"]
+atlas = ExtResource("3_au875")
+region = Rect2(0, 0, 300, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tkcht"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wu008")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="T200" type="Area2D"]
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s1qjf")
+
+[node name="MainGun" type="AnimatedSprite2D" parent="Body"]
+z_index = -1
+position = Vector2(240, -70)
+sprite_frames = SubResource("SpriteFrames_cdt4u")
+offset = Vector2(425, 0)
+
+[node name="MG" type="AnimatedSprite2D" parent="Body"]
+z_index = -1
+position = Vector2(-221, -210)
+sprite_frames = SubResource("SpriteFrames_tkcht")
+offset = Vector2(90, 5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+[node name="Wreck" type="Sprite2D" parent="."]

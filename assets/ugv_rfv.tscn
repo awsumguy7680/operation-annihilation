@@ -106,13 +106,14 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="UGV-RFV" type="Area2D" groups=["Enemies"]]
+[node name="UGV-RFV" type="Area2D" groups=["Enemies", "Enemy_Vehicles"]]
 collision_layer = 3
 script = ExtResource("1_yi6cs")
 health = 500
 armor = 100
 gun_ammo = 600
 msl_ammo = 12
+value = 15
 
 [node name="Chassis" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ic4lg")

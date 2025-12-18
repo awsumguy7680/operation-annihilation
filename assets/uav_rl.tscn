@@ -1,0 +1,119 @@
+[gd_scene load_steps=17 format=3 uid="uid://d0qb6r5dff3d8"]
+
+[ext_resource type="Texture2D" uid="uid://k8rfhsicwqxn" path="res://assets/sprites/UAV-RL.png" id="1_q2l5n"]
+[ext_resource type="Texture2D" uid="uid://ckymlpjc6pfcc" path="res://assets/sprites/UAV-RLTailRotor.png" id="2_364bq"]
+[ext_resource type="Texture2D" uid="uid://lcjh7sjfnt48" path="res://assets/sprites/UAV-RLMG.png" id="3_364bq"]
+[ext_resource type="Texture2D" uid="uid://by770nkutwxej" path="res://assets/sprites/UAV-RLMG(Firing).png" id="4_0lfbe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lfbe"]
+atlas = ExtResource("1_q2l5n")
+region = Rect2(0, 0, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e028k"]
+atlas = ExtResource("1_q2l5n")
+region = Rect2(1280, 0, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v218r"]
+atlas = ExtResource("1_q2l5n")
+region = Rect2(0, 1280, 1280, 1280)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1yye"]
+atlas = ExtResource("1_q2l5n")
+region = Rect2(1280, 1280, 1280, 1280)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jjrb3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lfbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e028k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v218r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1yye")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjrb3"]
+atlas = ExtResource("3_364bq")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwvux"]
+atlas = ExtResource("4_0lfbe")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fd3g4"]
+atlas = ExtResource("4_0lfbe")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mqwb"]
+atlas = ExtResource("4_0lfbe")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h81a3"]
+atlas = ExtResource("4_0lfbe")
+region = Rect2(320, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqh1d"]
+atlas = ExtResource("4_0lfbe")
+region = Rect2(0, 640, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bwvux"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjrb3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwvux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fd3g4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mqwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h81a3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqh1d")
+}],
+"loop": true,
+"name": &"firing",
+"speed": 8.0
+}]
+
+[node name="UAV-RL" type="Area2D"]
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jjrb3")
+autoplay = "default"
+
+[node name="TailRotor" type="Sprite2D" parent="Body"]
+position = Vector2(-445, 5)
+texture = ExtResource("2_364bq")
+offset = Vector2(5, 5)
+
+[node name="Gun" type="AnimatedSprite2D" parent="Body"]
+z_index = -1
+position = Vector2(285, 115)
+sprite_frames = SubResource("SpriteFrames_bwvux")
+offset = Vector2(25, 5)
+
+[node name="RocketBarrel" type="Marker2D" parent="Body"]
+position = Vector2(165, 65)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

@@ -8,6 +8,7 @@ class_name Selection_Menu extends Control
 @onready var description: Label = $Menu/DescriptionPanel/Description
 @onready var spec_values_1: Label = $Menu/SpecValuesPanel/SpecValues1
 @onready var spec_values_2: Label = $Menu/SpecValuesPanel/SpecValues2
+@onready var score_label: Label = $ScoreLabel
 var tank_sprite = preload("res://assets/sprites/UMBT-1.png.png")
 var helicopter_sprite = preload("res://assets/sprites/AH-7NimbleBird.png")
 var ah7_pylon_sprite = preload("res://assets/sprites/AH-7Pylon.png")
@@ -22,6 +23,7 @@ var current_vehicle = "Tank"
 func _ready():
 	PlayerVehicleLoader.assign_selected("Tank")
 	PlayerVehicleLoader.loadout = {}
+	score_label.text = "SCORE: " + str(GameMaster.score)
 
 #Return to Main Menu
 func _on_back_to_menu_pressed() -> void:
