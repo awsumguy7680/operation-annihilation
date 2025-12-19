@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://dqxju8y3m5gx2"]
+[gd_scene load_steps=25 format=4 uid="uid://dqxju8y3m5gx2"]
 
 [ext_resource type="Texture2D" uid="uid://b6shodquyi54y" path="res://assets/sprites/New Piskel-1.png.png" id="2_lie5n"]
 [ext_resource type="Texture2D" uid="uid://b4e5dsl7lyxle" path="res://assets/sprites/Crosshair.png" id="4_4icut"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dnf850hbtju0l" path="res://assets/sprites/Hangar.png" id="12_l8cjo"]
 [ext_resource type="Script" uid="uid://bavr5fp0r4vf6" path="res://assets/scripts/cloud_generator.gd" id="15_xus0i"]
 [ext_resource type="PackedScene" uid="uid://d0qb6r5dff3d8" path="res://assets/uav_rl.tscn" id="16_0eadi"]
+[ext_resource type="PackedScene" uid="uid://b2fqimnv8ee1y" path="res://assets/t_200.tscn" id="17_uvm33"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4877k"]
 resource_name = "Tile0"
@@ -393,6 +394,9 @@ position = Vector2(-33983.08, -1898.8125)
 [node name="UAV-RL2" parent="." instance=ExtResource("16_0eadi")]
 position = Vector2(41239, -2425)
 facing_left = true
+
+[node name="T200" parent="." instance=ExtResource("17_uvm33")]
+position = Vector2(-41871, -331)
 
 [connection signal="child_entered_tree" from="." to="PlayerCamera" method="_on_main_scene_child_entered_tree"]
 [connection signal="child_entered_tree" from="." to="CanvasLayer/HUD" method="_on_main_scene_child_entered_tree"]

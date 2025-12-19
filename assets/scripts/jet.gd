@@ -55,6 +55,9 @@ var spd = 0.0
 var weapons: Array = ["Rotary Cannon", "AGM-90", "AIM-12"]
 var current_weapon = "Rotary Cannon"
 
+func _ready() -> void:
+	Music.set_music(Music.JET_THEME)
+
 func _physics_process(delta: float) -> void:
 	var forward := transform.x.normalized()
 	

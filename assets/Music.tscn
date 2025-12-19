@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bgkbpexaw0031"]
+[gd_scene load_steps=3 format=3 uid="uid://bgkbpexaw0031"]
 
 [ext_resource type="AudioStream" uid="uid://dqj363kxtbr3" path="res://assets/sounds/Music/CoffeebrewedinTimesofWar.wav" id="1_hstdd"]
+[ext_resource type="Script" uid="uid://w0374jbniqth" path="res://assets/scripts/music.gd" id="2_gikyr"]
 
 [node name="Music" type="AudioStreamPlayer"]
 process_mode = 3
 stream = ExtResource("1_hstdd")
 volume_db = 4.0
 autoplay = true
+script = ExtResource("2_gikyr")

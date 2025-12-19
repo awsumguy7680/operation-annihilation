@@ -70,6 +70,9 @@ var incoming_missiles = 0
 var weapons: Array = ["Cannon", "GTGM", "Minigun"]
 var current_weapon = weapons[0]
 
+func _ready() -> void:
+	Music.set_music(Music.TANK_THEME)
+
 func _physics_process(delta: float) -> void:
 	if health <= 0 and not despawning:
 		#Death handler

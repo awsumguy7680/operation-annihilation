@@ -88,7 +88,7 @@ stretch_mode = 4
 
 [node name="UMBTThumnail" type="Node2D" parent="."]
 position = Vector2(575, 390.00003)
-scale = Vector2(0.28000033, 0.28000033)
+scale = Vector2(0.23, 0.23)
 
 [node name="Sprite2D" type="Sprite2D" parent="UMBTThumnail"]
 texture = ExtResource("2_udhl6")
@@ -96,6 +96,8 @@ texture = ExtResource("2_udhl6")
 [node name="Sprite2D2" type="Sprite2D" parent="UMBTThumnail"]
 position = Vector2(-160, -245)
 texture = ExtResource("3_0quft")
+
+[node name="HeliThumbnail" type="Node2D" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -7

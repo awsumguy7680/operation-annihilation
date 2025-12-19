@@ -50,11 +50,10 @@ var RKT50_ICON = preload("res://assets/sprites/RKT50Icon.png")
 var AGM90_ICON = preload("res://assets/sprites/AGM90Icon.png")
 
 #Music
-const MENU_THEME = preload("res://assets/sounds/Music/new_1_2025-09-21_0251.wav")
-const SELECTION_THEME = preload("res://assets/sounds/Music/CoffeebrewedinTimesofWar.wav")
-const TANK_THEME = preload("res://assets/sounds/Music/mammoth.wav")
-const HELI_THEME = preload("res://assets/sounds/Music/JammedwithLimbshigh.wav")
-const JET_THEME = preload("res://assets/sounds/Music/destoroya.wav")
+#const MENU_THEME = preload("res://assets/sounds/Music/CoffeebrewedinTimesofWar.wav")
+#const TANK_THEME = preload("res://assets/sounds/Music/mammoth.wav")
+#const HELI_THEME = preload("res://assets/sounds/Music/JammedwithLimbshigh.wav")
+#const JET_THEME = preload("res://assets/sounds/Music/destoroya.wav")
 
 #SFX
 const ROCKETMOTORLOOP = preload("res://assets/sounds/rocketmotorloop.mp3")

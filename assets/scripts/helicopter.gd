@@ -55,7 +55,8 @@ var target
 var weapons: Array = ["Nose Minigun", "RKT-50", "AIM-12"]
 var current_weapon = "Nose Minigun"
 
-#func _ready() -> void:
+func _ready() -> void:
+	Music.set_music(Music.HELI_THEME)
 	#weapons["Nose Minigun"] = nose_minigun_ammo
 	#
 	#for hardpoint_name in PlayerVehicleLoader.loadout:
