@@ -7,6 +7,7 @@ var loaded_vehicle = false
 
 const TANK = preload("res://assets/Tank.tscn")
 const HELI = preload("res://assets/Helicopter.tscn")
+const JET = preload("res://assets/sprites/Jet.tscn")
 
 func assign_selected(vehicle_name: String):
 	current_selected_vehicle = vehicle_name
@@ -18,6 +19,9 @@ func load_vehicle(vehicle_name: String):
 		main.add_child(current_loaded_vehicle)
 	elif vehicle_name == "Helicopter":
 		current_loaded_vehicle = HELI.instantiate()
+		main.add_child(current_loaded_vehicle)
+	elif vehicle_name == "Jet":
+		current_loaded_vehicle = JET.instantiate()
 		main.add_child(current_loaded_vehicle)
 
 func _process(_delta):

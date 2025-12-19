@@ -1,10 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://crtnl3njkiy87"]
+[gd_scene load_steps=3 format=3 uid="uid://crtnl3njkiy87"]
 
 [ext_resource type="Script" uid="uid://blqqhawpsxqg7" path="res://assets/scripts/CustomizableObjects/missile.gd" id="1_qcqkr"]
-[ext_resource type="SpriteFrames" uid="uid://canosh6e0drjo" path="res://assets/sprites/AIM12_Sprite_Frames.tres" id="2_qcqkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_urwtu"]
-size = Vector2(160, 60)
+size = Vector2(190, 50)
 
 [node name="Missile" type="Area2D"]
 process_mode = 1
@@ -12,9 +11,11 @@ script = ExtResource("1_qcqkr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = -2
-sprite_frames = ExtResource("2_qcqkr")
+animation = &"burnout"
+offset = Vector2(0, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5, 0)
 shape = SubResource("RectangleShape2D_urwtu")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

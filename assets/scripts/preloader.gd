@@ -3,8 +3,9 @@ extends Node
 #Bodies
 const BULLET = preload("res://assets/bullet.tscn")
 const MISSILE = preload("res://assets/missile.tscn")
-const TANK = preload("res://assets/Tank.tscn")
-const HELI = preload("res://assets/Helicopter.tscn")
+#const TANK = preload("res://assets/Tank.tscn")
+#const HELI = preload("res://assets/Helicopter.tscn")
+#const JET = preload("res://assets/sprites/Jet.tscn")
 const UGV_MG = preload("res://assets/ugv_mg.tscn")
 const UGV_AT = preload("res://assets/ugv_at.tscn")
 const UGV_RFV = preload("res://assets/ugv_rfv.tscn")
@@ -33,6 +34,7 @@ const GTGM_MISSILE_SPRITES = preload("res://assets/sprites/UMBT_GTGM_Sprite_Fram
 const UAV_R1_ROCKET_SPRITES = preload("res://assets/sprites/UAV_R1_Sprite_Frames.tres")
 const RKT_50_SPRITES = preload("res://assets/sprites/RKT50_Sprite_Frames.tres")
 const AIM_12_SPRITES = preload("res://assets/sprites/AIM12_Sprite_Frames.tres")
+const AGM_90_SPRITES = preload("res://assets/sprites/AGM90_Sprite_Frames.tres")
 
 #Weapons
 #var weapon_scenes: Dictionary = {
@@ -45,6 +47,7 @@ var MINIGUN_ICON = preload("res://assets/sprites/MinigunHUDIcon.png")
 var GTGM_ICON = preload("res://assets/sprites/GTGMHUDIcon.png")
 var AIM12_ICON = preload("res://assets/sprites/AIM12Icon.png")
 var RKT50_ICON = preload("res://assets/sprites/RKT50Icon.png")
+var AGM90_ICON = preload("res://assets/sprites/AGM90Icon.png")
 
 #Music
 const MENU_THEME = preload("res://assets/sounds/Music/new_1_2025-09-21_0251.wav")
@@ -55,3 +58,4 @@ const JET_THEME = preload("res://assets/sounds/Music/destoroya.wav")
 
 #SFX
 const ROCKETMOTORLOOP = preload("res://assets/sounds/rocketmotorloop.mp3")
+const JETLOOP = preload("res://assets/sounds/JetLoop.mp3")

@@ -17,10 +17,10 @@ var current_vehicle = null
 func _process(_delta: float):
 	score_display.text = "Score: " + str(GameMaster.score)
 	if current_vehicle:
+		health_display.text = "Health: " + str(current_vehicle.health)
 		if current_vehicle is Player_Tank:
 			var apfsds_icon = Preloader.APFSDS_ICON
 			var gtgm_icon = Preloader.GTGM_ICON
-			health_display.text = "Health: " + str(current_vehicle.health)
 			misc.visible = true
 			misc.text = "Laser Charge: " + str(current_vehicle.laser_charge) + "%"
 			weapon_display.text = current_vehicle.current_weapon
@@ -37,7 +37,6 @@ func _process(_delta: float):
 		elif current_vehicle is Helicopter:
 			var rkt50_icon = Preloader.RKT50_ICON
 			var aim12_icon = Preloader.AIM12_ICON
-			health_display.text = "Health: " + str(current_vehicle.health)
 			misc.visible = true
 			misc.text = "Altitude: " + str(int(abs(current_vehicle.global_position.y) / 100) - 4) + "m"
 			weapon_display.text = current_vehicle.current_weapon
@@ -51,7 +50,23 @@ func _process(_delta: float):
 			elif current_vehicle.current_weapon == "AIM-12":
 				ammo_display.text = "IR Missiles: " + str(current_vehicle.ir_missiles)
 				weapon_icon.texture = aim12_icon
-		
+		elif current_vehicle is Jet:
+			var aim12_icon = Preloader.AIM12_ICON
+			var agm90_icon = Preloader.AGM90_ICON
+			misc.visible = true
+			misc.text = "Altitude: " + str(int(abs(current_vehicle.global_position.y) / 100) - 4) + "m"
+			weapon_display.text = current_vehicle.current_weapon
+			weapon_num.text = str(current_vehicle.weapons.find(current_vehicle.current_weapon) + 1)
+			if current_vehicle.current_weapon == "Rotary Cannon":
+				ammo_display.text = "Rotary Cannon Ammo: " + str(current_vehicle.rotary_cannon_ammo)
+				weapon_icon.texture = minigun_icon
+			elif current_vehicle.current_weapon == "AGM-90":
+				ammo_display.text = "AGMs: " + str(current_vehicle.agms)
+				weapon_icon.texture = agm90_icon
+			elif current_vehicle.current_weapon == "AIM-12":
+				ammo_display.text = "IR Missiles: " + str(current_vehicle.ir_missiles)
+				weapon_icon.texture = aim12_icon
+			
 		#Missile Warnings
 		if current_vehicle.incoming_missiles > 0:
 			warning_label.visible = true

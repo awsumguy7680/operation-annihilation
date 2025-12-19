@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfaywowj1rr26"
-path="res://.godot/imported/AIM12.png-2a79a33de7ff9465685613ff76bf7a8b.ctex"
+uid="uid://esha4etjpxa6"
+path="res://.godot/imported/F-66(Gear).png-85e754c29562f472a2efaa5c26d52e8b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/AIM12.png"
-dest_files=["res://.godot/imported/AIM12.png-2a79a33de7ff9465685613ff76bf7a8b.ctex"]
+source_file="res://assets/sprites/F-66(Gear).png"
+dest_files=["res://.godot/imported/F-66(Gear).png-85e754c29562f472a2efaa5c26d52e8b.ctex"]
 
 [params]
 

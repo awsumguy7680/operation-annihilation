@@ -110,7 +110,7 @@ func _process(_delta: float):
 		elif random_text_num == 1:
 			death_text.text = "COMBAT INEFFECTIVE"
 		elif random_text_num == 2:
-			death_text.text = "KNOCKED OUT"
+			death_text.text = "SHOT DOWN"
 		elif random_text_num == 3:
 			death_text.text = "DESTROYED"
 		await get_tree().create_timer(3, false).timeout
@@ -209,7 +209,6 @@ func _input(event: InputEvent):
 					shoot_rockets()
 				if current_weapon == "AIM-12" and ir_missiles > 0 and on_cooldown == false:
 					if target != null:
-						pass
 						on_cooldown = true
 						ir_missile.visible = false
 						ir_missiles -= 1
@@ -253,7 +252,7 @@ func shoot_rockets():
 func damage(damage_amount: int):
 	health -= damage_amount
 
-func msl_alert(incoming: bool, missile, missile_guidance):
+func msl_alert(incoming: bool, _missile, _missile_guidance):
 	if incoming:
 		incoming_missiles += 1
 	else:

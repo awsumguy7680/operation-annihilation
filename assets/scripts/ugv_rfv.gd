@@ -125,17 +125,19 @@ func _process(delta: float):
 		return
 		
 func chaingun_shooting():
-	for i in gun_ammo:
-		await get_tree().create_timer(0.1, false).timeout
-		var bullet27mm: Bullet = BULLET.instantiate()
-		owner.add_child(bullet27mm)
-		if bullet27mm:
-			bullet27mm.custom_bullet(9000, 15, false, true, BULLET_SPRITE, Vector2(20.0, 1.0), Vector2(0.0, 0.5), 10, 50, 1)
-		bullet27mm.transform = muzzle.global_transform
-		bullet27mm.find_child("Sprite2D").scale.x = 2.0
-		gun_ammo -= 1
-		if is_shooting == false or health <= 0:
-			break
+	if player_target != null:
+		for i in gun_ammo:
+			if get_tree().current_scene.name == "MainScene":
+				await get_tree().create_timer(0.1, false).timeout
+				var bullet27mm: Bullet = BULLET.instantiate()
+				owner.add_child(bullet27mm)
+				if bullet27mm:
+					bullet27mm.custom_bullet(9000, 15, false, true, BULLET_SPRITE, Vector2(20.0, 1.0), Vector2(0.0, 0.5), 10, 50, 1)
+				bullet27mm.transform = muzzle.global_transform
+				bullet27mm.find_child("Sprite2D").scale.x = 2.0
+				gun_ammo -= 1
+				if is_shooting == false or health <= 0:
+					break
 
 func enemy_damage(damage: int):
 	health -= damage

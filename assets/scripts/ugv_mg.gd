@@ -92,15 +92,16 @@ func _process(delta: float):
 func shooting():
 	if player_target != null:
 		for i in ammo:
-			await get_tree().create_timer(0.1, false).timeout
-			var bullet_instance: Bullet = BULLET.instantiate()
-			owner.add_child(bullet_instance)
-			if bullet_instance:
-				bullet_instance.custom_bullet(8000, 1, false, true, BULLET_SPRITE, Vector2(100, 10), Vector2(-60, -55), 10, 10, 2.0)
-			bullet_instance.transform = muzzle.global_transform
-			ammo -= 1
-			if is_shooting == false:
-				break
+			if get_tree().current_scene.name == "MainScene":
+				await get_tree().create_timer(0.1, false).timeout
+				var bullet_instance: Bullet = BULLET.instantiate()
+				owner.add_child(bullet_instance)
+				if bullet_instance:
+					bullet_instance.custom_bullet(8000, 1, false, true, BULLET_SPRITE, Vector2(100, 10), Vector2(-60, -55), 10, 10, 2.0)
+				bullet_instance.transform = muzzle.global_transform
+				ammo -= 1
+				if is_shooting == false:
+					break
 
 func enemy_damage(damage: int):
 	health -= damage

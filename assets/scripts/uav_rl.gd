@@ -115,7 +115,7 @@ func _process(delta: float):
 
 func mg_shooting():
 	for i in gun_ammo:
-		if is_shooting and health > 0:
+		if is_shooting and health > 0 and get_tree().current_scene.name == "MainScene":
 			await get_tree().create_timer(0.1, false).timeout
 			var bullet556: Bullet = BULLET.instantiate()
 			owner.add_child(bullet556)

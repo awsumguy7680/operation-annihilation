@@ -245,7 +245,7 @@ animations = [{
 "speed": 7.0
 }]
 
-[node name="T200" type="Area2D" groups=["Enemies", "Enemy_Vehicles"]]
+[node name="T200" type="Area2D" groups=["Enemies", "Enemy_Vehicles", "Ground_Enemies"]]
 collision_layer = 3
 script = ExtResource("1_fpsha")
 health = 4000
@@ -274,6 +274,9 @@ frame = 8
 frame_progress = 1.0
 offset = Vector2(680, 45)
 
+[node name="CannonMuzzle" type="Marker2D" parent="Turret/MainGun"]
+position = Vector2(1107, 0)
+
 [node name="MG" type="AnimatedSprite2D" parent="Turret"]
 z_index = -1
 position = Vector2(-131, -70)
@@ -284,7 +287,7 @@ offset = Vector2(90, 5)
 position = Vector2(0, 40)
 sprite_frames = SubResource("SpriteFrames_8ycsi")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." groups=["Enemies"]]
+[node name="Hitbox" type="CollisionPolygon2D" parent="." groups=["Enemies", "Ground_Enemies"]]
 polygon = PackedVector2Array(-382, -157, 193, -157, 327, -125, 245, -27, 648, 46, 702, 91, 694, 208, 441, 266, -485, 269, -683, 173, -688, 11, -290, -16, -525, -60, -512, -100)
 
 [node name="Wreck" type="Sprite2D" parent="."]

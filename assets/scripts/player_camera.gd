@@ -2,7 +2,7 @@ extends Camera2D
 
 var zoom_spd = 0.01
 var max_zoom = Vector2(0.3, 0.3)
-var min_zoom = Vector2(0.05, 0.05)
+var min_zoom = Vector2(0.03, 0.03)
 
 var current_vehicle = null
 

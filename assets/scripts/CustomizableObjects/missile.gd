@@ -113,7 +113,7 @@ func _process(delta: float):
 		if self != null and target != null:
 			if guidance == "OPTICAL":
 				if global_position.y < -250:
-					var desired_angle = (target.global_position - global_position).angle()
+					var desired_angle = (target.global_position - global_position).angle() + PI
 					var angle_diff = wrapf(desired_angle - rotation, -PI, PI)
 					var max_steer = steer_force * delta
 					rotation += clamp(angle_diff, -max_steer, max_steer)
