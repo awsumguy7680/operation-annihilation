@@ -216,7 +216,7 @@ func _input(event: InputEvent):
 						var agm: Missile = MISSILE.instantiate()
 						self.get_parent().add_child(agm)
 						agm.custom_missile_static_properties(AGM_90_SPRITES, Vector2(0.0, 5.0), Vector2(190.0, 50.0), Vector2(-5.0, 0.0), 10, Preloader.ROCKETMOTORLOOP)
-						agm.custom_missile_handler(true, 100, "OPTICAL", target, -(abs(spd) + 11000), 600, 4, 0.8, true)
+						agm.custom_missile_handler(true, 100, "OPTICAL", target, -(abs(spd) + 11000), 1000, 4, 0.8, true)
 						agm.global_transform = weapon_bay.global_transform
 						if not flying_left:
 							agm.rotation_degrees += 180

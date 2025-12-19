@@ -20,6 +20,7 @@ var SHEL125_SPRITE = Preloader.SHELL125_SPRITE
 @onready var chassis: AnimatedSprite2D = $Chassis
 @onready var hitbox: CollisionPolygon2D = $Hitbox
 @onready var wreck: Sprite2D = $Wreck
+@onready var launch_tube: Marker2D = $Turret/LaunchTube
 @onready var main_scene = get_tree().current_scene
 var player_target = null
 
@@ -42,7 +43,7 @@ func _ready():
 		pass
 
 func _process(delta: float):
-	position.y = -280.0
+	position.y = -270.0
 	ammo = cannon_ammo + msl_ammo + mg_ammo
 	
 	if health > 0:
@@ -97,11 +98,11 @@ func _process(delta: float):
 					#missile_instance.custom_missile_handler(false, 25, "OPTICAL", player_target, 9000, 100, 2, 1.8, true)
 				#await get_tree().create_timer(2, false).timeout
 				#on_cooldown = false
-		else:
-			for child in main_scene.get_children():
-				if child is CharacterBody2D:
-					player_target = child
-					break
+		#else:
+			#for child in main_scene.get_children():
+				#if child is CharacterBody2D:
+					#player_target = child
+					#break
 	else:
 		#sfx.stop()
 		chassis.visible = false

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://crtnl3njkiy87"]
+[gd_scene load_steps=4 format=3 uid="uid://crtnl3njkiy87"]
 
 [ext_resource type="Script" uid="uid://blqqhawpsxqg7" path="res://assets/scripts/CustomizableObjects/missile.gd" id="1_qcqkr"]
+[ext_resource type="SpriteFrames" uid="uid://bhounyu3dp1sx" path="res://assets/sprites/AGM90_Sprite_Frames.tres" id="2_qcqkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_urwtu"]
 size = Vector2(190, 50)
@@ -11,6 +12,7 @@ script = ExtResource("1_qcqkr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = -2
+sprite_frames = ExtResource("2_qcqkr")
 animation = &"burnout"
 offset = Vector2(0, 5)
 

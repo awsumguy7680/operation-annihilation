@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d0jixv4ak8mbh" path="res://assets/sprites/UAVR1.png" id="1_yymt7"]
 [ext_resource type="Texture2D" uid="uid://d168owptwbobc" path="res://assets/sprites/UAVR1(Burn).png" id="2_vyqdi"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_25epf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yymt7"]
 atlas = ExtResource("1_yymt7")
 region = Rect2(0, 0, 160, 160)
 
@@ -23,9 +23,9 @@ region = Rect2(0, 640, 640, 640)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_25epf")
+"texture": SubResource("AtlasTexture_yymt7")
 }],
-"loop": true,
+"loop": false,
 "name": &"burnout",
 "speed": 5.0
 }, {

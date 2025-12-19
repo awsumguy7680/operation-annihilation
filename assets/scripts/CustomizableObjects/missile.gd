@@ -17,6 +17,7 @@ class_name Missile extends Area2D
 @export var burn_time: int
 @export var delete_time: int
 @export var steer_force: float
+var burnout_anim
 var lift: float
 var drag: float
 var player_missile
@@ -35,6 +36,10 @@ func custom_missile_static_properties(msl_body, msl_body_offset: Vector2, collis
 	animated_sprite_2d.sprite_frames = msl_body
 	animated_sprite_2d.offset = msl_body_offset
 	animated_sprite_2d.animation = "default"
+	
+	await get_tree().process_frame
+	if animated_sprite_2d.sprite_frames.has_animation("burnout"):
+		burnout_anim = "burnout"
 	
 	if collision_shape_2d.shape is RectangleShape2D:
 			(collision_shape_2d.shape as RectangleShape2D).size = collision_box
@@ -61,19 +66,20 @@ func custom_missile_handler(is_plr, hlth, msl_track, tgt, thrst, dmg, burn, stee
 
 #Call this to start the missile, otherwise it will do nothing
 func launch():
-	delete()
+	if is_active:
+		return
 	is_active = true
+	delete()
 	
 	if not player_missile:
 		if target is CharacterBody2D:
 			target.msl_alert(true, self, guidance)
 	
 	audio_stream_player_2d.play()
-	animated_sprite_2d.play()
+	animated_sprite_2d.play("default")
 	await get_tree().create_timer(burn_time, false).timeout
 	audio_stream_player_2d.stop()
-	animated_sprite_2d.stop()
-	animated_sprite_2d.animation = "burnout"
+	animated_sprite_2d.play(burnout_anim)
 	thrust = 0
 
 #Deletes missile after a set amount of time
@@ -81,7 +87,7 @@ func delete():
 	await get_tree().create_timer(delete_time, false).timeout
 	if not player_missile:
 		add_to_group("Enemy_Missiles")
-		target.msl_alert(false, self)
+		target.msl_alert(false, self, guidance)
 	queue_free()
 
 #Physics
@@ -113,7 +119,7 @@ func _process(delta: float):
 		if self != null and target != null:
 			if guidance == "OPTICAL":
 				if global_position.y < -250:
-					var desired_angle = (target.global_position - global_position).angle() + PI
+					var desired_angle = (target.global_position - global_position).angle()
 					var angle_diff = wrapf(desired_angle - rotation, -PI, PI)
 					var max_steer = steer_force * delta
 					rotation += clamp(angle_diff, -max_steer, max_steer)

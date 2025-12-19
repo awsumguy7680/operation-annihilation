@@ -283,6 +283,9 @@ position = Vector2(-131, -70)
 sprite_frames = SubResource("SpriteFrames_tkcht")
 offset = Vector2(90, 5)
 
+[node name="LaunchTube" type="Marker2D" parent="Turret"]
+position = Vector2(179, 55)
+
 [node name="Chassis" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 40)
 sprite_frames = SubResource("SpriteFrames_8ycsi")
